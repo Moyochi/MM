@@ -41,38 +41,25 @@ select{
 	right:300px;
 	top:0px;
 }
-/*タブ切り替え全体のスタイル*/
-.tabs {
-  margin-top: 50px;
-  padding-bottom: 40px;
-  background-color: #fff;
-  width: auto;
-}
-/*タブのスタイル*/
-.tab_item {
-  width: 15%;
-  height: 50px;
-  border-bottom: 3px solid #5ab4bd;
-  background-color: #d9d9d9;
-  line-height: 50px;
-  font-size: 16px;
-  text-align: center;
-  color: #565656;
-  display: block;
-  float: left;
-  text-align: center;
-  font-weight: bold;
-  transition: all 0.2s ease;
-}
-.tab_item:hover {
-  background: #eee;
-}
+
 /*ラジオボタン消す*/
  input[name="menu"] {
    display: none;
  }
+/*タブ切り替え全体のスタイル*/
+.tabs {
+  display: list-item;
+  margin-top: 50px;
+  padding-bottom: 60px;
+  background-color: #fff;
+  text-transform: uppercase;
+}
 /*選択されているタブのスタイルを変える*/
 .tabs input:checked + .menu {
   background-color: #5ab4bd;
   color: #fff;
+}
+img{
+  width: auto;
+  max-height: 300px;
 }

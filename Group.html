@@ -1,30 +1,49 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>StudentGraph</title>
-</head>
-<body>
-  <h1>グループ管理</h1>　
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Graph</title>
+  </head>
+  <body>
+    <div class="header">
+      <div class="title">
+      <!--
+      color: #364e96;
+      border: solid 3px #364e96;
+      padding: 0.5em;
+      border-radius: 0.5em;
+      display: flex;
+      -->
+      <div class="title_text">
+        <!--
+        flex-grow: 3;
+        -->
+  <h1>グループ管理</h1>
 
-  <!--メニューバー-->
-  <ul class="menu">
-  	<li><a class="active" href="responsible.html">担当グループ</a></li>
-  	<li><a href="group.html">グループ管理</a></li>
-  	<li><a href="users.html">ユーザー検索</a></li>
-  	<li><a href="resuser.html">管理者ユーザー一覧</a></li>
-    <li><a href="groupmake.html">グループ作成</a></li>
-    <li><a href="classroom.html">教室管理</a></li>
-  </ul>
+    </div>
 
-  追加するグループを選んでください。<br>
+    <!--検索バー-->
+    🔎<input type="text" id="sa-ch">
 
-  <input type="checkbox" name="class" value="JK1">情報工学科１
-  <input type="checkbox" name="class" value="JK2">情報工学科２
-  <input type="checkbox" name="class" value="JK3">情報工学科３
+    <!--メニューバー-->
+    <div class="tabs">
+      　<li><input id="responsible"  name="menu"><a href="Responsible.html">担当グループ</a></li>
+        <li><input id="group" name="menu"><a href="Group.html">グループ管理</a></li>
+        <li><input id="users" name="menu"><a href="Users.html">ユーザー検索</a></li>
+        <li><input id="resuser" name="menu"><a href="Resuser.html">管理者ユーザー一覧</a></li>
+        <li><input id="groupmake" name="menu"><a href="Groupmake.html">グループ作成</a></li>
+        <li><input id="classroom" name="menu"><a href="Classroom.html">教室管理</a></li>
+    </div>
 
-  <br>
-  <button type=“button”>決定</button>
+      追加するグループを選んでください。<br>
 
+      <!--フォームタグ-->
+      <p><form action="" method="post">
+
+        <input type="checkbox" id="addclass" value="JK1">情報工学科１
+
+  <div class="sub">
+  <button type=“button”><a href="Responsible.html">OK</button>
+  </div></form>
 
   </body>
   </html>

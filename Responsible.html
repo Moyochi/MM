@@ -21,7 +21,7 @@
     <h1>担当グループ</h1>
   </div>
   <!--クラスメニュー-->
-  <div class="title_menu">
+  <div id="class" class="title_menu">
       <!--
       flex-grow: 1;
       -->
@@ -36,35 +36,36 @@
 </div>
 
 <div class="sub">
-<p class="attend"><button type=“button”><a href="AttendanceConfirmation.html">出席確認</button></p>
-<p class="teacher"><button type=“button”>担任</button></p>
+  <p class="attend"><button type=“button”><a href="AttendanceConfirmation.html">出席確認</a></button></p>
+  <p class="teacher"><button type=“button”>担任</button></p>
 </div>
-</div>
+
+<!--検索バー-->
+🔎<input type="text" id="sa-ch">
 
 <!--メニューバー-->
 <div class="tabs">
-  　<input id="all" type="radio" name="menu" checked>
-  　<label class="tab_item" for="all"><a href="responsible.html">担当グループ</a></label>
-    <input id="programming" type="radio" name="menu">
-    <label class="tab_item" for="programming"><a href="group.html">グループ管理</a></label>
-    <input id="design" type="radio" name="menu">
-    <label class="tab_item" for="design"><a href="users.html">ユーザー検索</a></label>
-    <input id="all" type="radio" name="menu" checked>
-    <label class="tab_item" for="all"><a href="resuser.html">管理者ユーザー一覧</a></label>
-    <input id="programming" type="radio" name="menu">
-    <label class="tab_item" for="programming"><a href="groupmake.html">グループ作成</a></label>
-    <input id="design" type="radio" name="menu">
-    <label class="tab_item" for="design"><a href="classroom.html">教室管理</a></label>
+  　<li><input id="responsible"  name="menu"><a href="Responsible.html">担当グループ</a></li>
+    <li><input id="group" name="menu"><a href="Group.html">グループ管理</a></li>
+    <li><input id="users" name="menu"><a href="Users.html">ユーザー検索</a></li>
+    <li><input id="resuser" name="menu"><a href="Resuser.html">管理者ユーザー一覧</a></li>
+    <li><input id="groupmake" name="menu"><a href="Groupmake.html">グループ作成</a></li>
+    <li><input id="classroom" name="menu"><a href="Classroom.html">教室管理</a></li>
 </div>
 
 
 <!--人の表情が入ります-->
+<!--
 <input type="image" src="image/face.png">
+-->
+
+<!--フォームタグ-->
+<p><form action="" method="post">
 
 <!--写真が入ります-->
 <!--グラフに飛ぶよん-->
-<form action="StudentGraph.html" method="post">
-<input type="image" src="image/noimage.gif">
+<form action="StudentGraph.html" method="post"></form>
+<input type="image" src="image/noimage.gif"　id="img">
 
 <!--集計された値が入ります-->
 月別の出席の推移 累計の遅刻数 欠席数 早退数 出席率
@@ -78,12 +79,11 @@
 
 
 </p>
-</form>
 
 
 <div class="sub">
-<button type=“button”><a href="responsibleedit.html">編集</button>
-</div>
+<button type=“button”><a href="ResponsibleEdit.html">編集</button>
+</div></form>
 
 </body>
 </html>
