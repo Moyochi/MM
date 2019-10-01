@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Resuser</title>
+    <title>ResuserEdit</title>
 </head>
 <body>
   <div class="header">
@@ -17,7 +17,7 @@
       <!--
       flex-grow: 3;
       -->
-<h1>管理者ユーザー一覧</h1>
+<h1>管理者ユーザー編集</h1>
 
   </div>
 
@@ -35,19 +35,36 @@
       <li><input id="classroom" name="menu"><a href="Logout.html">ログアウト</a></li>
   </div>
 
+
     <!--フォームタグ-->
-    <p><form action="" method="post">
+    <form action="" method="post">
 
-    <!--写真が入ります-->
-    <!--グラフに飛ぶよん-->
-    <form action="StudentGraph.html" method="post"></form>
-    <input type="image" src="image/noimage.gif" id="img">
+      管理者追加<br>
 
-    名前 教師ID
+      <!--写真が入ります-->
+      <input type="image" src="image/noimage.gif"　id="img">
 
-<div class="sub">
-<button type=“button”><a href="ResuserEdit.html">編集</button>
-</div></form>
+            <!--教師ID-->
+            <input type="text" id="kyosiName">名前
+            <input type="text" id="kyosiID">ID
+            <input type="text" id="paswad">パスワード
+            <br>
+
+            管理者削除<br>
+            <input type="checkbox" id="select">
+            <!--写真が入ります-->
+            <input type="image" src="image/noimage.gif"　id="img">
+
+            <!--教師ID-->
+            <input type="text" id="kyosiName">名前
+            <input type="text" id="kyosiID">ID
+            <input type="text" id="paswad">パスワード
+            <br><br>
+
+      <button type=“button”>
+        <a href="ResuserEdit.html">削除
+      </button>
+    <br><br><br></form>
 
 </body>
 </html>

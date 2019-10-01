@@ -5,29 +5,37 @@
     <title>StudentGraph</title>
 </head>
 <body>
-  <h1>学生グラフ</h1>　
-  名前
+  <h1>学生グラフ
+    <p id="name">名前 </p>
+  </h1>　
 
-  <!--印刷ボタン-->
-  <form action="" method="post">
-  <input type="image" src="image/print.png">
+    <!--プリンター-->
+    <input type="image" src="image/print.png"　id="prin">
 
   <!--メニューバー-->
   <div class="tabs">
-    　<li><input id="responsible"  name="menu"><a href="responsible.html">担当グループ</a></li>
-      <li><input id="group" name="menu"><a href="group.html">グループ管理</a></li>
-      <li><input id="users" name="menu"><a href="users.html">ユーザー検索</a></li>
-      <li><input id="resuser" name="menu"><a href="resuser.html">管理者ユーザー一覧</a></li>
-      <li><input id="groupmake" name="menu"><a href="groupmake.html">グループ作成</a></li>
-      <li><input id="classroom" name="menu"><a href="classroom.html">教室管理</a></li>
+    　<li><input id="responsible"  name="menu"><a href="Responsible.html">担当グループ</a></li>
+      <li><input id="group" name="menu"><a href="Group.html">グループ管理</a></li>
+      <li><input id="users" name="menu"><a href="Users.html">ユーザー検索</a></li>
+      <li><input id="resuser" name="menu"><a href="Resuser.html">管理者ユーザー一覧</a></li>
+      <li><input id="groupmake" name="menu"><a href="Groupmake.html">グループ作成</a></li>
+      <li><input id="classroom" name="menu"><a href="Classroom.html">教室管理</a></li>
+      <li><input id="classroom" name="menu"><a href="Logout.html">ログアウト</a></li>
   </div>
 
+  <!--フォームタグ-->
+  <p><form action="" method="post">
+
   <!--グラフ-->
+  <p id="gurafu">
+    <a href="StudentProScreen.html">
   月別の出席の推移　累計の遅刻数
   出席率　欠席数　早退数
+  </p>
 
-
-<button type=“button”>戻る</button>
+  <div class="sub">
+  <button type=“button”><a href="StudentPro.html">戻る</button>
+  </div></form>
 
 </body>
 </html>

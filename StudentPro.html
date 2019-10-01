@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Resuser</title>
+    <title>StudentPro</title>
 </head>
 <body>
   <div class="header">
@@ -17,7 +17,7 @@
       <!--
       flex-grow: 3;
       -->
-<h1>管理者ユーザー一覧</h1>
+<h1>学生プロフィール</h1>
 
   </div>
 
@@ -35,19 +35,41 @@
       <li><input id="classroom" name="menu"><a href="Logout.html">ログアウト</a></li>
   </div>
 
-    <!--フォームタグ-->
-    <p><form action="" method="post">
+  <div class="sub">
+    <p class="attend"><button type=“button”>
+      <a href="SubjectAttendance.html">科目別出席率</a>
+    </button></p>
+  </div>
 
+  <!--フォームタグ-->
+  <p><form action="" method="post">
+
+    学籍番号　学科　学年
+    名前　性別
     <!--写真が入ります-->
-    <!--グラフに飛ぶよん-->
-    <form action="StudentGraph.html" method="post"></form>
-    <input type="image" src="image/noimage.gif" id="img">
+    <input type="image" src="image/noimage.gif"　id="img">
+    月別の出席の推移
+    <input type="text" id="manthAttendance" size="10">
+    累計の遅刻数
+    <input type="text" id="late" size="10">
+    欠席数
+    <input type="text" id="absence" size="10">
+    早退数
+    <input type="text" id="leaveEarly" size="10">
+    出席率
+    <input type="text" id="attendance" size="10">
 
-    名前 教師ID
+    <!--グラフ-->
+    <a href="StudentGraph.html"><input type="image" src="image/graph.png"　id="graph"></a>
+    <!--プリンター-->
+    <input type="image" src="image/print.png"　id="prin">
+
 
 <div class="sub">
-<button type=“button”><a href="ResuserEdit.html">編集</button>
-</div></form>
+<button type=“button”><a href="StudentProEdit.html">編集</button>
+</div></<form>
+
+</form>
 
 </body>
 </html>
