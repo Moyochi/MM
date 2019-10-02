@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AttendanceConfirmation</title>
+    <title>ACM</title>
 </head>
 <body>
   <div class="header">
@@ -17,41 +17,32 @@
       <!--
       flex-grow: 3;
       -->
-      <h1>状況管理</h1>
+      <h1>出席簿</h1>
     </div>
     <!--クラスメニュー-->
-    <div id="class" class="title_menu">
-        <!--
-        flex-grow: 1;
-        -->
-        <select>
-          <option>情報工学科</option>
-          <option>情報1</option>
-          <option>情報2</option>
-          <option>情報3</option>
-          <option>情報4</option>
-        </select>
+    <p id="class">情報工学科</p>
     </div>
   </div>
-</div>
 
 
 <!--日付-->
 <p id="day">
 <script type="text/javascript">
-weeks=new Array("日","月","火","水","木","金","土");
 today=new Date();
 m=today.getMonth()+1;
 d=today.getDate();
-w=weeks[today.getDay()];
 document.write("<span>",m,"<\/span>月");
 document.write("<span>",d,"<\/span>日");
-document.write("(<span>",w,"<\/span>)");
 </script>
 </p>
 
-<div class="sub">
-  <p class="teacher"><button type=“button”>担任</button></p>
+<div id="timetable" class="time_menu">
+  <select>
+    <option>一限目</option>
+    <option>二限目</option>
+    <option>三限目</option>
+    <option>四限目</option>
+  </select>
 </div>
 
 <!--検索バー-->
@@ -86,24 +77,10 @@ document.write("(<span>",w,"<\/span>)");
 <p id="attend">出席率</p>
 <p id="status">状態</p>
 
-<!--状態メニュー-->
-<div id="select" class="select_menu">
-    <!--
-    flex-grow: 1;
-    -->
-    <select>
-      <option>休み</option>
-      <option>遅刻</option>
-    </select>
-</div>
-
 
 <p id="sum">◯人中◯人出席しました。</p>
 
-<!--画面リロード-->
-<div class="sub">
-<button type=“button”><a href="AttendanceConfirmation.html">OK</button>
-</div></form>
+</form>
 
 </body>
 </html>
