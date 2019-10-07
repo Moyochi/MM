@@ -16,20 +16,46 @@ header('Content-Type:text/html; charset=UTF-8');
 
 <!--　DB接続　-->
 <?php
+    //ログインIDから担当クラスを取得
     try{
         $pdo=new PDO('mysql:host=localhost;port=33066;dbname=mm;charset=utf8','root','password');
         $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
     }catch (PDOException $exception){
-        die('接続エラー:'.$exception->getMessage());
+        die('a接続エラー:'.$exception->getMessage());
     }
+    try{
+        //class_idは2つあるからどっちのidかわからなくなるからTHをつける
+        $teacher= $pdo->prepare("SELECT TH.class_id,class_name
+                FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
+                INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id)
+                INNER JOIN classes C ON TH.class_id=C.class_id
+                WHERE L.login_id = ?
+                ORDER BY class_id");
+//        WHERE L.login_id = ? and TH.year = ?");
+//        $teacher_stmh=$pdo->prepare($teacher);
+        $teacher->execute([$_SESSION['username']]);
+//        $teacher_stmh->execute([$_SESSION['username'],'2019']);
+        $data = $teacher->fetchAll(PDO::FETCH_ASSOC);
+
+        //配列データ確認
+//        var_dump($data);
+
+//        $teacher_stmh=$pdo->prepare($data);
+//        $teacher_stmh->execute();
+    }catch (PDOException $exception){
+        die('a接続エラー:'.$exception->getMessage());
+    }
+
+
+
+
+    //生徒のデータ取得
     try{
         $sql="SELECT * 
               FROM (classes_students CS
               INNER JOIN students S
-              ON CS.student_id=S.student_id)
-              INNER JOIN students ST
-              ON S.student_id = ST.student_id;";
+              ON CS.student_id=S.student_id)";
 
     //出席番号だけ取得できる。
 //               $sql="SELECT * FROM classes_students";
@@ -44,14 +70,18 @@ header('Content-Type:text/html; charset=UTF-8');
 //                FROM classes_students CT
 //                INNER JOIN students S
 //                ON CT.students_id = S.student_id";
-
         $stmh=$pdo->prepare($sql);
         $stmh->execute();
+
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
     }
 ?>
 
+
+
+<!--どのアカウントで入ったか確認-->
+<p><?php echo h($_SESSION['username']); ?>さんいらっしゃい！</p>
 
 
 <div class="header">
@@ -66,16 +96,22 @@ header('Content-Type:text/html; charset=UTF-8');
             <!--flex-grow: 3;-->
             <h1>担当グループ</h1>
         </div>
+
+        <?
+
+        ?>
+
+
         <!-- クラスメニュー -->
         <div id="class" class="title_menu">
-            <!--flex-grow: 1;-->
             <select>
-                <option>情報工学科</option>
-                <option>情報1</option>
-                <option>情報2</option>
-                <option>情報3</option>
-                <option>情報4</option>
+            <!-- exec_selectによる折り返し処理 -->
+            <?php foreach($data as $d){?>
+            <!--flex-grow: 1;-->
+                <option><?=htmlspecialchars($d['class_name']) ?></option>
+            <?php }$pdo=null; ?>
             </select>
+
         </div>
     </div>
     <div class="sub">
@@ -91,7 +127,7 @@ header('Content-Type:text/html; charset=UTF-8');
         <li><input id="resuser" name="menu"><a href="Resuser.html">管理者ユーザー一覧</a></li>
         <li><input id="groupmake" name="menu"><a href="Groupmake.html">グループ作成</a></li>
         <li><input id="classroom" name="menu"><a href="Classroom.html">教室管理</a></li>
-        <li><input id="logout" name="menu"><a href="Logout.html">ログアウト</a></li>
+        <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </div>
 
     <!--人の表情が入ります-->
