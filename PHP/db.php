@@ -1,6 +1,6 @@
 <?php
 $db;
-function init(){
+function pdo_init(){
     try {
         global $db;
         $db = new PDO('mysql:host=localhost;dbname=mm', 'root', '');
