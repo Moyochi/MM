@@ -3,7 +3,12 @@ require_once 'functions.php';
 require_logined_session();
 
 header('Content-Type:text/html; charset=UTF-8');
-require ''
+require 'db.php';
+
+var_dump($_GET);
+
+if ($_GET['class_id'] ){
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,77 +22,27 @@ require ''
 
 <!--　DB接続　-->
 <?php
-    //ログインIDから担当クラスを取得
-    try{
-        $pdo=new PDO('mysql:host=localhost;port=33066;dbname=mm;charset=utf8','root','password');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-        $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
-    }catch (PDOException $exception){
-        die('a接続エラー:'.$exception->getMessage());
-    }
-    try{
-        //class_idは2つあるからどっちのidかわからなくなるからTHをつける
-        $teacher= $pdo->prepare("SELECT TH.class_id,class_name
-                FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
-                INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id)
-                INNER JOIN classes C ON TH.class_id=C.class_id
-                WHERE L.login_id = ?
-                ORDER BY class_id");
-//        WHERE L.login_id = ? and TH.year = ?");
-//        $teacher_stmh=$pdo->prepare($teacher);
-        $teacher->execute([$_SESSION['username']]);
-//        $teacher_stmh->execute([$_SESSION['username'],'2019']);
-        $data = $teacher->fetchAll(PDO::FETCH_ASSOC);
 
-        //配列データ確認
-//        var_dump($data);
+    $teacher = prepareQuery("
+    SELECT TH.class_id,class_name 
+    FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
+    INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id) 
+    INNER JOIN classes C ON TH.class_id=C.class_id 
+    WHERE L.login_id = ? 
+    ORDER BY class_id",[$_SESSION['username']]);
 
-//        $teacher_stmh=$pdo->prepare($data);
-//        $teacher_stmh->execute();
-    }catch (PDOException $exception){
-        die('a接続エラー:'.$exception->getMessage());
-    }
-
-
-
-
-    //生徒のデータ取得
-    try{
-        $sql=$pdo->prepare("SELECT TH.class_id,class_name,CS.student_num,S.student_name
+    $student = prepareQuery("SELECT TH.class_id,class_name,CS.student_num,S.student_name
             FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
             INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id)
             INNER JOIN classes C ON TH.class_id=C.class_id
             INNER JOIN students S ON S.class_id = C.class_id
-            INNER JOIN classes_students CS ON CS.class_id = S.class_id
-            WHERE L.login_id = :user_name
+            INNER JOIN classes_students CS ON CS.class_id = S.class_id and CS.student_id = S.student_id
+            WHERE L.login_id = ?
+            AND C.class_id = ?
             GROUP BY S.student_name
-            ORDER BY class_id");
+            ORDER BY student_num asc ,class_id",[$_SESSION['username'], $_GET['class_id']]);
 
-        $sql->execute(['user_name' => $_SESSION['username']]);
-        $student=$sql->fetchAll(PDO::FETCH_ASSOC);
-
-//
-//              "SELECT *
-//              FROM (classes_students CS
-//              INNER JOIN students S
-//              ON CS.student_id=S.student_id)";
-
-    //出席番号だけ取得できる。
-//               $sql="SELECT * FROM classes_students";
-    //INNER JOINでつなげようとした。
-//               $sql="SELECT * FROM classes_students CT
-//                    INNER JOIN students S
-//                    ON CT.students_id=S.students_id";
-
-
-    //梅崎大先生のアドバイス。
-//                $sql="SELECT CT.class_id, S.student_id, S.student_name
-//                FROM classes_students CT
-//                INNER JOIN students S
-//                ON CT.students_id = S.student_id";
-//        $stmh=$pdo->prepare($sql);
-//        $stmh->execute();
-
+    try{
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
     }
@@ -101,29 +56,32 @@ require ''
 
 <div class="header">
     <div class="title">
-        <!--color: #364e96;
-        border: solid 3px #364e96;
-        padding: 0.5em;
-        border-radius: 0.5em;
-        display: flex;
-        -->
         <div class="title_text">
             <!--flex-grow: 3;-->
             <h1>担当グループ</h1>
         </div>
 
-        <?
-
-        ?>
-
 
         <!-- クラスメニュー -->
         <div id="class" class="title_menu">
-            <select>
-            <!-- exec_selectによる折り返し処理 -->
-            <?php foreach($data as $d){?>
+            <script type="text/javascript">
+                function test () {
+                    // 選択されたオプションのバリューを取得する
+                    var element = document.getElementById("class_name");
+                    // クラスIDを自分に渡すURLを組み立てる
+                    var a=element.value;
+                    // location.hrefに渡して遷移する
+                    location.href = 'index.php?class_id=' + a;
+                    // PHP
+                    // GETからclass_idを取得してDBと検索する
+
+                }
+            </script>
+            <select id="class_name" onchange="test()">
+            <!-- 折り返し処理 -->
+            <?php foreach($teacher as $d){?>
             <!--flex-grow: 1;-->
-                <option><?=htmlspecialchars($d['class_name']) ?></option>
+                <option value="<?=htmlspecialchars($d['class_id']) ?>" <?php if(isset($_GET['class_id']) && $d['class_id'] == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d['class_name']) ?></option>
             <?php }$pdo=null; ?>
             </select>
 
@@ -183,7 +141,6 @@ require ''
 
             <?php foreach ($student as $st){ ?>
                 <tr>
-
                     <th><?=htmlspecialchars($st['student_num']) ?></th>
                     <th><?=htmlspecialchars($st['student_name'])?></th>
                     <td>100</td><!-- <th><?//=htmlspecialchars($row['月別の出席の推移'])?></th> -->
