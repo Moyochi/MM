@@ -3,6 +3,7 @@ require_once 'functions.php';
 require_logined_session();
 
 header('Content-Type:text/html; charset=UTF-8');
+require ''
 ?>
 
 <!DOCTYPE html>
@@ -52,10 +53,24 @@ header('Content-Type:text/html; charset=UTF-8');
 
     //生徒のデータ取得
     try{
-        $sql="SELECT * 
-              FROM (classes_students CS
-              INNER JOIN students S
-              ON CS.student_id=S.student_id)";
+        $sql=$pdo->prepare("SELECT TH.class_id,class_name,CS.student_num,S.student_name
+            FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
+            INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id)
+            INNER JOIN classes C ON TH.class_id=C.class_id
+            INNER JOIN students S ON S.class_id = C.class_id
+            INNER JOIN classes_students CS ON CS.class_id = S.class_id
+            WHERE L.login_id = :user_name
+            GROUP BY S.student_name
+            ORDER BY class_id");
+
+        $sql->execute(['user_name' => $_SESSION['username']]);
+        $student=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+//
+//              "SELECT *
+//              FROM (classes_students CS
+//              INNER JOIN students S
+//              ON CS.student_id=S.student_id)";
 
     //出席番号だけ取得できる。
 //               $sql="SELECT * FROM classes_students";
@@ -70,8 +85,8 @@ header('Content-Type:text/html; charset=UTF-8');
 //                FROM classes_students CT
 //                INNER JOIN students S
 //                ON CT.students_id = S.student_id";
-        $stmh=$pdo->prepare($sql);
-        $stmh->execute();
+//        $stmh=$pdo->prepare($sql);
+//        $stmh->execute();
 
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
@@ -165,17 +180,19 @@ header('Content-Type:text/html; charset=UTF-8');
                 <th>出席率</th>
             </tr>
             <!-- exec_selectによる折り返し処理:開始 -->
-            <?php while($row = $stmh->fetch(PDO::FETCH_ASSOC)){ ?>
+
+            <?php foreach ($student as $st){ ?>
                 <tr>
-                    <th><?=htmlspecialchars($row['student_num']) ?></th>
-                    <th><?=htmlspecialchars($row['student_name'])?></th>
+
+                    <th><?=htmlspecialchars($st['student_num']) ?></th>
+                    <th><?=htmlspecialchars($st['student_name'])?></th>
                     <td>100</td><!-- <th><?//=htmlspecialchars($row['月別の出席の推移'])?></th> -->
                     <td>100</td><!--<th><?//=htmlspecialchars($row['累計の遅刻数'])?></th> -->
                     <td>100</td><!--<th><?//=htmlspecialchars($row['欠席数'])?></th> -->
                     <td>100</td><!--<th><?//=htmlspecialchars($row['早退数'])?></th> -->
                     <td>100</td><!--<th><?//=htmlspecialchars($row['出席率'])?></th> -->
                 </tr>
-            <?php } $pdo=null; ?>
+
             <tr>
                 <td></td>
                 <td></td>
@@ -185,6 +202,7 @@ header('Content-Type:text/html; charset=UTF-8');
                 <td>100</td>
                 <td>100</td>
             </tr>
+            <?php } $pdo=null; ?>
         </table>
     </form></p>
 </div>
