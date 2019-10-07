@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TeacherProEdit</title>
+    <title>ResuserEdit</title>
 </head>
 <body>
   <div class="header">
@@ -17,7 +17,7 @@
       <!--
       flex-grow: 3;
       -->
-<h1>生徒プロフィール編集</h1>
+<h1>管理者ユーザー編集</h1>
 
   </div>
 
@@ -35,42 +35,36 @@
       <li><input id="logout" name="menu"><a href="Logout.html">ログアウト</a></li>
   </div>
 
-  <!--フォームタグ-->
-  <p><form action="" method="post">
 
-    学籍番号
-    <input type="text" name="学籍番号" id="snumber">
+    <!--フォームタグ-->
+    <form action="" method="post">
 
-    <p id="subject">学科</p>
-    <select>
-      <option>-</option>
-    </select>
+      管理者追加<br>
 
-    <p id="grade">学年</p>
-    <select>
-      <option>-</option>
-    </select>
-    <br><br>
+      <!--写真が入ります-->
+      <input type="image" src="../image/noimage.gif" 　id="img">
 
-    名前
-    <input type="text" name="名前" id="name">
+            <!--教師ID-->
+            <input type="text" id="kyosiName">名前
+            <input type="text" id="kyosiID">ID
+            <input type="text" id="paswad">パスワード
+            <br>
 
-    <p id="seibetu">性別</p>
-    <select>
-      <option>-</option>
-    </select>
-    <br><br>
+            管理者削除<br>
+            <input type="checkbox" id="select">
+            <!--写真が入ります-->
+            <input type="image" src="../image/noimage.gif" 　id="img">
 
+            <!--教師ID-->
+            <input type="text" id="kyosiName">名前
+            <input type="text" id="kyosiID">ID
+            <input type="text" id="paswad">パスワード
+            <br><br>
 
-    <!--写真が入ります-->
-    <input type="image" src="image/noimage.gif"　id="img">
-
-
-<div class="sub">
-<button type=“button”><a href="StudentPro.html">決定</a></button>
-</div></<form>
-
-</form>
+      <button type=“button”>
+        <a href="ResuserEdit.html">削除</a>
+      </button>
+    <br><br><br></form>
 
 </body>
 </html>

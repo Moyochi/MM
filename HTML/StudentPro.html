@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TeacherPro</title>
+    <title>StudentPro</title>
 </head>
 <body>
   <div class="header">
@@ -17,7 +17,7 @@
       <!--
       flex-grow: 3;
       -->
-<h1>教師プロフィール</h1>
+<h1>学生プロフィール</h1>
 
   </div>
 
@@ -35,28 +35,38 @@
       <li><input id="logout" name="menu"><a href="Logout.html">ログアウト</a></li>
   </div>
 
+  <div class="sub">
+    <p class="attend"><button type=“button”>
+      <a href="SubjectAttendance.html">科目別出席率</a>
+    </button></p>
+  </div>
+
   <!--フォームタグ-->
   <p><form action="" method="post">
 
-    <p id="kyoid">教師ID</p>
-    <p id="name">名前<p>
-    <p id="class">担当クラス</p>
-    <p id="asomail">麻生メアド</p>　
-    <p id="tell">内線</p>
-    <p id="personaltell">個人番号</p>
-
+    学籍番号　学科　学年
+    名前　性別
     <!--写真が入ります-->
-    <input type="image" src="image/noimage.gif"　id="img">
-    自己紹介
-    <input type="text" id="introduction" size="30">
-    <!--LINEQRが入ります-->
-    <input type="image" src="image/line.png"　id="png">
+    <input type="image" src="../image/noimage.gif" 　id="img">
+    月別の出席の推移
+    <input type="text" id="manthAttendance" size="10">
+    累計の遅刻数
+    <input type="text" id="late" size="10">
+    欠席数
+    <input type="text" id="absence" size="10">
+    早退数
+    <input type="text" id="leaveEarly" size="10">
+    出席率
+    <input type="text" id="attendance" size="10">
 
-
+    <!--グラフ-->
+    <a href="StudentGraph.html"><input type="image" src="../image/graph.png" 　id="graph"></a>
+    <!--プリンター-->
+    <input type="image" src="../image/print.png" 　id="prin">
 
 
 <div class="sub">
-<button type=“button”><a href="TeacherProEdit.html">編集</a></button>
+<button type=“button”><a href="StudentProEdit.html">編集</a></button>
 </div></<form>
 
 </form>

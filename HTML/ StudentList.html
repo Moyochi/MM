@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TeacherPro</title>
+    <title>StudentList</title>
 </head>
 <body>
   <div class="header">
@@ -17,7 +17,7 @@
       <!--
       flex-grow: 3;
       -->
-<h1>教師プロフィール</h1>
+<h1>学生一覧</h1>
 
   </div>
 
@@ -34,45 +34,22 @@
       <li><input id="classroom" name="menu"><a href="Classroom.html">教室管理</a></li>
       <li><input id="logout" name="menu"><a href="Logout.html">ログアウト</a></li>
   </div>
-
-  <!--フォームタグ-->
-  <p><form action="" method="post">
-
-        <p id="kyoid">教師ID</p>
-        <p id="name">名前<p>
-          <input type="text" name="名前" size="10">
-
-        <p id="class">担当クラス</p>
-          <input type="text" name="担当クラス" size="20">
-
-        <p id="asomail">麻生メアド</p>
-          <input type="text" name="麻生メアド" size="15">
-
-        <p id="tell">内線</p>
-          <input type="text" name="内線" size="15">
-
-        <p id="personaltell">個人電話</p>
-          <input type="text" name="個人番号" size="15">
-          <br>
-
+    検索結果
+    <!--フォームタグ-->
+    <p><form action="" method="post">
 
     <!--写真が入ります-->
-    <input type="image" src="image/noimage.gif"　id="img">
-    <br>
-    自己紹介
-    <input type="text" id="introduction" size="30">
-    <br>
-    <!--LINEQRが入ります-->
-    <input type="image" src="image/line.png"　id="png">
+    <!--グラフに飛ぶよん-->
+    <form action="StudentGraph.html" method="post"></form>
+    <input type="image" src="../image/noimage.gif" id="img">
 
-
+      名前 学年 ７番
 
 
 <div class="sub">
-<button type=“button”><a href="TeacherPro.html">決定</a></button>
-</div></<form>
-
-</form>
-
+<button type=“button”><a href="Responsible.html">学科へ追加</a></button>
+</div></form>
+    </div>
+  </div>
 </body>
 </html>

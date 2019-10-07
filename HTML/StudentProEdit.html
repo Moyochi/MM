@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>StudentList</title>
+    <title>TeacherProEdit</title>
 </head>
 <body>
   <div class="header">
@@ -17,7 +17,7 @@
       <!--
       flex-grow: 3;
       -->
-<h1>学生一覧</h1>
+<h1>生徒プロフィール編集</h1>
 
   </div>
 
@@ -34,21 +34,43 @@
       <li><input id="classroom" name="menu"><a href="Classroom.html">教室管理</a></li>
       <li><input id="logout" name="menu"><a href="Logout.html">ログアウト</a></li>
   </div>
-    検索結果
-    <!--フォームタグ-->
-    <p><form action="" method="post">
+
+  <!--フォームタグ-->
+  <p><form action="" method="post">
+
+    学籍番号
+    <input type="text" name="学籍番号" id="snumber">
+
+    <p id="subject">学科</p>
+    <select>
+      <option>-</option>
+    </select>
+
+    <p id="grade">学年</p>
+    <select>
+      <option>-</option>
+    </select>
+    <br><br>
+
+    名前
+    <input type="text" name="名前" id="name">
+
+    <p id="seibetu">性別</p>
+    <select>
+      <option>-</option>
+    </select>
+    <br><br>
+
 
     <!--写真が入ります-->
-    <!--グラフに飛ぶよん-->
-    <form action="StudentGraph.html" method="post"></form>
-    <input type="image" src="image/noimage.gif" id="img">
-
-      名前 学年 ７番
+    <input type="image" src="../image/noimage.gif" 　id="img">
 
 
 <div class="sub">
-<button type=“button”><a href="Responsible.html">学科へ追加</a></button>
-</div></form>
+<button type=“button”><a href="StudentPro.html">決定</a></button>
+</div></<form>
+
+</form>
 
 </body>
 </html>
