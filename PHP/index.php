@@ -5,9 +5,13 @@ require_logined_session();
 header('Content-Type:text/html; charset=UTF-8');
 require 'db.php';
 
-var_dump($_GET);
+//var_dump($_GET);
 
-if ($_GET['class_id'] ){
+if(empty($_GET['class_id'])){
+    $class_id=$teacher[0]['class_id'];
+    echo'空です。';
+}else{
+    $class_id=$_GET['class_id'];
 }
 ?>
 
@@ -51,7 +55,7 @@ if ($_GET['class_id'] ){
 
 
 <!--どのアカウントで入ったか確認-->
-<p><?php echo h($_SESSION['username']); ?>さんいらっしゃい！</p>
+<!--<p>--><?php //echo h($_SESSION['username']); ?><!--さんいらっしゃい！</p>-->
 
 
 <div class="header">
@@ -69,12 +73,9 @@ if ($_GET['class_id'] ){
                     // 選択されたオプションのバリューを取得する
                     var element = document.getElementById("class_name");
                     // クラスIDを自分に渡すURLを組み立てる
-                    var a=element.value;
+                    var a = element.value;
                     // location.hrefに渡して遷移する
-                    location.href = 'index.php?class_id=' + a;
-                    // PHP
-                    // GETからclass_idを取得してDBと検索する
-
+                    location.href = 'login.php?class_id=' + a;
                 }
             </script>
             <select id="class_name" onchange="test()">
@@ -149,16 +150,6 @@ if ($_GET['class_id'] ){
                     <td>100</td><!--<th><?//=htmlspecialchars($row['早退数'])?></th> -->
                     <td>100</td><!--<th><?//=htmlspecialchars($row['出席率'])?></th> -->
                 </tr>
-
-            <tr>
-                <td></td>
-                <td></td>
-                <td>100</td>
-                <td>100</td>
-                <td>100</td>
-                <td>100</td>
-                <td>100</td>
-            </tr>
             <?php } $pdo=null; ?>
         </table>
     </form></p>
