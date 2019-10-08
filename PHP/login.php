@@ -44,16 +44,6 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         $st->execute();
         $result=$st->fetch(PDO::FETCH_ASSOC);
 
-        $id = prepareQuery("
-            SELECT TH.class_id,class_name 
-            FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
-            INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id) 
-            INNER JOIN classes C ON TH.class_id=C.class_id 
-            WHERE L.login_id = ? 
-            ORDER BY class_id
-            LIMIT 1;
-            ",[$_SESSION['username']]);
-
         if ($result['login_id'] == $username && $result['login_password'] == $password) {
             echo 'ログイン成功';
             session_start();
@@ -110,20 +100,17 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         <?php endif; ?>
         <form action="login.php" method="post">
             <p>ID</p>
-            <p><input type="text" name="username" size="50" value="<?php echo $username=isset($_POST['username']) ? $_POST['username']: ''; ?>"></p>
+            <p><input type="text" name="username" placeholder="IDを入力してください。" size="50"　 value="<?php echo $username=isset($_POST['username']) ? $_POST['username']: ''; ?>"></p>
 
             <br>
 
             <p>PASSWORD</p>
-            <p><input type="password" name="password" size="50"></p>
+            <p><input type="password" name="password" placeholder="パスワードを入力してください。" size="50"></p>
 
             <br>
 
             <!--画面遷移-->
             <button type="submit">ログイン</button>
-
-            <!-- ログインしたユーザーの1行めのclassidを送る -->
-            <input type="hidden" name='id' value="id">
 
         </form>
 

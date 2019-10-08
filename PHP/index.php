@@ -1,18 +1,28 @@
 <?php
-require_once 'functions.php';
-require_logined_session();
+    require_once 'functions.php';
+    require_logined_session();
 
-header('Content-Type:text/html; charset=UTF-8');
-require 'db.php';
+    header('Content-Type:text/html; charset=UTF-8');
+    require 'db.php';
 
-//var_dump($_GET);
+    //var_dump($_GET);
 
-if(empty($_GET['class_id'])){
-    $class_id=$teacher[0]['class_id'];
-    echo'空です。';
-}else{
-    $class_id=$_GET['class_id'];
-}
+
+    $teacher = prepareQuery("
+        SELECT TH.class_id,class_name,T.teacher_name
+        FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
+        INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id) 
+        INNER JOIN classes C ON TH.class_id=C.class_id 
+        WHERE L.login_id = ? 
+        ORDER BY class_id",[$_SESSION['username']]);
+
+    if(isset($_GET['class_id'])){
+        $class_id=$_GET['class_id'];
+    }else{
+        //login.phpから飛んできた1行目のclass_idが入る。
+        $class_id=$teacher[0]['class_id'];
+    }
+//    $_SESSION['teacher_name']=$teacher_name;
 ?>
 
 <!DOCTYPE html>
@@ -24,16 +34,13 @@ if(empty($_GET['class_id'])){
 </head>
 <body>
 
+<!--<p>--><?php //echo h($_SESSION['username']); ?><!--さんいらっしゃい！</p>-->
+<!---->
+<!--<p><input type="password" name="password" placeholder="--><?php //echo h($_SESSION['username']); ?><!--"></p>-->
+
 <!--　DB接続　-->
 <?php
 
-    $teacher = prepareQuery("
-    SELECT TH.class_id,class_name 
-    FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
-    INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id) 
-    INNER JOIN classes C ON TH.class_id=C.class_id 
-    WHERE L.login_id = ? 
-    ORDER BY class_id",[$_SESSION['username']]);
 
     $student = prepareQuery("SELECT TH.class_id,class_name,CS.student_num,S.student_name
             FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
@@ -44,7 +51,7 @@ if(empty($_GET['class_id'])){
             WHERE L.login_id = ?
             AND C.class_id = ?
             GROUP BY S.student_name
-            ORDER BY student_num asc ,class_id",[$_SESSION['username'], $_GET['class_id']]);
+            ORDER BY student_num asc ,class_id",[$_SESSION['username'], $class_id]);
 
     try{
     }catch (PDOException $exception){
@@ -55,7 +62,7 @@ if(empty($_GET['class_id'])){
 
 
 <!--どのアカウントで入ったか確認-->
-<!--<p>--><?php //echo h($_SESSION['username']); ?><!--さんいらっしゃい！</p>-->
+
 
 
 <div class="header">
@@ -75,7 +82,11 @@ if(empty($_GET['class_id'])){
                     // クラスIDを自分に渡すURLを組み立てる
                     var a = element.value;
                     // location.hrefに渡して遷移する
-                    location.href = 'login.php?class_id=' + a;
+                    location.href = 'index.php?class_id=' + a;
+                    <?php
+//                      $class_idをほかのページでも使えるようにした。
+                        $_SESSION['class_id']=$class_id;
+                    ?>
                 }
             </script>
             <select id="class_name" onchange="test()">
@@ -85,17 +96,16 @@ if(empty($_GET['class_id'])){
                 <option value="<?=htmlspecialchars($d['class_id']) ?>" <?php if(isset($_GET['class_id']) && $d['class_id'] == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d['class_name']) ?></option>
             <?php }$pdo=null; ?>
             </select>
-
         </div>
     </div>
-    <div class="sub">
+
+
         <p class="attend"><button type=“button”><a href="AttendanceConfirmation.html">出席確認</a></button></p>
-        <p class="teacher"><button type=“button”>担任</button></p>
-    </div>
+    <a href="./TeacherPro.php" ><?php echo h($_SESSION['username']); ?></a>
 
     <!--検索バー -->
     <div class="tabs">
-        <li><input id="responsible"  name="menu"><a href="Responsible.html">担当グループ</a></li>
+        <li><a href="./index.php">担当グループ</a></li>
         <li><input id="group" name="menu"><a href="Group.html">グループ管理</a></li>
         <li><input id="users" name="menu"><a href="Users.html">ユーザー検索</a></li>
         <li><input id="resuser" name="menu"><a href="Resuser.html">管理者ユーザー一覧</a></li>
@@ -152,7 +162,8 @@ if(empty($_GET['class_id'])){
                 </tr>
             <?php } $pdo=null; ?>
         </table>
-    </form></p>
+        <a href="./AttendanceConfirmation.php" >編集</a>
+    </form>
 </div>
 </body>
 </html>
