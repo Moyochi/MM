@@ -18,24 +18,35 @@
       flex-grow: 3;
       -->
 <h1>ユーザー検索</h1>
-
   </div>
+  
+  <!--クラスメニュー-->
+  <div id="class" class="title_menu">
+      <!--
+      flex-grow: 1;
+      -->
+      <select>
+        <option>情報工学科</option>
+        <option>情報1</option>
+        <option>情報2</option>
+        <option>情報3</option>
+        <option>情報4</option>
+      </select>
   </div>
-
-  </div>
+</div>
 
   <!--検索バー-->
   🔎<input type="text" id="sa-ch">
 
   <!--メニューバー-->
   <div class="tabs">
-    　<li><input id="responsible"  name="menu"><a href="Responsible.html">担当グループ</a></li>
-      <li><input id="group" name="menu"><a href="Group.html">グループ管理</a></li>
-      <li><input id="users" name="menu"><a href="Users.html">ユーザー検索</a></li>
-      <li><input id="resuser" name="menu"><a href="Resuser.html">管理者ユーザー一覧</a></li>
-      <li><input id="groupmake" name="menu"><a href="Groupmake.html">グループ作成</a></li>
-      <li><input id="classroom" name="menu"><a href="Classroom.html">教室管理</a></li>
-      <li><input id="logout" name="menu"><a href="Logout.html">ログアウト</a></li>
+    <li><a href="Responsible.html">担当グループ</a></li>
+    <li><a href="Group.html">グループ管理</a></li>
+    <li><a href="Users.html">ユーザー検索</a></li>
+    <li><a href="Resuser.html">管理者ユーザー一覧</a></li>
+    <li><a href="Groupmake.html">グループ作成</a></li>
+    <li><a href="Classroom.html">教室管理</a></li>
+    <li><a href="Logout.html">ログアウト</a></li>
   </div>
 
   条件の絞り込みを選択してください。<br><br>
@@ -44,7 +55,7 @@
   <p><form action="" method="post">
 
     <!--条件-->
-    <input type="checkbox" id="number">出席番号
+    <input type="checkbox" id="subject">学科
     <select>
       <option>-</option>
     </select>
@@ -62,11 +73,25 @@
     </select>
     以上
 
+    <!--スイッチ-->
+    <div id="switchArea">
+      <input type="checkbox" id="switch1">
+      <label for="switch1"><span></span></label>
+      <div id="swImg"></div>
+    </div>
+
     <input type="checkbox" id="down">出席率
     <select>
       <option>％</option>
     </select>
     以下
+
+    <!--スイッチ-->
+    <div id="switchArea">
+      <input type="checkbox" id="switch2">
+      <label for="switch1"><span></span></label>
+      <div id="swImg"></div>
+    </div>
 
     <br><br><br>
 
@@ -82,7 +107,7 @@
 
 <!--スイッチ-->
 <div id="switchArea">
-  <input type="checkbox" id="switch1">
+  <input type="checkbox" id="switch3">
   <label for="switch1"><span></span></label>
   <div id="swImg"></div>
 </div>
