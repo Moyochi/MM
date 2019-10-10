@@ -23,6 +23,7 @@
         $class_id=$teacher[0]['class_id'];
     }
 //    $_SESSION['teacher_name']=$teacher_name;
+
 ?>
 
 <!DOCTYPE html>
@@ -101,16 +102,16 @@
 
 
         <p class="attend"><button type=“button”><a href="AttendanceConfirmation.html">出席確認</a></button></p>
-    <a href="./TeacherPro.php" ><?php echo h($_SESSION['username']); ?></a>
+    <a href="./TeacherPro.php" ><?php echo h($_SESSION['teacher_name']); ?></a>
 
     <!--検索バー -->
     <div class="tabs">
         <li><a href="./index.php">担当グループ</a></li>
-        <li><input id="group" name="menu"><a href="Group.html">グループ管理</a></li>
-        <li><input id="users" name="menu"><a href="Users.html">ユーザー検索</a></li>
-        <li><input id="resuser" name="menu"><a href="Resuser.html">管理者ユーザー一覧</a></li>
-        <li><input id="groupmake" name="menu"><a href="Groupmake.html">グループ作成</a></li>
-        <li><input id="classroom" name="menu"><a href="Classroom.html">教室管理</a></li>
+        <li><a href="Group.php">グループ管理</a></li>
+        <li><a href="Users.php">ユーザー検索</a></li>
+        <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
+        <li><a href="Groupmake.php">グループ作成</a></li>
+        <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </div>
 
