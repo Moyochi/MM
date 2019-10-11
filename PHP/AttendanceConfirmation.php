@@ -37,7 +37,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>responsible</title>
+        <title></title>
     </head>
     <body>
         <h1>状況管理</h1>
@@ -62,16 +62,16 @@
             document.write("(<span>",w,"<\/span>)");
         </script>
 
-        <a href="./TeacherPro.php" ><?php $_SESSION['username'] ?></a>
+        <a href="./TeacherPro.php" ><?php echo h($_SESSION['username']) ?></a>
 
         <!--メニューバー-->
         <div class="tabs">
             <li><a href="./index.php">担当グループ</a></li>
-            <li><input id="group" name="menu"><a href="Group.html">グループ管理</a></li>
-            <li><input id="users" name="menu"><a href="Users.html">ユーザー検索</a></li>
-            <li><input id="resuser" name="menu"><a href="Resuser.html">管理者ユーザー一覧</a></li>
-            <li><input id="groupmake" name="menu"><a href="Groupmake.html">グループ作成</a></li>
-            <li><input id="classroom" name="menu"><a href="Classroom.html">教室管理</a></li>
+            <li><a href="Group.php">グループ管理</a></li>
+            <li><a href="Users.php">ユーザー検索</a></li>
+            <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
+            <li><a href="Groupmake.php">グループ作成</a></li>
+            <li><a href="Classroom.php">教室管理</a></li>
             <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
         </div>
 
@@ -81,7 +81,7 @@
 
         <!--写真が入ります-->
         <!--グラフに飛ぶよん-->
-        <form action="StudentGraph.html" method="post">
+        <form action="update.php" method="post">
             <input type="image" src="../image/noimage.gif">
 
             <p>
@@ -89,11 +89,8 @@
                 <tr>
                     <th>出席番号</th>
                     <th>名前</th>
-                    <th>月別の出席の推移</th>
-                    <th>累計の遅刻数</th>
-                    <th>欠席数</th>
-                    <th>早退数</th>
                     <th>出席率</th>
+                    <th>出席判定</th>
                 </tr>
                 <!-- exec_selectによる折り返し処理:開始 -->
 
@@ -103,18 +100,17 @@
                         <th><?=htmlspecialchars($st['student_name'])?></th>
                         <td>100</td><!-- <th><?//=htmlspecialchars($row['月別の出席の推移'])?></th> -->
                         <td>100</td><!--<th><?//=htmlspecialchars($row['累計の遅刻数'])?></th> -->
-                        <td>100</td><!--<th><?//=htmlspecialchars($row['欠席数'])?></th> -->
-                        <td>100</td><!--<th><?//=htmlspecialchars($row['早退数'])?></th> -->
-                        <td>100</td><!--<th><?//=htmlspecialchars($row['出席率'])?></th> -->
-                    </tr>
+                        </tr>
                 <?php } $pdo=null; ?>
             </table>
+<!--            <input type="submit" value="決定">-->
+            <button type=“submit”>決定</button>
 
         </form>
 
         ◯人中◯人出席しました。
 
-        <button type=“button”>決定</button>
+
 
     </body>
 </html>
