@@ -37,7 +37,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>responsible</title>
+        <title></title>
     </head>
     <body>
         <h1>状況管理</h1>
@@ -62,7 +62,7 @@
             document.write("(<span>",w,"<\/span>)");
         </script>
 
-        <a href="./TeacherPro.php" ><?php $_SESSION['username'] ?></a>
+        <a href="./TeacherPro.php" ><?php echo h($_SESSION['username']) ?></a>
 
         <!--メニューバー-->
         <div class="tabs">
