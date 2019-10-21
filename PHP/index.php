@@ -24,7 +24,13 @@
     }
 
 
+////    echo $teacher['teacher_name'];
+//$_SESSION['teacher_name']=$teacher[1]['teacher_name'];
 
+//var_dump($_SESSION);
+
+//var_dump($_SESSION);
+//echo h($_SESSION['teacher_name']);
 ?>
 
 <!DOCTYPE html>
@@ -105,8 +111,8 @@
 
             <!-- 上のメニューバー -->
             <a href="AttendanceConfirmation.php">状況管理</a></p>
-            <a href="ACM.php">出席簿</a>
-            <a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>
+            <a href="ACM.php">出席簿</a><p>
+            <a href="./TeacherPro.php" ><?php echo h($_SESSION['teacher_name']); ?></a>
 
             <!--検索バー -->
             <div class="tabs">
