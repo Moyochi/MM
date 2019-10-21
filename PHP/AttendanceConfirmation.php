@@ -8,14 +8,14 @@
     $teacher = prepareQuery("
             SELECT TH.class_id,class_name 
             FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
-            INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id) 
+            INNER JOIN mm.teachers_homeroom TH ON T.teacher_id=TH.teacher_id) 
             INNER JOIN classes C ON TH.class_id=C.class_id 
             WHERE L.login_id = ? 
             ORDER BY class_id",[$_SESSION['username']]);
 
     $student = prepareQuery("SELECT TH.class_id,class_name,CS.student_num,S.student_name
             FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
-            INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id)
+            INNER JOIN mm.teachers_homerooms TH ON T.teacher_id=TH.teacher_id)
             INNER JOIN classes C ON TH.class_id=C.class_id
             INNER JOIN students S ON S.class_id = C.class_id
             INNER JOIN classes_students CS ON CS.class_id = S.class_id and CS.student_id = S.student_id
