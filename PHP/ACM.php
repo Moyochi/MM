@@ -1,9 +1,9 @@
 <?php
-    require_once 'functions.php';
+    require_once '../PHP/functions.php';
     require_logined_session();
 
     header('Content-Type:text/html; charset=UTF-8');
-    require 'db.php';
+    require '../PHP/db.php';
 
     //var_dump($_GET);
     $student = prepareQuery("SELECT TH.class_id,class_name,CS.student_num,S.student_name

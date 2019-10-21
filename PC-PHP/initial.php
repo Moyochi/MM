@@ -29,7 +29,7 @@
 
 
             <a href="shooting.php">撮影</a>
-            <a href="ACM.php">出席状況</a>
+            <a href="ACMS.php">出席状況</a>
 
 </body>
 </html>
