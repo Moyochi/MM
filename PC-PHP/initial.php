@@ -20,15 +20,16 @@
 
         <p id="subject">授業名</p>
 
-        おはようございます。
+        <p>
+            おはようございます。
 
         撮影を始めますか？
         それとも、出席状況を確認しますか？
+        </p>
 
-        <div class="sub">
-            <button type=“button”><a href="shooting.html">撮影</a></button>
-            <button type=“button”><a href="ACMS.html">出席状況</a></button>
-        </div>
+
+            <a href="shooting.php">撮影</a>
+            <a href="ACM.php">出席状況</a>
 
 </body>
 </html>

@@ -111,7 +111,7 @@
 
             <!-- 上のメニューバー -->
             <a href="AttendanceConfirmation.php">状況管理</a></p>
-            <a href="ACM.php">出席簿</a><p>
+            <a href="../PC-PHP/ACM.php">出席簿</a><p>
             <a href="./TeacherPro.php" ><?php echo h($_SESSION['teacher_name']); ?></a>
 
             <!--検索バー -->
