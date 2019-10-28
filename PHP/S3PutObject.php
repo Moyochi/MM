@@ -1,8 +1,8 @@
 <?php
-    require_once "../vendor/autoload.php";
+    require_once "vendor/autoload.php";
     use Aws\S3\S3Client;
 
-    $bucket = '';
+    $bucket = 'mm-image-storage';
     $key = '';
     $secret = '';
 
@@ -16,6 +16,7 @@
         'region'  => 'ap-northeast-1', // 東京リージョン
     ));
 
+    // アップロードされた画像の処理
     $file = $_FILES['file']['tmp_name'];
     if (!is_uploaded_file($file)) {
         return;
@@ -24,12 +25,13 @@
     // S3バケットに画像をアップロード
     $result = $s3->putObject(array(
         'Bucket' => $bucket,
-        'Key' => time() . '.jpg',
+        'Key' => time() . '.txt', //ファイルのキー
         'Body' => fopen($file, 'rb'),
-        'ACL' => 'public-read', // 画像は一般公開されます
-        'ContentType' => mime_content_type($file), //ファイルの拡張子を確認
+        'ACL' => 'public-read', //公開
+        'ContentType' => mime_content_type($file) //ファイルの種類を識別
     ));
-    // テスト用
+
+    // 結果を表示
     echo "<pre>";
     var_dump($result);
     echo "</pre>";
