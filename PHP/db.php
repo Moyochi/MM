@@ -1,9 +1,9 @@
 <?php
-$db =pdo_init();
+$db = pdo_init();
 function pdo_init(){
     try {
         global $db;
-        $db = new PDO('mysql:host=localhost;dbname=mm', 'root', '');
+        $db = new PDO('mysql:host=localhost;port=33066;dbname=mm', 'root', 'password');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $db;
     }catch (PDOException $e) {
