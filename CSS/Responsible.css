@@ -1,0 +1,47 @@
+/*状況管理*/
+#attend {
+  display: block;
+  background-color: #afc6e2;
+  -webkit-appearance: unset;
+  padding: 10px 20px;
+  position: absolute;
+  box-sizing: border-box;
+  right: 290px;
+  top: 25px;
+  text-decoration: none;
+  color: white;
+  margin: 10px;
+  border-radius: 3px;
+}
+
+/*出席簿*/
+#attendata {
+  display: block;
+  background-color: #afc6e2;
+  -webkit-appearance: unset;
+  padding: 10px 20px;
+  position: absolute;
+  box-sizing: border-box;
+  right: 160px;
+  top: 25px;
+  text-decoration: none;
+  color: white;
+  margin: 10px;
+  border-radius: 3px;
+}
+
+/*担任*/
+#teacher {
+  display: block;
+  background-color: #afc6e2;
+  -webkit-appearance: unset;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  position: absolute;
+  right: 50px;
+  top: 25px;
+  text-decoration: none;
+  color: white;
+  margin: 10px;
+  border-radius: 3px;
+}

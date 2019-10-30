@@ -1,91 +1,105 @@
-<html lang="en">
+<html>
+
 <head>
-  <link rel="stylesheet" media="all" href="CSS/All.css">
-  <link rel="stylesheet" media="all" href="CSS/style.css">
-    <meta charset="UTF-8">
-    <title>AttendanceConfirmation</title>
+  <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
+  <link rel="stylesheet" media="all" href="../CSS/All.css">
+  <link rel="stylesheet" media="all" href="../CSS/style.css">
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <title>Responsible</title>
 </head>
+
 <body>
-<div class="header">
-  <div class="title">
-  <!--
-  color: #364e96;
-  border: solid 3px #364e96;
-  padding: 0.5em;
-  border-radius: 0.5em;
-  display: flex;
-  -->
-  <div class="title_text">
-    <!--
-    flex-grow: 3;
-    -->
-    <h1>担当グループ</h1>
+  <div class="header">
+    <div class="title">
+      <div class="title_text">
+        <!--flex-grow: 3;-->
+        <h1 class="head">
+          担当グループ
+        </h1>
+      </div>
+      <!-- クラスメニュー -->
+      <ul class="title_menu">
+        <li>
+          <a href="Responsible.html">a</a>
+          <ul>
+              <li><a href="Responsible.html">b</a></li>
+              <li><a href="Responsible.html">c</a></li>
+              <li><a href="Responsible.html">d</a></li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+
   </div>
 
-  <!--クラスメニュー-->
-  <div id="class" class="title_menu">
-      <!--
-      flex-grow: 1;
-      -->
-      <select>
-        <option>情報工学科</option>
-        <option>情報1</option>
-        <option>情報2</option>
-        <option>情報3</option>
-        <option>情報4</option>
-      </select>
+  <!-- 上のメニューバー -->
+  <div class="edit">
+  <a href="./AttendanceConfirmation.php">編集</a>
+</div>
+  <div class="bu">
+    <a href="AttendanceConfirmation.php" id="attend">状況管理</a>
   </div>
-</div>
+    <a href="ACM.php" id="attendata">出席簿</a>
+    <a href="TeacherPro.php" id="teacher">担任</a>
 
-<div class="sub">
-  <p class="attend"><a href="AttendanceConfirmation.html">出席確認</a></p>
-  <p class="teacher"><a href="">担任</a></p>
-</div>
+  <!--検索バー -->
+  <div class="container">
+  <input type="text" placeholder="Search..." id="sa-ch">
+  <div class="search"></div>
+  </div>
 
-<!--検索バー-->
-🔎<input type="text" id="sa-ch">
+  <div class="contents">
+    <ul class="nav">
+      <li><a href="./index.php">担当グループ</a></li>
+      <li><a href="Group.php">グループ管理</a></li>
+      <li><a href="Users.php">ユーザー検索</a></li>
+      <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
+      <li><a href="Groupmake.php">グループ作成</a></li>
+      <li><a href="Classroom.php">教室管理</a></li>
+      <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
+    </ul>
+  </div>
 
-<!--メニューバー-->
-<div class="tabs">
-  <li><a href="Responsible.html">担当グループ</a></li>
-  <li><a href="Group.html">グループ管理</a></li>
-  <li><a href="Users.html">ユーザー検索</a></li>
-  <li><a href="Resuser.html">管理者ユーザー一覧</a></li>
-  <li><a href="Groupmake.html">グループ作成</a></li>
-  <li><a href="Classroom.html">教室管理</a></li>
-  <li><a href="Logout.html">ログアウト</a></li>
-</div>
+  <!--人の表情が入ります-->
+  <!--<input type="image" src="image/face.png">-->
 
-<!--人の表情が入ります-->
-<!--
-<input type="image" src="image/face.png">
--->
-
-<!--フォームタグ-->
-<p><form action="" method="post">
-
-<!--写真が入ります-->
-<!--グラフに飛ぶよん-->
-<form action="StudentGraph.html" method="post"></form>
-<input type="image" src="image/noimage.gif"　id="img">
-
-<!--集計された値が入ります-->
-<div id="style">
-月別の出席の推移 累計の遅刻数 欠席数 早退数 出席率
-<p>
-出席番号　名前
-<input type="text" id="manthAttendance" size="10">
-<input type="text" id="late" size="10">
-<input type="text" id="absence" size="10">
-<input type="text" id="leaveEarly" size="10">
-<input type="text" id="attendance" size="10">
-</p>
-</div>
+  <!-- フォームタグ -->
+  <p>
+    <form action="" method="post">
+      <!-- 写真が入ります -->
+      <!-- グラフに飛ぶよん -->
+      <form action="ぐらふのPHP" method="post"></form>
+      <input type="image" src="" id="img">
 
 
-<div class="sub">
-<button type=“button”><a href="ResponsibleEdit.html">編集</a></button>
-</div></form>
 
+      <!-- クラスメンバーの表示 -->
+      <style>
+        td {
+          border: 1px solid #000;
+        }
+
+        td:nth-child(1),
+        td:nth-child(2) {
+          border: none;
+        }
+      </style>
+
+      <table>
+        <tr>
+          <th>出席番号</th>
+          <th>名前</th>
+          <th>今月の出席率</th>
+          <th>累計の遅刻数</th>
+          <th>欠席数</th>
+          <th>早退数</th>
+          <th>出席率</th>
+        </tr>
+        <!-- exec_selectによる折り返し処理:開始 -->
+
+      </table>
+    </form>
+    </div>
 </body>
+
 </html>
