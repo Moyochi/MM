@@ -36,9 +36,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!--        <link rel="stylesheet" media="all" href="CSS入れる予定">-->
+        <link rel="stylesheet" media="all" href="../CSS/All.css">
+        <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
+        <link rel="stylesheet" media="all" href="../CSS/style.css">
         <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-        <title>担当グループ</title>
+        <title>Responsible.html</title>
     </head>
     <body>
 
@@ -71,15 +73,16 @@
 
         <!--どのアカウントで入ったか確認-->
 
-
-
         <div class="header">
+
             <div class="title">
+
                 <div class="title_text">
                     <!--flex-grow: 3;-->
-                    <h1>担当グループ</h1>
+                    <h1 class="head">
+                        担当グループ
+                    </h1>
                 </div>
-
 
                 <!-- クラスメニュー -->
                 <div id="class" class="title_menu">
@@ -99,23 +102,34 @@
                     </script>
                     <select id="class_name" onchange="test()">
                     <!-- 折り返し処理 -->
+                        <div id="re">
                     <?php foreach($teacher as $d){?>
                     <!--flex-grow: 1;-->
                         <option value="<?=htmlspecialchars($d['class_id']) ?>" <?php if(isset($_GET['class_id']) && $d['class_id'] == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d['class_name']) ?></option>
                     <?php }$pdo=null; ?>
+                        </div>
                     </select>
                 </div>
-
-
             </div>
 
-            <!-- 上のメニューバー -->
-            <a href="AttendanceConfirmation.php">状況管理</a></p>
-            <a href="ACM.php">出席簿</a><p>
-            <a href="./TeacherPro.php" ><?php echo h($_SESSION['teacher_name']); ?></a>
+        </div>
 
-            <!--検索バー -->
-            <div class="tabs">
+            <!-- 上のメニューバー -->
+            <div class="bu">
+            <a href="AttendanceConfirmation.php" id="attend">状況管理</a>
+            <a href="ACM.php" id="attendata">出席簿</a>
+            <a href="TeacherPro.php" id="teacher">担任</a>
+            <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
+            </div>
+
+        <!--検索バー -->
+        <div class="container">
+            <input type="text" placeholder="Search..." id="sa-ch">
+            <div class="search"></div>
+        </div>
+
+            <div class="contents">
+                <ul class="nav">
                 <li><a href="./index.php">担当グループ</a></li>
                 <li><a href="Group.php">グループ管理</a></li>
                 <li><a href="Users.php">ユーザー検索</a></li>
@@ -123,6 +137,7 @@
                 <li><a href="Groupmake.php">グループ作成</a></li>
                 <li><a href="Classroom.php">教室管理</a></li>
                 <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
+                </ul>
             </div>
 
             <!--人の表情が入ります-->
@@ -137,8 +152,6 @@
 
 
 
-
-
                 <!-- クラスメンバーの表示 -->
                 <style>
                     td {
@@ -149,7 +162,9 @@
                         border: none;
                     }
                 </style>
+
                 <table>
+                    <thead>
                     <tr>
                         <th>出席番号</th>
                         <th>名前</th>
@@ -159,8 +174,10 @@
                         <th>早退数</th>
                         <th>出席率</th>
                     </tr>
+                    </thead>
                     <!-- exec_selectによる折り返し処理:開始 -->
 
+                    <tbody>
                     <?php foreach ($student as $st){ ?>
                         <tr>
                             <th><?=htmlspecialchars($st['student_num']) ?></th>
@@ -172,8 +189,9 @@
                             <td>100</td><!--<th><?//=htmlspecialchars($row['出席率'])?></th> -->
                         </tr>
                     <?php } $pdo=null; ?>
+                    </tbody>
                 </table>
-                <a href="./AttendanceConfirmation.php" >編集</a>
+                <a href="./AttendanceConfirmation.php" id="edit">編集</a>
             </form>
         </div>
     </body>

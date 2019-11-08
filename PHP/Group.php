@@ -11,26 +11,19 @@
 
 <html>
     <head>
+        <link rel="stylesheet" media="all" href="../CSS/All.css">
+        <link rel="stylesheet" media="all" href="../CSS/Style.css">
         <meta charset="UTF-8">
-        <title>Graph</title>
+        <title>Group</title>
     </head>
     <body>
         <div class="header">
             <div class="title">
-                <!--
-                color: #364e96;
-                border: solid 3px #364e96;
-                padding: 0.5em;
-                border-radius: 0.5em;
-                display: flex;
-                -->
                 <div class="title_text">
-                    <!--
-                    flex-grow: 3;
-                    -->
                     <h1>グループ管理</h1>
-
                 </div>
+            </div>
+
 
                 <!--検索バー-->
                 🔎<input type="text" id="sa-ch">
