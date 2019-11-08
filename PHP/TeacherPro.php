@@ -6,12 +6,12 @@
     require 'db.php';
 
     $teacher = prepareQuery("
-                SELECT T.teacher_id,T.teacher_name,T.tell,T.mail,T.personalnum,TH.class_id,class_name 
-                FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
-                INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id) 
-                INNER JOIN classes C ON TH.class_id=C.class_id 
-                WHERE L.login_id = ? 
-                ORDER BY class_id",[$_SESSION['username']]);
+                SELECT T.teacher_id,T.teacher_name,T.tell,T.mail,T.personalnum,TH.class_id,class_name
+FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
+  INNER JOIN teachers_homerooms TH ON T.teacher_id=TH.teacher_id)
+  INNER JOIN classes C ON TH.class_id=C.class_id
+WHERE L.login_id = ?
+ORDER BY class_id",[$_SESSION['username']]);
 
     $student = prepareQuery("SELECT TH.class_id,class_name,CS.student_num,S.student_name
                 FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)

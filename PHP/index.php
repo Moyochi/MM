@@ -9,12 +9,14 @@
 
 
     $teacher = prepareQuery("
-        SELECT TH.class_id,class_name,T.teacher_name
-        FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
-        INNER JOIN mm.teachers_homerooms TH ON T.teacher_id=TH.teacher_id) 
-        INNER JOIN classes C ON TH.class_id=C.class_id 
-        WHERE L.login_id = ? 
-        ORDER BY class_id",[$_SESSION['username']]);
+        SELECT TH.class_id,T.teacher_name,CO.course_name
+FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
+  INNER JOIN mm.teachers_homerooms TH ON T.teacher_id=TH.teacher_id)
+  INNER JOIN classes C ON TH.class_id=C.class_id
+  INNER JOIN courses_classes CC ON CC.class_id=TH.class_id and CC.class_year = 2019
+  INNER JOIN courses CO ON  CO.course_id=CC.course_id
+WHERE L.login_id = ?
+ORDER BY TH.class_id",[$_SESSION['username']]);
 
     if(isset($_GET['class_id'])){
         $class_id=$_GET['class_id'];
@@ -25,7 +27,7 @@
 
 
 ////    echo $teacher['teacher_name'];
-$_SESSION['teacher_name']=$teacher[1]['teacher_name'];
+$_SESSION['teacher_name']=$teacher[0]['teacher_name'];
 
 //var_dump($_SESSION);
 
@@ -118,7 +120,7 @@ $_SESSION['teacher_name']=$teacher[1]['teacher_name'];
                     <script type="text/javascript">
                         function test () {
                             // 選択されたオプションのバリューを取得する
-                            var element = document.getElementById("class_name");
+                            var element = document.getElementById("course_name");
                             // クラスIDを自分に渡すURLを組み立てる
                             var a = element.value;
                             // location.hrefに渡して遷移する
@@ -129,11 +131,11 @@ $_SESSION['teacher_name']=$teacher[1]['teacher_name'];
                             ?>
                         }
                     </script>
-                    <select id="class_name" onchange="test()">
+                    <select id="course_name" onchange="test()">
                     <!-- 折り返し処理 -->
                     <?php foreach($teacher as $d){?>
                     <!--flex-grow: 1;-->
-                        <option value="<?=htmlspecialchars($d['class_id']) ?>" <?php if(isset($_GET['class_id']) && $d['class_id'] == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d['class_name']) ?></option>
+                        <option value="<?=htmlspecialchars($d['class_id']) ?>" <?php if(isset($_GET['class_id']) && $d['class_id'] == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d['course_name']) ?></option>
                     <?php }$pdo=null; ?>
                     </select>
                 </div>
@@ -201,11 +203,12 @@ $_SESSION['teacher_name']=$teacher[1]['teacher_name'];
                     <tr>
                         <th>出席番号</th>
                         <th>名前</th>
-                        <th>月別の出席の推移</th>
+<!--                        <th>月別の出席の推移</th>-->
+                        <th>今月の出席率</th>
                         <th>累計の遅刻数</th>
                         <th>欠席数</th>
                         <th>早退数</th>
-                        <th>出席率</th>
+                        <th>今年度出席率</th>
                     </tr>
                     <!-- exec_selectによる折り返し処理:開始 -->
 
@@ -213,11 +216,11 @@ $_SESSION['teacher_name']=$teacher[1]['teacher_name'];
                         <tr>
                             <th><?=htmlspecialchars($st['student_num']) ?></th>
                             <th><?=htmlspecialchars($st['student_name'])?></th>
-                            <th><?=htmlspecialchars($st['attend_rate_month'])?></th> <!-- 今月の出席率 -->
+                            <th><?=htmlspecialchars($st['attend_rate_month']); echo "%";?></th> <!-- 今月の出席率 -->
                             <th><?=htmlspecialchars($st['ac3'])?></th> <!-- 累計の遅刻数 -->
                             <th><?=htmlspecialchars($st['ac2'])?></th> <!-- 欠席数 -->
                             <th><?=htmlspecialchars($st['ac4'])?></th> <!-- 早退数 -->
-                            <th><?=htmlspecialchars($st['attend_rate'])?></th> <!-- 出席率 -->
+                            <th><?=htmlspecialchars($st['attend_rate']); echo "%";?></th> <!-- 出席率 -->
                         </tr>
                     <?php } $pdo=null; ?>
                 </table>
