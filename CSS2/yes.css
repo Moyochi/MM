@@ -40,7 +40,7 @@ p#a{
     position: absolute;
     right: 370px;
     top: 150px;
-    font-size:25px;
+    font-size:30px;
 }
 
 #name{
@@ -48,7 +48,7 @@ p#a{
     position: absolute;
     right: 470px;
     top: 250px;
-    font-size: 25px;
+    font-size: 30px;
 }
 
 #attend{
@@ -56,7 +56,7 @@ p#a{
     position: absolute;
     right: 400px;
     top: 350px;
-    font-size: 25px;
+    font-size: 30px;
 }
 
 #mattend{
@@ -64,5 +64,5 @@ p#a{
     position: absolute;
     right: 420px;
     top: 450px;
-    font-size: 25px;
+    font-size: 30px;
 }

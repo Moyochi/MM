@@ -36,7 +36,7 @@ p#a{
     position: absolute;
     right: 370px;
     top: 200px;
-    font-size:25px;
+    font-size:30px;
 }
 
 #name{
@@ -44,5 +44,5 @@ p#a{
     position: absolute;
     right: 370px;
     top: 350px;
-    font-size: 25px;
+    font-size: 30px;
 }
