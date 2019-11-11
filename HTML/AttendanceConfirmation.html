@@ -1,17 +1,28 @@
 <html lang="en">
 <head>
+    <link rel="stylesheet" media="all" href="../CSS/All.css">
+    <link rel="stylesheet" media="all" href="../CSS/AttendanceConfirmation.css">
     <meta charset="UTF-8">
-    <title>responsible</title>
+    <title>AttendanceConfirmation</title>
 </head>
 <body>
+  <div class="header">
+    <div class="title">
+    <div class="title_text">
 <h1>状況管理</h1>
+</div>
 <!--クラスメニュー-->
-<div class="class">
-  <li>授業名
-        <ul>
-           <li>プログラミング演習</li>
+<div class="title_text">
+  <h1 class="head">
+    授業名
+  </h1>
+</div>
+<ul class="title_menu">
+  <li>
+        <a href="">プログラミング演習Ⅱ</a>
         </ul>
      </li>
+   </ul>
 </div>
 
 <!--日付-->
@@ -25,8 +36,9 @@ document.write("<span>",m,"<\/span>月");
 document.write("<span>",d,"<\/span>日");
 document.write("(<span>",w,"<\/span>)");
 </script>
-
-<button type=“button”>担任</button>
+<div class="edit">
+  <a href="TeacherPro.php" id="teacher">担任</a>
+</div>
 
 <!--メニューバー-->
 <div class="tabs">
@@ -48,9 +60,10 @@ document.write("(<span>",w,"<\/span>)");
 <form action="StudentGraph.html" method="post">
 <input type="image" src="../image/noimage.gif">
 
-<p>
-出席番号　名前　出席率
-<div class="menu">
+  <p id="number">出席番号</p>
+  <p id="name">名前</p>
+  <p id="attend">出席率</p>
+<div class="menu">j
       <ul>
         　<li>遅刻</li>
       </ul>
@@ -58,7 +71,7 @@ document.write("(<span>",w,"<\/span>)");
 
 </form>
 
-◯人中◯人出席しました。
+<p id="sum">◯人中◯人出席しました。</p>
 
 <button type=“button”>決定</button>
 
