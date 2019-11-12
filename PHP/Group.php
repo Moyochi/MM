@@ -17,19 +17,21 @@
         <title>Group</title>
     </head>
     <body>
-        <div class="header">
+    <h1 class="header">
             <div class="title">
                 <div class="title_text">
                     <h1>グループ管理</h1>
                 </div>
             </div>
 
+            <!--検索バー -->
+            <div class="container">
+                <input type="text" placeholder="Search..." id="sa-ch">
+                <div class="search"></div>
+            </div>
 
-                <!--検索バー-->
-                🔎<input type="text" id="sa-ch">
-
-                <!--メニューバー-->
-                <div class="tabs">
+            <div class="contents">
+                <ul class="nav">
                     <li><a href="./index.php">担当グループ</a></li>
                     <li><a href="Group.php">グループ管理</a></li>
                     <li><a href="Users.php">ユーザー検索</a></li>
@@ -37,9 +39,9 @@
                     <li><a href="Groupmake.php">グループ作成</a></li>
                     <li><a href="Classroom.php">教室管理</a></li>
                     <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
-                </div>
-
-                追加するグループを選んでください。<br>
+                </ul>
+            </div>
+           追加するグループを選んでください。<br>
 
                 <!--フォームタグ-->
                 <p><form action="" method="post">

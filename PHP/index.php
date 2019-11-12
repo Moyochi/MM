@@ -181,7 +181,7 @@
                     <?php foreach ($student as $st){ ?>
                         <tr>
                             <th><?=htmlspecialchars($st['student_num']) ?></th>
-                            <th><?=htmlspecialchars($st['student_name'])?></th>
+                            <th><a href="./StudentPro.html.php"><?=htmlspecialchars($st['student_name'])?></a></th>
                             <td>100</td><!-- <th><?//=htmlspecialchars($row['月別の出席の推移'])?></th> -->
                             <td>100</td><!--<th><?//=htmlspecialchars($row['累計の遅刻数'])?></th> -->
                             <td>100</td><!--<th><?//=htmlspecialchars($row['欠席数'])?></th> -->

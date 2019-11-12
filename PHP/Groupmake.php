@@ -17,9 +17,11 @@
             </div>
         </div>
 
-
-        <!--検索バー-->
-        🔎<input type="text" id="sa-ch">
+        <!--検索バー -->
+        <div class="container">
+            <input type="text" placeholder="Search..." id="sa-ch">
+            <div class="search"></div>
+        </div>
 
         <!--メニューバー-->
         <div class="tabs">
