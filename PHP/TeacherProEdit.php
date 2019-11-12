@@ -28,7 +28,7 @@ require 'db.php';
             <!--flex-grow: 3;-->
             <h1 class="head">
                 <!-- 題名 -->
-                グループ作成
+                教師プロフィール編集
             </h1>
         </div>
     </div>

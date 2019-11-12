@@ -13,7 +13,7 @@ require 'db.php';
     <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
     <link rel="stylesheet" media="all" href="../CSS/Style.css">
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <title>Responsible.html</title>
+    <title>StudentPro.html</title>
 </head>
 <body>
 
@@ -28,7 +28,7 @@ require 'db.php';
             <!--flex-grow: 3;-->
             <h1 class="head">
                 <!-- 題名 -->
-                グループ作成
+                学生プロフィール
             </h1>
         </div>
     </div>

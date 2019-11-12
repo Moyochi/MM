@@ -38,7 +38,7 @@
     <head>
         <link rel="stylesheet" media="all" href="../CSS/All.css">
         <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
-        <link rel="stylesheet" media="all" href="../CSS/style.css">
+        <link rel="stylesheet" media="all" href="../CSS/Style.css">
         <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
         <title>Responsible.html</title>
     </head>
@@ -181,7 +181,7 @@
                     <?php foreach ($student as $st){ ?>
                         <tr>
                             <th><?=htmlspecialchars($st['student_num']) ?></th>
-                            <th><?=htmlspecialchars($st['student_name'])?></th>
+                            <th><a href="StudentPro.php"><?=htmlspecialchars($st['student_name'])?></a></th>
                             <td>100</td><!-- <th><?//=htmlspecialchars($row['月別の出席の推移'])?></th> -->
                             <td>100</td><!--<th><?//=htmlspecialchars($row['累計の遅刻数'])?></th> -->
                             <td>100</td><!--<th><?//=htmlspecialchars($row['欠席数'])?></th> -->
@@ -191,7 +191,7 @@
                     <?php } $pdo=null; ?>
                     </tbody>
                 </table>
-                <a href="./AttendanceConfirmation.php" id="edit">編集</a>
+                <a href="./Resuser.php" id="edit">編集</a>
             </form>
         </div>
     </body>
