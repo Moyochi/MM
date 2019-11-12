@@ -1,0 +1,68 @@
+a{
+    margin: 0 100px 0 10px;
+    left: 100px;
+}
+
+.title_menu>li{
+    width: 200%;
+}
+
+p#class{
+    margin: 50px;
+}
+div.edit{
+    height: 100px;
+    margin: 100px;
+}
+
+image{
+    position: absolute;
+}
+
+input{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+/*出席番号*/
+p#number{
+    position: absolute;
+    margin: 30px;
+    top: 130px;
+    left: 330px;
+    height: 100px;
+}
+
+p#sum{
+    text-align: center;
+    padding: 40px;
+}
+/*担任*/
+a#teacher {
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    position: absolute;
+    right: 50px;
+    top: 25px;
+    text-decoration: none;
+    color: white;
+    border-radius: 3px;
+}
+
+button{
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    position: absolute;
+    right: -500px;
+    top: 500px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 3px;
+}

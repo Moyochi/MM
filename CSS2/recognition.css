@@ -1,0 +1,48 @@
+/*撮影ボタン*/
+#yes {
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    padding: 10px 20px;
+    position: absolute;
+    box-sizing: border-box;
+    right: 570px;
+    top: 605px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+/*出席状況*/
+#no {
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    padding: 10px 20px;
+    position: absolute;
+    box-sizing: border-box;
+    right: 270px;
+    top: 605px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+
+p#a{
+    display: block;
+    position: absolute;
+    right: 370px;
+    top: 200px;
+    font-size:30px;
+}
+
+#name{
+    display: block;
+    position: absolute;
+    right: 370px;
+    top: 350px;
+    font-size: 30px;
+}

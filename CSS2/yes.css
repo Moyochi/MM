@@ -1,0 +1,68 @@
+/*撮影ボタン*/
+#ret {
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    padding: 10px 20px;
+    position: absolute;
+    box-sizing: border-box;
+    left: 500px;
+    top: 505px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+/*出席状況*/
+#int {
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    padding: 10px 20px;
+    position: absolute;
+    box-sizing: border-box;
+    right: 470px;
+    top: 505px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+#img{
+    margin:10px 100px 10px 150px;
+    padding:50px;
+}
+
+p#a{
+    display: block;
+    position: absolute;
+    right: 370px;
+    top: 150px;
+    font-size:30px;
+}
+
+#name{
+    display: block;
+    position: absolute;
+    right: 470px;
+    top: 250px;
+    font-size: 30px;
+}
+
+#attend{
+    display: block;
+    position: absolute;
+    right: 400px;
+    top: 350px;
+    font-size: 30px;
+}
+
+#mattend{
+    display: block;
+    position: absolute;
+    right: 420px;
+    top: 450px;
+    font-size: 30px;
+}

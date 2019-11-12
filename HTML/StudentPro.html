@@ -1,0 +1,75 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StudentPro</title>
+</head>
+<body>
+  <div class="header">
+    <div class="title">
+    <!--
+    color: #364e96;
+    border: solid 3px #364e96;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    display: flex;
+    -->
+    <div class="title_text">
+      <!--
+      flex-grow: 3;
+      -->
+<h1>学生プロフィール</h1>
+
+  </div>
+
+  <!--検索バー-->
+  🔎<input type="text" id="sa-ch">
+
+  <!--メニューバー-->
+  <div class="tabs">
+    <li><a href="Responsible.html">担当グループ</a></li>
+    <li><a href="Group.html">グループ管理</a></li>
+    <li><a href="Users.html">ユーザー検索</a></li>
+    <li><a href="Resuser.html">管理者ユーザー一覧</a></li>
+    <li><a href="Groupmake.html">グループ作成</a></li>
+    <li><a href="Classroom.html">教室管理</a></li>
+    <li><a href="Logout.html">ログアウト</a></li>
+  </div>
+
+  <div class="sub">
+    <p class="attend"><button type=“button”>
+      <a href="SubjectAttendance.html">科目別出席率</a>
+    </button></p>
+  </div>
+
+  <!--フォームタグ-->
+  <p><form action="" method="post">
+
+    学籍番号　学科　学年
+    名前　性別
+    <!--写真が入ります-->
+    <input type="image" src="../image/noimage.gif" 　id="img">
+    月別の出席の推移
+    <input type="text" id="manthAttendance" size="10">
+    累計の遅刻数
+    <input type="text" id="late" size="10">
+    欠席数
+    <input type="text" id="absence" size="10">
+    早退数
+    <input type="text" id="leaveEarly" size="10">
+    出席率
+    <input type="text" id="attendance" size="10">
+
+    <!--グラフ-->
+    <a href="StudentGraph.html"><input type="image" src="../image/graph.png" 　id="graph"></a>
+    <!--プリンター-->
+    <input type="image" src="../image/print.png" 　id="prin">
+
+
+<div class="sub">
+<button type=“button”><a href="StudentProEdit.html">編集</a></button>
+</div></<form>
+
+</form>
+
+</body>
+</html>

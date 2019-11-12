@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+    <link rel="stylesheet" media="all" href="../CSS/All.css">
+    <link rel="stylesheet" media="all" href="../CSS/AttendanceConfirmation.css">
+    <meta charset="UTF-8">
+    <title>ACMS</title>
+</head>
+<body>
+  <div class="header">
+    <div class="title">
+    <div class="title_text">
+      <h1>状況管理</h1>
+    </div>
+    <!--学科メニュー-->
+    <ul class="title_menu">
+      <li>
+    <p id="class">情報工学科</p>
+  </li>
+</ul>
+    </div>
+  </div>
+
+
+<!--日付-->
+<p id="day">
+<script type="text/javascript">
+weeks=new Array("日","月","火","水","木","金","土");
+today=new Date();
+m=today.getMonth()+1;
+d=today.getDate();
+w=weeks[today.getDay()];
+document.write("<span>",m,"<\/span>月");
+document.write("<span>",d,"<\/span>日");
+document.write("(<span>",w,"<\/span>)");
+</script>
+</p>
+
+<!--検索バー -->
+<div class="container">
+<input type="text" placeholder="Search..." id="sa-ch">
+<div class="search"></div>
+</div>
+
+<!--メニューバー-->
+<div class="contents">
+  <ul class="nav">
+    <li><a href="./index.php">担当グループ</a></li>
+    <li><a href="Group.php">グループ管理</a></li>
+    <li><a href="Users.php">ユーザー検索</a></li>
+    <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
+    <li><a href="Groupmake.php">グループ作成</a></li>
+    <li><a href="Classroom.php">教室管理</a></li>
+    <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
+  </ul>
+</div>
+
+<!--フォームタグ-->
+<form action="" method="post">
+
+<!--人の表情が入ります-->
+<!--
+<input type="image" src="image/face.png">
+-->
+
+<!--写真が入ります-->
+<!--グラフに飛ぶよん-->
+<form action="StudentGraph.html" method="post">
+<input type="image" src="image/noimage.gif">
+
+<p id="number">出席番号</p>
+<p id="name">名前</p>
+<p id="attend">出席率</p>
+<p id="status">状態</p>
+
+<p id="sum">◯人中◯人出席しました。</p>
+  <button id="return"><a href="initial.html">戻る</a> </button>
+
+</form>
+
+</body>
+</html>

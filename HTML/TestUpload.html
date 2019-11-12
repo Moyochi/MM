@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>Upload</title>
+</head>
+
+<body>
+ここで保存するファイルを指定する。
+<form enctype="multipart/form-data" action="../PHP/S3PutObject.php" method="POST">
+    <input type="file" name="file">
+    <input type="submit">
+</form>
+</body>
+</html>
