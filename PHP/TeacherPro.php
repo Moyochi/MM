@@ -8,7 +8,7 @@
     $teacher = prepareQuery("
                 SELECT T.teacher_id,T.teacher_name,T.tell,T.mail,T.personalnum,TH.class_id,class_name 
                 FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
-                INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id) 
+                INNER JOIN teachers_homerooms TH ON T.teacher_id=TH.teacher_id) 
                 INNER JOIN classes C ON TH.class_id=C.class_id 
                 WHERE L.login_id = ? 
                 ORDER BY class_id",[$_SESSION['username']]);
@@ -98,7 +98,7 @@
                     </div></<form>
 
                 </form>
-
+        <a href="./TeacherProEdit.php" id="edit">編集</a>
     </body>
 </html>
 

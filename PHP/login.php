@@ -72,6 +72,11 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     }
 }
 //header('Content-Type: text/html; charset=UTF-8');
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> Baru
 ?>
 
 
@@ -79,10 +84,21 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" media="all" href="../CSS/All.css">
+        <link rel="stylesheet" media="all" href="../CSS/lo.css">
         <meta charset="UTF-8">
         <title>Login</title>
     </head>
     <body>
+    <div class="header">
+
+        <div class="title">
+    <div class="title_text">
+        <h1 class="head">
+            ログイン
+        </h1>
+    </div>
+
         <h1>ログイン</h1>
         <?php if($errors): ?>
         <!--フォームタグ-->
@@ -93,20 +109,23 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         </ul>
         <?php endif; ?>
         <form action="login.php" method="post">
+            <div class="i">
             <p>ID</p>
             <p><input type="text" name="teacher_id" placeholder="IDを入力してください。" size="50"　 value="<?php echo $teacher_id=isset($_POST['teacher_id']) ? $_POST['teacher_id']: ''; ?>"></p>
+            <p><input type="text" name="username" placeholder="IDを入力してください。" size="50"　 value="<?php echo $username=isset($_POST['username']) ? $_POST['username']: ''; ?>"></p>
+            </div>
 
-            <br>
-
+<div class="p">
             <p>PASSWORD</p>
             <p><input type="password" name="password" placeholder="パスワードを入力してください。" size="50"></p>
+</div>
 
-            <br>
 
             <!--画面遷移-->
             <button type="submit">ログイン</button>
 
         </form>
+        </div>
 
     </body>
 </html>

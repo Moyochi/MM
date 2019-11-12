@@ -1,0 +1,145 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StudentList</title>
+</head>
+<body>
+  <div class="header">
+    <div class="title">
+    <!--
+    color: #364e96;
+    border: solid 3px #364e96;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    display: flex;
+    -->
+    <div class="title_text">
+      <!--
+      flex-grow: 3;
+      -->
+      <h1>学生一覧</h1>
+    </div>
+
+    <!--クラスメニュー-->
+    <div id="class" class="title_menu">
+        <!--
+        flex-grow: 1;
+        -->
+        <select>
+          <option>情報工学科</option>
+          <option>情報1</option>
+          <option>情報2</option>
+          <option>情報3</option>
+          <option>情報4</option>
+        </select>
+    </div>
+  </div>
+
+  <!--検索バー-->
+  🔎<input type="text" id="sa-ch">
+
+  <!--メニューバー-->
+  <div class="tabs">
+    　<li><a href="Responsible.html">担当グループ</a></li>
+      <li><a href="Group.html">グループ管理</a></li>
+      <li><a href="Users.html">ユーザー検索</a></li>
+      <li><a href="Resuser.html">管理者ユーザー一覧</a></li>
+      <li><a href="Groupmake.html">グループ作成</a></li>
+      <li><a href="Classroom.html">教室管理</a></li>
+      <li><a href="Logout.html">ログアウト</a></li>
+  </div>
+    検索結果
+    <!--フォームタグ-->
+    <p><form action="" method="post">
+
+      <!--スイッチ-->
+      <div id="switchArea">
+        <input type="checkbox" id="switch">
+        <label for="switch1"><span></span></label>
+        <div id="swImg"></div>
+      </div>
+
+      <style type="text/css">
+      /* === ボタンを表示するエリア ============================== */
+      #switchArea {
+        line-height    : 40px;                /* 1行の高さ          */
+        letter-spacing : 0;                   /* 文字間             */
+        text-align     : center;              /* 文字位置は中央     */
+        font-size      : 17px;                /* 文字サイズ         */
+
+        position       : relative;            /* 親要素が基点       */
+        margin         : auto;                /* 中央寄せ           */
+        width          : 91px;               /* ボタンの横幅       */
+        background     : #fff;                /* デフォルト背景色   */
+      }
+
+       /* === チェックボックス ==================================== */
+      #switchArea input[type="checkbox"] {
+        display        : none;            /* チェックボックス非表示 */
+      }
+
+       /* === チェックボックスのラベル（標準） ==================== */
+      #switchArea label {
+        display        : block;               /* ボックス要素に変更 */
+        box-sizing     : border-box;          /* 枠線を含んだサイズ */
+        height         : 40px;                /* ボタンの高さ       */
+        border         : 2px solid #999999;   /* 未選択タブのの枠線 */
+        border-radius  : 20px;                /* 角丸               */
+      }
+
+       /* === チェックボックスのラベル（ONのとき） ================ */
+      #switchArea input[type="checkbox"]:checked +label {
+        border-color   : #78bd78;             /* 選択タブの枠線     */
+      }
+
+       /* === 表示する文字（標準） ================================ */
+      #switchArea label span:after{
+        content        : "昇順";               /* 表示する文字       */
+        padding        : 0 0 0 24px;          /* 表示する位置       */
+        color          : #999999;             /* 文字色             */
+      }
+
+       /* === 表示する文字（ONのとき） ============================ */
+      #switchArea  input[type="checkbox"]:checked + label span:after{
+        content        : "降順";                /* 表示する文字       */
+        padding        : 0 24px 0 0;          /* 表示する位置       */
+        color          : #78bd78;             /* 文字色             */
+      }
+
+       /* === 丸部分のSTYLE（標準） =============================== */
+      #switchArea #swImg {
+        position       : absolute;            /* 親要素からの相対位置*/
+        width          : 32px;                /* 丸の横幅           */
+        height         : 32px;                /* 丸の高さ           */
+        background     : #999999;             /* カーソルタブの背景 */
+        top            : 4px;                 /* 親要素からの位置   */
+        left           : 4px;                 /* 親要素からの位置   */
+        border-radius  : 16px;                /* 角丸               */
+        transition     : .2s;                 /* 滑らか変化         */
+      }
+
+       /* === 丸部分のSTYLE（ONのとき） =========================== */
+      #switchArea input[type="checkbox"]:checked ~ #swImg {
+        transform      : translateX(51px);    /* 丸も右へ移動       */
+        background     : #78bd78;             /* カーソルタブの背景 */
+      }
+      </style>
+
+
+
+    <!--写真が入ります-->
+    <!--グラフに飛ぶよん-->
+    <form action="StudentGraph.html" method="post"></form>
+
+    <!--条件-->
+    <input type="checkbox" id="check">
+    <input type="image" src="../image/noimage.gif" id="img">
+
+
+<div class="sub">
+<button type=“button”><a href="Responsible.html">学科へ追加</a></button>
+</div></form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,19 +1,7 @@
 <?php
-require 'db.php';
-// 教室一覧左上の選択部分に利用。
-$class_list = query("select * from classrooms order by classroom_name");
 require_once 'functions.php';
 require_logined_session();
 
-//スケジュールを表示するクラスについて、クラスの指定がある場合はpostで受け取り、
-//指定がない場合(初回表示時)にはクラスリストの一番上が選択される。
-if(isset($_POST['class_update'])){
-    $class_update = $_POST['class_update'];
-}else{
-    $class_update = $class_list[0];
-}
-//スケジュールを取得。
-$schedule = prepareQuery("select * from classrooms_lesson_schedule where classroom_id = ?",[$class_update]);
 header('Content-Type:text/html; charset=UTF-8');
 require 'db.php';
 ?>
@@ -25,7 +13,7 @@ require 'db.php';
     <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
     <link rel="stylesheet" media="all" href="../CSS/Style.css">
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <title>Responsible.html</title>
+    <title>StudentPro.html</title>
 </head>
 <body>
 
@@ -40,7 +28,7 @@ require 'db.php';
             <!--flex-grow: 3;-->
             <h1 class="head">
                 <!-- 題名 -->
-                教室管理
+                学生プロフィール
             </h1>
         </div>
     </div>
@@ -71,4 +59,3 @@ require 'db.php';
 </div>
 </body>
 </html>
-

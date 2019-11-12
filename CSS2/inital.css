@@ -1,0 +1,39 @@
+
+/*撮影ボタン*/
+#shot {
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    padding: 10px 20px;
+    position: absolute;
+    box-sizing: border-box;
+    left: 500px;
+    top: 505px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+/*出席状況*/
+#attendata {
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    padding: 10px 20px;
+    position: absolute;
+    box-sizing: border-box;
+    right: 470px;
+    top: 505px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+p#a{
+    font-size:30px;
+    text-align: center;
+    margin: 100px;
+    line-height: 2;
+}
