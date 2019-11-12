@@ -2,15 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b050d1ba-4654-4a13-9881-1f6696b2fd16" name="Default" comment="Merge branch 'master' of https://github.com/Moyochi/MM&#10;&#10;# Conflicts:&#10;#&#9;.DS_Store&#10;#&#9;CSS/.DS_Store&#10;#&#9;CSS/All.css&#10;#&#9;CSS/AttendanceConfirmation.css&#10;#&#9;CSS/Responsible.css">
+      <change afterPath="$PROJECT_DIR$/CSS/Users.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CSS/All.css" beforeDir="false" afterPath="$PROJECT_DIR$/CSS/All.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CSS/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/CSS/Login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CSS/lo.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CSS2/recognition.css" beforeDir="false" afterPath="$PROJECT_DIR$/CSS2/recognition.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PHP/Group.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/Group.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PHP/Classroom.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/Classroom.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PHP/Groupmake.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/Groupmake.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PHP/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PHP/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PHP/Resuser.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/Resuser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PHP/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/Users.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -40,29 +37,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="All.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/CSS/All.css">
+      <file leaf-file-name="Users.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PHP/Users.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="150" lean-forward="true" selection-start-line="150" selection-end-line="150" />
+            <state relative-caret-position="220">
+              <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="recognition.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CSS2/recognition.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="681">
-              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PHP/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="184" column="61" lean-forward="true" selection-start-line="184" selection-start-column="61" selection-end-line="184" selection-end-column="61" />
+            <state relative-caret-position="733">
+              <caret line="118" column="35" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -111,13 +99,17 @@
         <option value="$PROJECT_DIR$/CSS2/no.css" />
         <option value="$PROJECT_DIR$/CSS2/inital.css" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/PHP/Groupmake.php" />
         <option value="$PROJECT_DIR$/PHP/Group.php" />
         <option value="$PROJECT_DIR$/PHP/login.php" />
         <option value="$PROJECT_DIR$/CSS/Login.css" />
         <option value="$PROJECT_DIR$/PHP/index.php" />
         <option value="$PROJECT_DIR$/CSS2/recognition.css" />
         <option value="$PROJECT_DIR$/CSS/All.css" />
+        <option value="$PROJECT_DIR$/CSS/Users.css" />
+        <option value="$PROJECT_DIR$/PHP/Resuser.php" />
+        <option value="$PROJECT_DIR$/PHP/Groupmake.php" />
+        <option value="$PROJECT_DIR$/PHP/Classroom.php" />
+        <option value="$PROJECT_DIR$/PHP/Users.php" />
       </list>
     </option>
   </component>
@@ -169,11 +161,6 @@
               <item name="MM1" type="b2602c69:ProjectViewProjectNode" />
               <item name="MM1" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="CSS" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="MM1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MM1" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="CSS2" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="MM1" type="b2602c69:ProjectViewProjectNode" />
@@ -240,12 +227,12 @@
       <workItem from="1572195268946" duration="1104000" />
       <workItem from="1572230750150" duration="4562000" />
       <workItem from="1572398207535" duration="7185000" />
-      <workItem from="1573017396797" duration="20323000" />
+      <workItem from="1573017396797" duration="21393000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54322000" />
+    <option name="totallyTimeSpent" value="55392000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -342,42 +329,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/PHP/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2295">
-          <caret line="153" column="36" lean-forward="true" selection-start-line="153" selection-start-column="36" selection-end-line="153" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CSS/All.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://3aeeb063-c76a-4a01-b425-1e98fca66b17/schema/mysql/table/time_zone_transition_type">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/AttendanceConfirmation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="76" selection-start-line="76" selection-end-line="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/3aeeb063-c76a-4a01-b425-1e98fca66b17/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16260">
-          <caret line="1084" column="22" lean-forward="true" selection-start-line="1084" selection-start-column="22" selection-end-line="1084" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://e5cdff01-c97b-4ab3-9b65-47edf1e63fa5/schema/mm/table/login" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/e5cdff01-c97b-4ab3-9b65-47edf1e63fa5/console.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -578,20 +529,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/ACM.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/CSS/AttendanceConfirmation.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="741">
           <caret line="68" selection-start-line="68" selection-end-line="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/Groupmake.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -647,31 +588,79 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/login.php">
+    <entry file="file://$PROJECT_DIR$/CSS/All.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="117" column="18" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PHP/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="184" column="61" lean-forward="true" selection-start-line="184" selection-start-column="61" selection-end-line="184" selection-end-column="61" />
+        <state relative-caret-position="-2299">
+          <caret line="150" lean-forward="true" selection-start-line="150" selection-end-line="150" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CSS2/recognition.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="681">
-          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="231">
+          <caret line="18" selection-start-line="18" selection-end-line="29" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CSS/All.css">
+    <entry file="file://$PROJECT_DIR$/CSS/Users.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="150" lean-forward="true" selection-start-line="150" selection-end-line="150" />
+        <state relative-caret-position="240">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/Resuser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="65" selection-start-line="6" selection-start-column="65" selection-end-line="6" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/Groupmake.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="62" selection-start-line="7" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/Classroom.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/ACM.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-324" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1118">
+          <caret line="117" column="18" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/TeacherPro.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-269" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/update.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/Users.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PHP/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="733">
+          <caret line="118" column="35" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
         </state>
       </provider>
     </entry>

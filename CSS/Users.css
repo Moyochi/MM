@@ -1,0 +1,18 @@
+.tex{
+    margin: auto;
+}
+
+.sub{
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    padding: 10px 20px;
+    position: absolute;
+    box-sizing: border-box;
+    right: 270px;
+    top: 605px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 3px;
+}

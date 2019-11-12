@@ -4,6 +4,7 @@
 
 <html>
     <head>
+        <link rel="stylesheet" media="all" href="../CSS/All.css">
         <meta charset="UTF-8">
         <title>Resuser</title>
     </head>
@@ -25,18 +26,23 @@
 
                 </div>
 
-                <!--検索バー-->
-                🔎<input type="text" id="sa-ch">
+                <!--検索バー -->
+                <div class="container">
+                    <input type="text" placeholder="Search..." id="sa-ch">
+                    <div class="search"></div>
+                </div>
 
-                <!--メニューバー-->
-                <div class="tabs">
-                    <li><a href="./index.php">担当グループ</a></li>
-                    <li><a href="Group.php">グループ管理</a></li>
-                    <li><a href="Users.php">ユーザー検索</a></li>
-                    <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
-                    <li><a href="Groupmake.php">グループ作成</a></li>
-                    <li><a href="Classroom.php">教室管理</a></li>
-                    <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
+
+                <div class="contents">
+                    <ul class="nav">
+                        <li><a href="./index.php">担当グループ</a></li>
+                        <li><a href="Group.php">グループ管理</a></li>
+                        <li><a href="Users.php">ユーザー検索</a></li>
+                        <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
+                        <li><a href="Groupmake.php">グループ作成</a></li>
+                        <li><a href="Classroom.php">教室管理</a></li>
+                        <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
+                    </ul>
                 </div>
 
                 <!--フォームタグ-->
