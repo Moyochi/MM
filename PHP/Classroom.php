@@ -1,5 +1,17 @@
 <?php
+require 'db.php';
+// 教室一覧左上の選択部分に利用。
+$class_list = query("select * from classrooms order by classroom_name");
 
+//スケジュールを表示するクラスについて、クラスの指定がある場合はpostで受け取り、
+//指定がない場合(初回表示時)にはクラスリストの一番上が選択される。
+if(isset($_POST['class_update'])){
+    $class_update = $_POST['class_update'];
+}else{
+    $class_update = $class_list[0];
+}
+//スケジュールを取得。
+$schedule = prepareQuery("select * from classrooms_lesson_schedule where classroom_id = ?",[$class_update]);
 ?>
 
 
