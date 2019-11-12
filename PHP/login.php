@@ -72,14 +72,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     }
 }
 //header('Content-Type: text/html; charset=UTF-8');
-<<<<<<< HEAD
-=======
-
-
->>>>>>> Baru
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="ja">
