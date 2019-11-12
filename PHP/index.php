@@ -5,32 +5,25 @@
     header('Content-Type:text/html; charset=UTF-8');
     require 'db.php';
 
-    //var_dump($_GET);
-
-
-    $teacher = prepareQuery("
-        SELECT TH.class_id,class_name,T.teacher_name
-        FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
-        INNER JOIN mm.teachers_homerooms TH ON T.teacher_id=TH.teacher_id) 
-        INNER JOIN classes C ON TH.class_id=C.class_id 
-        WHERE L.login_id = ? 
-        ORDER BY class_id",[$_SESSION['username']]);
-
+//表示するグループのclass_idを設定。
+//初回表示時はセッションから、1番上のclass_idが利用され、
+//指定された場合は、getで受け取った内容を設定する。
     if(isset($_GET['class_id'])){
         $class_id=$_GET['class_id'];
     }else{
         //login.phpから飛んできた1行目のclass_idが入る。
-        $class_id=$teacher[0]['class_id'];
+        $class_id=$_SESSION['class']['id'][0];
     }
 
-
 ////    echo $teacher['teacher_name'];
-$_SESSION['teacher_name']=$teacher[1]['teacher_name'];
+//$_SESSION['teacher']=$teacher[0]['teacher_name'];
 
 //var_dump($_SESSION);
 
 //var_dump($_SESSION);
 //echo h($_SESSION['teacher_name']);
+    $data = prepareQuery('select * from load_responsible_1 where class_id = ?',[11]);
+
 ?>
 
 <!DOCTYPE html>
@@ -50,46 +43,8 @@ $_SESSION['teacher_name']=$teacher[1]['teacher_name'];
         <?php
 
 
-            $student = prepareQuery("
-          select  SQ.class_id,
-          SQ.student_id,
-          SQ.class_name,
-          SQ.student_num,
-          SQ.student_name,
-          COALESCE(SQ.attend_rate_month,0)attend_rate_month,
-          COALESCE(SQ.absence_count,0)absence_count,
-          COALESCE(SQ.attend_rate,0)attend_rate,
-          COALESCE(MAC.attend_count,0)ac1,
-          COALESCE(MAC2.attend_count,0)ac2,
-          COALESCE(MAC3.attend_count,0)ac3,
-          COALESCE(MAC4.attend_count,0)ac4
-        from (
-        
-          SELECT
-            TH.class_id,
-            S.student_id,
-            class_name,
-            CS.student_num,
-            S.student_name,
-            ARM.attend_rate as attend_rate_month,
-            RLAC.absence_count,
-            AR.attend_rate
-          FROM ((login L INNER JOIN teachers T ON L.login_id = T.login_id)
-            INNER JOIN mm.teachers_homerooms TH ON T.teacher_id = TH.teacher_id)
-            INNER JOIN classes C ON TH.class_id = C.class_id
-            INNER JOIN students S ON S.class_id = C.class_id
-            INNER JOIN classes_students CS ON CS.class_id = S.class_id and CS.student_id = S.student_id
-            LEFT OUTER JOIN mm.attend_rate_month ARM ON ARM.student_id = CS.student_id
-            LEFT OUTER JOIN mm.regarding_lesson_absence_count RLAC ON RLAC.student_id = CS.student_id
-            LEFT OUTER JOIN mm.attend_rate AR ON AR.student_id = CS.student_id
-          WHERE L.login_id = ?
-                AND C.class_id = ?
-          GROUP BY S.student_name
-          ORDER BY student_num asc, class_id
-          )SQ LEFT OUTER JOIN mm.attend_count MAC ON MAC.student_id=SQ.student_id and MAC.attend_id=1
-          LEFT OUTER JOIN mm.attend_count MAC2 ON MAC2.student_id=SQ.student_id and MAC2.attend_id=2
-          LEFT OUTER JOIN mm.attend_count MAC3 ON MAC3.student_id=SQ.student_id and MAC3.attend_id=3
-          LEFT OUTER JOIN mm.attend_count MAC4 ON MAC4.student_id=SQ.student_id and MAC4.attend_id=4",[$_SESSION['username'], $class_id]);
+            $student = prepareQuery("select * from load_index_1 WHERE teacher_id = ? and month = ?"
+                ,[$_SESSION['teacher_id'], 10]);
 
             try{
             }catch (PDOException $exception){
@@ -161,22 +116,6 @@ $_SESSION['teacher_name']=$teacher[1]['teacher_name'];
             <!--<input type="image" src="image/face.png">-->
 
 
-
-            <p><?php echo h($_SESSION['mon']); ?>さんいらっしゃい！</p>
-            <span id="view_time"></span>
-            <script type="text/javascript">
-                document.getElementById("view_time").innerHTML = getNow();
-                function getNow() {
-                    var now = new Date();
-                    var mon = now.getMonth()+1; //１を足すこと
-                    return mon
-                }
-               <?php
-                //                      $class_idをほかのページでも使えるようにした。
-                    $_SESSION['mon']=$mon;
-                ?>
-            </script>
-            <!-- フォームタグ -->
             <p><form action="" method="post">
                 <!-- 写真が入ります -->
                 <!-- グラフに飛ぶよん -->
