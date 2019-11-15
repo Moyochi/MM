@@ -19,7 +19,6 @@ function query($sql){
 
     }catch (PDOException $e) {
         return $e->getMessage();
-        exit;
     }
 }
 function prepareQuery($sql,$array){
@@ -31,7 +30,15 @@ function prepareQuery($sql,$array){
         return($data);
     }catch (PDOException $e) {
         return $e->getMessage();
-        exit;
     }
+}
+function login($username){
+    global $db;
+    $st=$db->prepare('SELECT * FROM login left join teachers on login.login_id = teachers.login_id WHERE login.login_id = :username');
+    $st->bindValue(':username',$username,PDO::PARAM_STR);
+
+    $st->execute();
+    $result=$st->fetch(PDO::FETCH_ASSOC);
+    return $result;
 }
 ?>
