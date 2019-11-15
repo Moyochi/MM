@@ -15,14 +15,12 @@
         $class_id=$_SESSION['class']['id'][0];
     }
 
+    $student = $data = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
 
-////    echo $teacher['teacher_name'];
-//$_SESSION['teacher']=$teacher[0]['teacher_name'];
-
-//var_dump($_SESSION);
-
-//var_dump($_SESSION);
-//echo h($_SESSION['teacher_name']);
+    try{
+    }catch (PDOException $exception){
+        die('接続エラー:'.$exception->getMessage());
+}
 
 ?>
 
@@ -40,19 +38,6 @@
         <!--<p>--><?php //echo h($_SESSION['username']); ?><!--さんいらっしゃい！</p>-->
         <!---->
         <!--<p><input type="password" name="password" placeholder="--><?php //echo h($_SESSION['username']); ?><!--"></p>-->
-
-        <!--　DB接続　-->
-        <?php
-
-
-            $student = $data = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
-
-            try{
-            }catch (PDOException $exception){
-                die('接続エラー:'.$exception->getMessage());
-            }
-        ?>
-
 
 
         <!--どのアカウントで入ったか確認-->

@@ -8,7 +8,7 @@
         //セッション開始
         @session_start();
         //ログインしていれば
-        if(isset($_SESSION["username"])){
+        if(isset($_SESSION["teacher_id"])){
             header('Location: ./'/*ホーム画面*/);
             exit;
         }
