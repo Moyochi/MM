@@ -1,36 +1,30 @@
 <?php
-require_once 'functions.php';
-require_logined_session();
+    require_once 'functions.php';
+    require_logined_session();
 
     header('Content-Type:text/html; charset=UTF-8');
     require 'db.php';
 
-    //var_dump($_GET);
-
-
-    $teacher = prepareQuery("
-        SELECT TH.class_id,class_name,T.teacher_name
-        FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
-        INNER JOIN mm.teachers_homerooms TH ON T.teacher_id=TH.teacher_id) 
-        INNER JOIN classes C ON TH.class_id=C.class_id 
-        WHERE L.login_id = ? 
-        ORDER BY class_id",[$_SESSION['username']]);
-
+//表示するグループのclass_idを設定。
+//初回表示時はセッションから、1番上のclass_idが利用され、
+//指定された場合は、getで受け取った内容を設定する。
     if(isset($_GET['class_id'])){
         $class_id=$_GET['class_id'];
     }else{
         //login.phpから飛んできた1行目のclass_idが入る。
-        $class_id=$teacher[0]['class_id'];
+        $class_id=$_SESSION['class']['id'][0];
     }
 
 
 ////    echo $teacher['teacher_name'];
-//$_SESSION['teacher_name']=$teacher[1]['teacher_name'];
+//$_SESSION['teacher']=$teacher[0]['teacher_name'];
 
 //var_dump($_SESSION);
 
 //var_dump($_SESSION);
 //echo h($_SESSION['teacher_name']);
+    $data = prepareQuery('select * from load_responsible_1 where class_id = ?',[11]);
+
 ?>
 
 <!DOCTYPE html>
@@ -52,16 +46,8 @@ require_logined_session();
         <?php
 
 
-            $student = prepareQuery("SELECT TH.class_id,class_name,CS.student_num,S.student_name
-                    FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
-                    INNER JOIN mm.teachers_homerooms TH ON T.teacher_id=TH.teacher_id)
-                    INNER JOIN classes C ON TH.class_id=C.class_id
-                    INNER JOIN students S ON S.class_id = C.class_id
-                    INNER JOIN classes_students CS ON CS.class_id = S.class_id and CS.student_id = S.student_id
-                    WHERE L.login_id = ?
-                    AND C.class_id = ?
-                    GROUP BY S.student_name
-                    ORDER BY student_num asc ,class_id",[$_SESSION['username'], $class_id]);
+            $student = prepareQuery("select * from load_index_1 WHERE teacher_id = ? and month = ?"
+                ,[$_SESSION['teacher_id'], 10]);
 
             try{
             }catch (PDOException $exception){
@@ -147,6 +133,7 @@ require_logined_session();
 
             <!--人の表情が入ります-->
             <!--<input type="image" src="image/face.png">-->
+
 
             <!-- フォームタグ -->
             <p><form action="" method="post">
