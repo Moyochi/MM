@@ -86,7 +86,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 <html lang="ja">
     <head>
         <link rel="stylesheet" media="all" href="../CSS/All.css">
-        <link rel="stylesheet" media="all" href="../CSS/lo.css">
+        <link rel="stylesheet" media="all" href="../CSS/Login.css">
         <meta charset="UTF-8">
         <title>Login</title>
     </head>
@@ -113,16 +113,16 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             <div class="i">
             <p>ID</p>
             <p><input type="text" name="username" placeholder="IDを入力してください。" size="50"　 value="<?php echo $username=isset($_POST['username']) ? $_POST['username']: ''; ?>"></p>
-            </div>
 
-<div class="p">
             <p>PASSWORD</p>
             <p><input type="password" name="password" placeholder="パスワードを入力してください。" size="50"></p>
-</div>
+            </div>
 
 
             <!--画面遷移-->
+            <div class="log">
             <button type="submit">ログイン</button>
+            </div>
 
         </form>
         </div>

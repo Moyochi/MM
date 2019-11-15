@@ -70,11 +70,11 @@ require_logined_session();
         ?>
 
 
-    //梅崎大先生のアドバイス。
-//                $sql="SELECT CT.class_id, S.student_id, S.student_name
-//                FROM classes_students CT
-//                INNER JOIN students S
-//                ON CT.students_id = S.student_id";
+ <!--梅崎大先生のアドバイス。
+                $sql="SELECT CT.class_id, S.student_id, S.student_name
+                FROM classes_students CT
+               INNER JOIN students S
+                ON CT.students_id = S.student_id";-->
 
         <!--どのアカウントで入ったか確認-->
 
@@ -196,7 +196,7 @@ require_logined_session();
                     <?php } $pdo=null; ?>
                     </tbody>
                 </table>
-                <a href="./Resuser.php" id="edit">編集</a>
+                <a href="ResponsibleEdit.php" id="edit">編集</a>
             </form>
         </div>
     </body>

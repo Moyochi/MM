@@ -57,5 +57,174 @@ require 'db.php';
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
 </div>
+
+<table border="20px" cellpadding="10px">
+    <caption>時間割</caption>
+    <tr>
+        <th></th>
+        <th>月曜日</th>
+        <th>火曜日</th>
+        <th>水曜日</th>
+        <th>木曜日</th>
+        <th>金曜日</th>
+    </tr>
+    <tr>
+        <td>一限目</td>
+        <th>
+            <!--時間割プルダウン-->
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+    </tr>
+    <tr>
+        <td>二限目</td>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+    </tr>
+    <tr>
+        <td>三限目</td>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+        <th>
+            <div class="timetable" class="time_menu">
+                <select>
+                    <option>-</option>
+                </select>
+            </div>
+        </th>
+
+    </tr>
+    <td>四限目</td>
+    <th>
+        <div class="timetable" class="time_menu">
+            <select>
+                <option>-</option>
+            </select>
+        </div>
+    </th>
+    <th>
+        <div class="timetable" class="time_menu">
+            <select>
+                <option>-</option>
+            </select>
+        </div>
+    </th>
+    <th>
+        <div class="timetable" class="time_menu">
+            <select>
+                <option>-</option>
+            </select>
+        </div>
+    </th>
+    <th>
+        <div class="timetable" class="time_menu">
+            <select>
+                <option>-</option>
+            </select>
+        </div>
+    </th>
+    <th>
+        <div class="timetable" class="time_menu">
+            <select>
+                <option>-</option>
+            </select>
+        </div>
+    </th>
+</table>
+
+<!--画面リロード-->
+<div class="sub">
+    <button type=“button”><a href="ResponsibleEdit.html">決定</a></button>
+</div></form>
+
+
 </body>
 </html>
