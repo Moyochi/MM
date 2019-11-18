@@ -10,8 +10,7 @@ require 'db.php';
 <html>
 <head>
     <link rel="stylesheet" media="all" href="../CSS/All.css">
-    <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
-    <link rel="stylesheet" media="all" href="../CSS/Style.css">
+    <link rel="stylesheet" media="all" href="../CSS/Classroom.css">
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Responsible.html</title>
 </head>
@@ -57,5 +56,181 @@ require 'db.php';
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
 </div>
+
+<!--フォームタグ-->
+<form action="" method="post">
+
+    <table>
+        <div class="kyo">
+            <h2 id="kyo_label">教室管理</h2>
+            <tr>
+                <th></th>
+                <th>月曜日</th>
+                <th>火曜日</th>
+                <th>水曜日</th>
+                <th>木曜日</th>
+                <th>金曜日</th>
+            </tr>
+            <tr>
+                <td>一限目</td>
+                <th>
+                    <!--時間割プルダウン-->
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <td>二限目</td>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <td>三限目</td>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+                <th>
+                    <div class="timetable" class="time_menu">
+                        <select>
+                            <option>-</option>
+                        </select>
+                    </div>
+                </th>
+
+            </tr>
+            <td>四限目</td>
+            <th>
+                <div class="timetable" class="time_menu">
+                    <select>
+                        <option>-</option>
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="timetable" class="time_menu">
+                    <select>
+                        <option>-</option>
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="timetable" class="time_menu">
+                    <select>
+                        <option>-</option>
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="timetable" class="time_menu">
+                    <select>
+                        <option>-</option>
+                    </select>
+                </div>
+            </th>
+            <th>
+                <div class="timetable" class="time_menu">
+                    <select>
+                        <option>-</option>
+                    </select>
+                </div>
+            </th>
+        </div>
+    </table>
+
+    <!--画面リロード-->
+    <div class="sub">
+        <a href="ResponsibleEdit.html" id="time_ok">決定</a>
+    </div></form>
+
+
 </body>
 </html>

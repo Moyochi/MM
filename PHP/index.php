@@ -121,9 +121,10 @@ require_logined_session();
 
             <!-- 上のメニューバー -->
             <div class="bu">
-            <a href="AttendanceConfirmation.php" id="attend">状況管理</a>
-            <a href="ACM.php" id="attendata">出席簿</a>
-            <a href="TeacherPro.php" id="teacher">担任</a>
+                <a href="./AttendanceConfirmation.php" id="edit">編集</a>
+                <a href="AttendanceConfirmation.php" id="attend">状況管理</a>
+                <a href="ACM.php" id="attendata">出席簿</a>
+                <a href="TeacherPro.php" id="teacher">担任</a>
             <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
             </div>
 
@@ -186,7 +187,7 @@ require_logined_session();
                     <?php foreach ($student as $st){ ?>
                         <tr>
                             <th><?=htmlspecialchars($st['student_num']) ?></th>
-                            <th><a href="StudentPro.php"><?=htmlspecialchars($st['student_name'])?></a></th>
+                            <th><a href="StudentPro.php" id="sname"><?=htmlspecialchars($st['student_name'])?></a></th>
                             <td>100</td><!-- <th><?//=htmlspecialchars($row['月別の出席の推移'])?></th> -->
                             <td>100</td><!--<th><?//=htmlspecialchars($row['累計の遅刻数'])?></th> -->
                             <td>100</td><!--<th><?//=htmlspecialchars($row['欠席数'])?></th> -->

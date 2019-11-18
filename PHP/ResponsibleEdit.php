@@ -10,10 +10,9 @@ require 'db.php';
 <html>
 <head>
     <link rel="stylesheet" media="all" href="../CSS/All.css">
-    <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
-    <link rel="stylesheet" media="all" href="../CSS/Style.css">
+    <link rel="stylesheet" media="all" href="../CSS/ResponsibleEdit.css">
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <title>Responsible.html</title>
+    <title>ResponsibleEdit.html</title>
 </head>
 <body>
 
@@ -21,9 +20,7 @@ require 'db.php';
 <!--どのアカウントで入ったか確認-->
 
 <div class="header">
-
     <div class="title">
-
         <div class="title_text">
             <!--flex-grow: 3;-->
             <h1 class="head">
@@ -31,13 +28,9 @@ require 'db.php';
                 管理者ユーザー編集
             </h1>
         </div>
+
     </div>
 
-</div>
-
-<!-- 上のメニューバー -->
-<div class="bu">
-    <!--    <a href="AttendanceConfirmation.php" id="attend">状況管理</a>-->
 </div>
 
 <!--検索バー -->
@@ -58,8 +51,9 @@ require 'db.php';
     </ul>
 </div>
 
-<table border="20px" cellpadding="10px">
-    <caption>時間割</caption>
+    <table>
+    <div class="zi">
+    <h2 id="zi_label">教室管理</h2>
     <tr>
         <th></th>
         <th>月曜日</th>
@@ -80,12 +74,14 @@ require 'db.php';
         </th>
         <th>
             <div class="timetable" class="time_menu">
+                <select>
                 <option>-</option>
                 </select>
             </div>
         </th>
         <th>
             <div class="timetable" class="time_menu">
+                <select>
                 <option>-</option>
                 </select>
             </div>
@@ -218,11 +214,12 @@ require 'db.php';
             </select>
         </div>
     </th>
+    </div>
 </table>
 
 <!--画面リロード-->
 <div class="sub">
-    <button type=“button”><a href="ResponsibleEdit.html">決定</a></button>
+    <a href="ResponsibleEdit.html" id="time_ok">決定</a>
 </div></form>
 
 

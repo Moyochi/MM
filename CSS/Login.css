@@ -1,8 +1,7 @@
 
 
 div.i{
-  width: fit-content;
-  margin: auto;
+  position: fixed;
   left: 400px;
 }
 
@@ -14,10 +13,9 @@ div.log{
   padding: 10px 20px;
   position: fixed;
   box-sizing: border-box;
-  right: 235px;
-  bottom: 10px;
+  right: 435px;
+  bottom: 30px;
   text-decoration: none;
   color: white;
   border-radius: 3px;
-
 }
