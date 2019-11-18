@@ -56,8 +56,10 @@ require 'db.php';
     条件の絞り込みを選択してください。
 </div>
 
-    <!--フォームタグ-->
-    <div action="" method="post">
+条件の絞り込みを選択してください。<br><br>
+
+<!--フォームタグ-->
+<p><form action="" method="post">
 
         <!--条件-->
         <div class="if">
@@ -107,8 +109,6 @@ require 'db.php';
     </div>
 
 <a href="" id="d">検索</a>
-
-</body>
 
 </form>
 

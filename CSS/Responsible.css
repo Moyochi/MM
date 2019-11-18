@@ -53,7 +53,7 @@
     box-sizing: border-box;
     padding: 10px 20px;
     position: absolute;
-    right: 30px;
+    right: 50px;
     top: 25px;
     text-decoration: none;
     color: white;
@@ -101,7 +101,6 @@ td:nth-child{
     padding: 30px;
     margin: 35px;
 }
-
 
 tbody{
     left: 50px;
