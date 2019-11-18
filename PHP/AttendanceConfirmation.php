@@ -4,25 +4,18 @@ require_logined_session();
 
 header('Content-Type:text/html; charset=UTF-8');
 require 'db.php';
-$teacher = prepareQuery("
-            SELECT TH.class_id,class_name 
-            FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
-            INNER JOIN mm.teachers_homeroom TH ON T.teacher_id=TH.teacher_id) 
-            INNER JOIN classes C ON TH.class_id=C.class_id 
-            WHERE L.login_id = ? 
-            ORDER BY class_id",[$_SESSION['username']]);
+if(isset($_GET['class_id'])){
+    $class_id=$_GET['class_id'];
+}else{
+    //login.phpから飛んできた1行目のclass_idが入る。
+    $class_id=$_SESSION['class']['id'][0];
+}
+$student = prepareQuery("select * from load_responsible_1 where class_id = ?",[$class_id]);
 
-$student = prepareQuery("SELECT TH.class_id,class_name,CS.student_num,S.student_name
-            FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
-            INNER JOIN mm.teachers_homerooms TH ON T.teacher_id=TH.teacher_id)
-            INNER JOIN classes C ON TH.class_id=C.class_id
-            INNER JOIN students S ON S.class_id = C.class_id
-            INNER JOIN classes_students CS ON CS.class_id = S.class_id and CS.student_id = S.student_id
-            WHERE L.login_id = ?
-            AND C.class_id = ?
-            GROUP BY S.student_name
-            ORDER BY student_num asc ,class_id",[$_SESSION['username'], $_SESSION['class_id']]);
-
+try{
+}catch (PDOException $exception){
+    die('接続エラー:'.$exception->getMessage());
+}
 try{
 }catch (PDOException $exception){
     die('接続エラー:'.$exception->getMessage());
@@ -115,7 +108,7 @@ try{
             <tr>
                 <th><?=htmlspecialchars($st['student_num']) ?></th>
                 <th><?=htmlspecialchars($st['student_name'])?></th>
-                <td>100</td><!-- <th><?//=htmlspecialchars($row['月別の出席の推移'])?></th> -->
+                <td><?=htmlspecialchars($st['attend_rate']) ?></td><!-- 出席率 -->
                 <td>100</td><!--<th><?//=htmlspecialchars($row['累計の遅刻数'])?></th> -->
             </tr>
         <?php } $pdo=null; ?>
