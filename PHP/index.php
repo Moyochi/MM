@@ -15,9 +15,8 @@
         $class_id=$_SESSION['class']['id'][0];
     }
 
-    $student = $data = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
-
     try{
+        $student = $data = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
 }
@@ -112,7 +111,6 @@
             <!--人の表情が入ります-->
             <!--<input type="image" src="image/face.png">-->
 
-
             <!-- フォームタグ -->
             <p><form action="" method="post">
                 <!-- 写真が入ります -->
@@ -152,11 +150,11 @@
                         <tr>
                             <th><?=htmlspecialchars($st['student_num']) ?></th>
                             <th><a href="StudentPro.php"><?=htmlspecialchars($st['student_name'])?></a></th>
-                            <td>100</td><!-- <th><?//=htmlspecialchars($row['月別の出席の推移'])?></th> -->
-                            <td>100</td><!--<th><?//=htmlspecialchars($row['累計の遅刻数'])?></th> -->
-                            <td>100</td><!--<th><?//=htmlspecialchars($row['欠席数'])?></th> -->
-                            <td>100</td><!--<th><?//=htmlspecialchars($row['早退数'])?></th> -->
-                            <td>100</td><!--<th><?//=htmlspecialchars($row['出席率'])?></th> -->
+                            <td style="margin: 0; display: none;">100</td><!--<td style="margin: 0">--><?//=htmlspecialchars($st['']) ?><!--</td><!-- 月別出席 -->
+                            <td style="margin: 0"><?=htmlspecialchars($st['late']) ?></td><!-- 累計の遅刻数 -->
+                            <td style="margin: 0"><?=htmlspecialchars($st['absence']) ?></td><!-- 欠席数 -->
+                            <td style="margin: 0"><?=htmlspecialchars($st['early']) ?></td><!-- 相対数 -->
+                            <td style="margin: 0"><?=htmlspecialchars($st['attend_rate']) ?></td><!-- 出席率 -->
                         </tr>
                     <?php } $pdo=null; ?>
                     </tbody>

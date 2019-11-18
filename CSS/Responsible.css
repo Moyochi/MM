@@ -75,7 +75,7 @@ table{
 }
 th{
     border: 1px solid #ccc; /* 枠線 */
-    display: inline-block;
+    /*display: inline-block;*/
     padding: 30px;
 }
 td{

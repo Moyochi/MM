@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/functions.php';
 require_unlogined_session();
+
 require 'db.php';
 
 foreach (['teacher_id','password','token','submit'] as $key){
@@ -12,6 +13,7 @@ $errors=[];
 //POSTのときのみ実行
 if($_SERVER['REQUEST_METHOD']==='POST'){
     // csrf
+
 
     //idのパラメータチェック
     if (isset($_POST['teacher_id'])){
@@ -101,22 +103,18 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             <?php endforeach; ?>
         </ul>
         <?php endif; ?>
-        <form action="login.php" method="post">
-            <div class="i">
-            <p>ID</p>
-            <p><input type="text" name="teacher_id" placeholder="IDを入力してください。" size="50"　 value="<?php echo $teacher_id=isset($_POST['teacher_id']) ? $_POST['teacher_id']: ''; ?>"></p>
-            </div>
-
-<div class="p">
-            <p>PASSWORD</p>
-            <p><input type="password" name="password" placeholder="パスワードを入力してください。" size="50"></p>
-</div>
-
-
-            <!--画面遷移-->
-            <button type="submit">ログイン</button>
-
-        </form>
+            <form action="login.php" method="post">
+                <div class="i">
+                    <p>ID</p>
+                    <p><input type="text" name="teacher_id" placeholder="IDを入力してください。" size="50"　 value="<?php echo $teacher_id=isset($_POST['teacher_id']) ? $_POST['teacher_id']: ''; ?>"></p>
+                </div>
+                <div class="p">
+                    <p>PASSWORD</p>
+                    <p><input type="password" name="password" placeholder="パスワードを入力してください。" size="50"></p>
+                </div>
+                <!--画面遷移-->
+                <button type="submit">ログイン</button>
+            </form>
         </div>
 
     </body>
