@@ -105,7 +105,6 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             <div class="i">
             <p>ID</p>
             <p><input type="text" name="teacher_id" placeholder="IDを入力してください。" size="50"　 value="<?php echo $teacher_id=isset($_POST['teacher_id']) ? $_POST['teacher_id']: ''; ?>"></p>
-            <p><input type="text" name="username" placeholder="IDを入力してください。" size="50"　 value="<?php echo $username=isset($_POST['username']) ? $_POST['username']: ''; ?>"></p>
             </div>
 
 <div class="p">

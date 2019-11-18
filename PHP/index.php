@@ -23,7 +23,6 @@
 
 //var_dump($_SESSION);
 //echo h($_SESSION['teacher_name']);
-    $data = prepareQuery('select * from load_responsible_1 where class_id = ?',[11]);
 
 ?>
 
@@ -46,8 +45,7 @@
         <?php
 
 
-            $student = prepareQuery("select * from load_index_1 WHERE teacher_id = ? and month = ?"
-                ,[$_SESSION['teacher_id'], 10]);
+            $student = $data = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
 
             try{
             }catch (PDOException $exception){
@@ -56,11 +54,6 @@
         ?>
 
 
-    //梅崎大先生のアドバイス。
-//                $sql="SELECT CT.class_id, S.student_id, S.student_name
-//                FROM classes_students CT
-//                INNER JOIN students S
-//                ON CT.students_id = S.student_id";
 
         <!--どのアカウントで入ったか確認-->
 
