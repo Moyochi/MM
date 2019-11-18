@@ -1,21 +1,13 @@
 <?php
-require_once 'functions.php';
-require_logined_session();
+    require_once 'functions.php';
+    require_logined_session();
 
     header('Content-Type:text/html; charset=UTF-8');
     require 'db.php';
 
-    //var_dump($_GET);
-
-
-    $teacher = prepareQuery("
-        SELECT TH.class_id,class_name,T.teacher_name
-        FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
-        INNER JOIN mm.teachers_homerooms TH ON T.teacher_id=TH.teacher_id) 
-        INNER JOIN classes C ON TH.class_id=C.class_id 
-        WHERE L.login_id = ? 
-        ORDER BY class_id",[$_SESSION['username']]);
-
+//表示するグループのclass_idを設定。
+//初回表示時はセッションから、1番上のclass_idが利用され、
+//指定された場合は、getで受け取った内容を設定する。
     if(isset($_GET['class_id'])){
         $class_id=$_GET['class_id'];
     }else{
@@ -31,6 +23,7 @@ require_logined_session();
 
 //var_dump($_SESSION);
 //echo h($_SESSION['teacher_name']);
+
 ?>
 
 <!DOCTYPE html>
@@ -52,16 +45,7 @@ require_logined_session();
         <?php
 
 
-            $student = prepareQuery("SELECT TH.class_id,class_name,CS.student_num,S.student_name
-                    FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
-                    INNER JOIN mm.teachers_homerooms TH ON T.teacher_id=TH.teacher_id)
-                    INNER JOIN classes C ON TH.class_id=C.class_id
-                    INNER JOIN students S ON S.class_id = C.class_id
-                    INNER JOIN classes_students CS ON CS.class_id = S.class_id and CS.student_id = S.student_id
-                    WHERE L.login_id = ?
-                    AND C.class_id = ?
-                    GROUP BY S.student_name
-                    ORDER BY student_num asc ,class_id",[$_SESSION['username'], $class_id]);
+            $student = $data = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
 
             try{
             }catch (PDOException $exception){
@@ -70,11 +54,6 @@ require_logined_session();
         ?>
 
 
-    //梅崎大先生のアドバイス。
-//                $sql="SELECT CT.class_id, S.student_id, S.student_name
-//                FROM classes_students CT
-//                INNER JOIN students S
-//                ON CT.students_id = S.student_id";
 
         <!--どのアカウントで入ったか確認-->
 
@@ -187,11 +166,11 @@ require_logined_session();
                         <tr>
                             <th><?=htmlspecialchars($st['student_num']) ?></th>
                             <th><a href="StudentPro.php"><?=htmlspecialchars($st['student_name'])?></a></th>
-                            <td>100</td><!-- <th><?//=htmlspecialchars($row['月別の出席の推移'])?></th> -->
-                            <td>100</td><!--<th><?//=htmlspecialchars($row['累計の遅刻数'])?></th> -->
-                            <td>100</td><!--<th><?//=htmlspecialchars($row['欠席数'])?></th> -->
-                            <td>100</td><!--<th><?//=htmlspecialchars($row['早退数'])?></th> -->
-                            <td>100</td><!--<th><?//=htmlspecialchars($row['出席率'])?></th> -->
+                            <td style="margin: 0; display: none;">100</td><!--<td style="margin: 0">--><?//=htmlspecialchars($st['']) ?><!--</td><!-- 月別出席 -->
+                            <td style="margin: 0"><?=htmlspecialchars($st['late']) ?></td><!-- 累計の遅刻数 -->
+                            <td style="margin: 0"><?=htmlspecialchars($st['absence']) ?></td><!-- 欠席数 -->
+                            <td style="margin: 0"><?=htmlspecialchars($st['early']) ?></td><!-- 相対数 -->
+                            <td style="margin: 0"><?=htmlspecialchars($st['attend_rate']) ?></td><!-- 出席率 -->
                         </tr>
                     <?php } $pdo=null; ?>
                     </tbody>

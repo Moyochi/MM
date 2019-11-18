@@ -19,7 +19,7 @@
         @session_start();
         //ログインしていなければlogin.phpに遷移
         //login.phpまだ作ってない
-        if(!isset($_SESSION["username"])){
+        if(!isset($_SESSION["teacher_id"])){
             header('Location: ./login.php');
             exit;
         }
