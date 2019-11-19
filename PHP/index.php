@@ -12,7 +12,7 @@
         $class_id=$_GET['class_id'];
     }else{
         //login.phpから飛んできた1行目のclass_idが入る。
-        $class_id=$teacher[0]['class_id'];
+        $class_id=$_SESSION['class']['id'][0];
     }
 
 
@@ -85,7 +85,7 @@
                             location.href = 'index.php?class_id=' + a;
                             <?php
         //                      $class_idをほかのページでも使えるようにした。
-                                $_SESSION['class_id']=$class_id;
+                                $_SESSION['index_class_id']=$class_id;
                             ?>
                         }
                     </script>

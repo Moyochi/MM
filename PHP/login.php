@@ -45,6 +45,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
                 $_SESSION['class']['id'][] = $row['class_id'];
                 $_SESSION['class']['name'][] = $row['class_name'];
             }
+            $_SESSION['index_class_id']=$_SESSION['class']['id'][0];
             // 画面遷移する処理
             header('Location: index.php');
             exit();
