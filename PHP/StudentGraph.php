@@ -1,9 +1,78 @@
 <?php
 require_once 'functions.php';
-require_logined_session();
-
-header('Content-Type:text/html; charset=UTF-8');
 require 'db.php';
+
+require_logined_session();
+header('Content-Type:text/html; charset=UTF-8');
+?>
+
+<?php
+$_GET['studnet_id'] = '1000001';
+if(isset($_GET['studnet_id'])){
+    $student_id = $_GET['studnet_id'];
+}else{
+    header('Location: index.php');
+}
+$data_previous = prepareQuery("
+    select student_id, month, `1`,`2`,`3`
+    from attend_count_all_month
+    where month between 4 and 8
+      and student_id = ?",[$student_id]);
+$data_late = prepareQuery("
+    select student_id, month, `1`,`2`,`3`
+    from attend_count_all_month
+    where student_id = ? and month between 9 and 12 or student_id = ? and month = 1
+    ",[$student_id,$student_id]);
+
+//SQLで受け取るデータが、出席情報が存在している月の情報だけなので、該当月に1回も出席していない生徒の場合は、
+//0というデータが入っていない。そのため、データの形式を統一するために、0で埋める作業をする。
+$month_pre = [4,5,6,7,8];
+$graph_data_pre = [];
+$month_late = [9,10,11,12,1];
+$graph_data_late = [];
+
+$i= 0;
+foreach ($data_previous as $row){
+    while(true){
+        if($month_pre[$i]==$row['month']){
+            $graph_data_pre[] = [$row[1],$row[2],$row[3]];
+            $i++;
+            break;
+        }
+        $graph_data_pre[] = [0,0,0];
+        $i++;
+    }
+}
+$i = 5 - count($graph_data_pre);
+while ($i>0){
+    $graph_data_pre[] = [0,0,0];
+    $i--;
+}
+$i= 0;
+foreach ($data_late as $row){
+    while(true){
+        if($month_late[$i]==$row['month']){
+            $graph_data_late[] = [$row[1],$row[2],$row[3]];
+            debug([$row[1],$row[2],$row[3]]);
+            echo  "<br><br>";
+            $i++;
+            break;
+        }
+        $graph_data_late[] = [0,0,0];
+        $i++;
+    }
+}
+$i = 5 - count($graph_data_late);
+while ($i>0){
+    $graph_data_late[] = [0,0,0];
+    $i--;
+}
+
+var_dump($graph_data_pre);
+echo '<br><br>';
+    var_dump($graph_data_late);
+
+?>
 ?>
 
 <!DOCTYPE html>

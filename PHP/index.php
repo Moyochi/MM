@@ -12,23 +12,13 @@
         //login.phpから飛んできた1行目のclass_idが入る。
         $class_id=$_SESSION['class']['id'][0];
     }
-var_dump($_SESSION['class']);
-$student = prepareQuery("select * from load_responsible_1 where class_id = ?",[$_SESSION['class']['id'][0]]);
 
-try{
-}catch (PDOException $exception){
-    die('接続エラー:'.$exception->getMessage());
+    try{
+        $student = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
+    }catch (PDOException $exception){
+        die('接続エラー:'.$exception->getMessage());
 }
 
-
-
-////    echo $teacher['teacher_name'];
-//$_SESSION['teacher_name']=$teacher[1]['teacher_name'];
-
-//var_dump($_SESSION);
-
-//var_dump($_SESSION);
-//echo h($_SESSION['teacher_name']);
 ?>
 
 <!DOCTYPE html>
@@ -156,7 +146,6 @@ try{
                     <!-- exec_selectによる折り返し処理:開始 -->
 
                     <tbody>
-
                     <?php foreach ($student as $st){ ?>
                         <tr>
                             <th><?=htmlspecialchars($st['student_num']) ?></th>

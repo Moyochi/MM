@@ -1,30 +1,47 @@
 <?php
-require_once 'functions.php';
-require_logined_session();
+    require_once 'functions.php';
+    require_logined_session();
+    require 'db.php';
 
-header('Content-Type:text/html; charset=UTF-8');
-require 'db.php';
-if(isset($_GET['class_id'])){
-    $class_id=$_GET['class_id'];
-}else{
-    //login.phpから飛んできた1行目のclass_idが入る。
-    $class_id=$_SESSION['class']['id'][0];
-}
+    header('Content-Type:text/html; charset=UTF-8');
 
-//生徒の情報viewを選択
-$student = prepareQuery("select * from load_responsible_1 where class_id = ?",[$class_id]);
-$subject= prepareQuery("select * from mm.students_subjects where class_id= ?",[$class_id]);
+    if(isset($_GET['class_id'])){
+        $class_id = $_GET['class_id'];
+        $class_name = $_GET['class_name'];
+    }else{
+        //別のページから飛んできた時は1行目のclassが入る。
+        $class_id = $_SESSION['class']['id'][0];
+        $class_name = $_SESSION['class']['name'][0];
+    }
+    if(isset($_GET['time'])){
+        $time = $_GET['time'];
+    }else{
+        $time = 1;
+    }
+    //指定なしの場合は今日の日付を設定する。
+    if(isset($_GET['day'])){
+        $day = $_GET['day'];
+    }else{
+        $day = date("m-d");
+    }
 
-var_dump($_SESSION);
+    $student = prepareQuery("
+        select SQ.student_id, student_num, student_name, SAL.attend_id, attend_name, ROUND(rate)rate
+        from students_attend_lesson SAL
+          right join (SELECT S.student_id, CS.student_num, student_name
+          FROM students S
+            INNER JOIN classes_students CS on CS.student_id = S.student_id
+          WHERE S.class_id = ?
+          ORDER BY student_num asc) SQ on SAL.student_id = SQ.student_id
+          left join attend a on SAL.attend_id = a.attend_id
+          left join lesson_rate LR on SQ.student_id = LR.student_id and SAL.subject_id = LR.subject_id
+        where date = ? and time_period = ?",[$class_id,date('Y-').$day,$time]);
 
-try{
-}catch (PDOException $exception){
-    die('接続エラー:'.$exception->getMessage());
-}
-try{
-}catch (PDOException $exception){
-    die('接続エラー:'.$exception->getMessage());
-}
+    try{
+    }catch (PDOException $exception){
+        die('接続エラー:'.$exception->getMessage());
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -101,7 +118,7 @@ try{
 
 
 <!-- 先生の名前 -->
-<a href="./TeacherPro.php" ><?php echo h($_SESSION['teacher_name']) ?></a>
+<a href="./TeacherPro.php" ><?php echo h($_SESSION['username']) ?></a>
 
 
 <!-- 上のメニューバー -->
@@ -133,26 +150,26 @@ try{
     <input type="image" src="../image/noimage.gif">
 
     <p>
-    <table id="ac">
-        <tr class="ad">
-            <th class="as">出席番号</th>
-            <th class="as">名前</th>
-            <th class="as">出席率</th>
-            <th class="as">出席判定</th>
+    <table>
+        <tr>
+            <th>出席番号</th>
+            <th>名前</th>
+            <th>出席率</th>
+            <th>出席判定</th>
         </tr>
         <!-- exec_selectによる折り返し処理:開始 -->
 
-        <?php foreach ($student as $st){ ?>
-            <tr class="ad">
-                <th class="as"><?=htmlspecialchars($st['student_num']) ?></th>
-                <th class="as"><?=htmlspecialchars($st['student_name'])?></th>
-                <td class="as"><?=htmlspecialchars($st['attend_rate']) ?></td><!-- 出席率 -->
-                <td class="as"><php? ?></td><!--<th><?//=htmlspecialchars($row['累計の遅刻数'])?></th> -->
-            </tr>
-        <?php } $pdo=null; ?>
-    </table>
-    <!--            <input type="submit" value="決定">-->
-    <button type=“submit”>決定</button>
+                <?php foreach ($student as $row){ ?>
+                    <tr>
+                        <th><?=htmlspecialchars($row['student_num']) ?></th>
+                        <th><?=htmlspecialchars($row['student_name'])?></th>
+                        <th><?=htmlspecialchars($row['rate'].'%')?></th>
+                        <th><?=htmlspecialchars($row['attend_name'])?></th>
+                        </tr>
+                <?php } $pdo=null; ?>
+            </table>
+<!--            <input type="submit" value="決定">-->
+            <button type=“submit”>決定</button>
 
 </form>
 

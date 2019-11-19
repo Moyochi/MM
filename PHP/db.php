@@ -2,12 +2,12 @@
 $db = pdo_init();
 function pdo_init(){
     try {
-        global $db;
-        $db = new PDO('mysql:host=localhost;port=33066;dbname=mm', 'root', 'password');
+        $db = new PDO('mysql:host=localhost;dbname=mm', 'root', '');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $db;
     }catch (PDOException $e) {
-        return $e->getMessage();
+        echo $e->getMessage();
+        exit;
     }
 }
 function query($sql){
