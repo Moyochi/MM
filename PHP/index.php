@@ -6,20 +6,20 @@
     require 'db.php';
 
     //var_dump($_GET);
-
     if(isset($_GET['class_id'])){
         $class_id=$_GET['class_id'];
     }else{
         //login.phpから飛んできた1行目のclass_idが入る。
         $class_id=$_SESSION['class']['id'][0];
     }
-
-$student = prepareQuery("select * from load_responsible_1 where class_id = ?",[$class_id]);
+var_dump($_SESSION['class']);
+$student = prepareQuery("select * from load_responsible_1 where class_id = ?",[$_SESSION['class']['id'][0]]);
 
 try{
 }catch (PDOException $exception){
     die('接続エラー:'.$exception->getMessage());
 }
+
 
 
 ////    echo $teacher['teacher_name'];
@@ -74,16 +74,16 @@ try{
                             location.href = 'index.php?class_id=' + a;
                             <?php
         //                      $class_idをほかのページでも使えるようにした。
-                                $_SESSION['class_id']=$class_id;
+                                $_SESSION['index_class_id']=$class_id;
                             ?>
                         }
                     </script>
                     <select id="class_name" onchange="test()">
                     <!-- 折り返し処理 -->
                         <div id="re">
-                    <?php foreach($teacher as $d){?>
+                    <?php foreach($_SESSION['class']['name'] as $d){?>
                     <!--flex-grow: 1;-->
-                        <option value="<?=htmlspecialchars($d['class_id']) ?>" <?php if(isset($_GET['class_id']) && $d['class_id'] == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d['class_name']) ?></option>
+                        <option value="<?=htmlspecialchars($d) ?>" <?php if(isset($_GET['class_id']) && $d == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d) ?></option>
                     <?php }$pdo=null; ?>
                         </div>
                     </select>
@@ -156,6 +156,7 @@ try{
                     <!-- exec_selectによる折り返し処理:開始 -->
 
                     <tbody>
+
                     <?php foreach ($student as $st){ ?>
                         <tr>
                             <th><?=htmlspecialchars($st['student_num']) ?></th>

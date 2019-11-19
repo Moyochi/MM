@@ -10,7 +10,12 @@ if(isset($_GET['class_id'])){
     //login.phpから飛んできた1行目のclass_idが入る。
     $class_id=$_SESSION['class']['id'][0];
 }
+
+//生徒の情報viewを選択
 $student = prepareQuery("select * from load_responsible_1 where class_id = ?",[$class_id]);
+$subject= prepareQuery("select * from mm.students_subjects where class_id= ?",[$class_id]);
+
+var_dump($_SESSION);
 
 try{
 }catch (PDOException $exception){
@@ -57,42 +62,39 @@ try{
 <ul id="myList">
 </ul>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script type="text/javascript">
-
-    // html読み込み後に実行されるJavascriptの処理
-    $(function(){
-        $('#datepicker').datepicker({dateFormat:'yy-mm-dd'});
-        $('#datepicker').datepicker('setDate', new Date());
-    });
 
 
 
-    // 日付入力欄が変更された時のイベント
-    $('#datepicker').change(function() {
-        selected = this.value; // 入力欄の値を取得
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8081/mm/apitest/api.php',
-            dataType: 'json',
-            data: { date: selected },   // パラメータ(date)に入力欄の日付を設定する。
-            success: function(json){
-                var $myList = $('#myList'); // <ul>を取得する。
-                $myList.empty(); // <ul>の子要素<li>を削除する。
 
-                // 取得したデータを<li>として追加
-                for( i in json ) {
-                    $myList.append($('<li/>').text(json[i]));
-                }
-            },
-            error: function(XMLHttpRequest,textStatus,errorThrown){
-                // TODO:エラー処理
-                alert('test');
-            },
-        });
-    });
-</script>
+
+
+<!-- 科目選択 -->
+<div id="class" class="title_menu">
+    <script type="text/javascript">
+        function test () {
+            // 選択されたオプションのバリューを取得する
+            var element = document.getElementById("class_name");
+            // クラスIDを自分に渡すURLを組み立てる
+            var a = element.value;
+            // location.hrefに渡して遷移する
+            location.href = 'index.php?class_id=' + a;
+            <?php
+            //                      $class_idをほかのページでも使えるようにした。
+            $_SESSION['index_class_id']=$class_id;
+            ?>
+        }
+    </script>
+    <select id="class_name" onchange="test()">
+        <!-- 折り返し処理 -->
+        <div id="re">
+            <?php foreach($_SESSION['class']['name'] as $d){?>
+                <!--flex-grow: 1;-->
+                <option value="<?=htmlspecialchars($d) ?>" <?php if(isset($_GET['class_id']) && $d == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d) ?></option>
+            <?php }$pdo=null; ?>
+        </div>
+    </select>
+</div>
+</div>
 
 
 

@@ -51,6 +51,46 @@
 
 
 
+<!-- カレンダー -->
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript">
+
+    // html読み込み後に実行されるJavascriptの処理
+    $(function(){
+        $('#datepicker').datepicker({dateFormat:'yy-mm-dd'});
+        $('#datepicker').datepicker('setDate', new Date());
+    });
+
+
+
+    // 日付入力欄が変更された時のイベント
+    $('#datepicker').change(function() {
+        selected = this.value; // 入力欄の値を取得
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8081/mm/apitest/api.php',
+            dataType: 'json',
+            data: { date: selected },   // パラメータ(date)に入力欄の日付を設定する。
+            success: function(json){
+                var $myList = $('#myList'); // <ul>を取得する。
+                $myList.empty(); // <ul>の子要素<li>を削除する。
+
+                // 取得したデータを<li>として追加
+                for( i in json ) {
+                    $myList.append($('<li/>').text(json[i]));
+                }
+            },
+            error: function(XMLHttpRequest,textStatus,errorThrown){
+                // TODO:エラー処理
+                alert('test');
+            },
+        });
+    });
+</script>
+
+
+
 
 
 <!--検索バー-->
