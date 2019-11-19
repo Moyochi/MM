@@ -7,7 +7,6 @@ header('Content-Type:text/html; charset=UTF-8');
 ?>
 
 <?php
-$_GET['studnet_id'] = '1000001';
 if(isset($_GET['studnet_id'])){
     $student_id = $_GET['studnet_id'];
 }else{
@@ -53,7 +52,6 @@ foreach ($data_late as $row){
     while(true){
         if($month_late[$i]==$row['month']){
             $graph_data_late[] = [$row[1],$row[2],$row[3]];
-            debug([$row[1],$row[2],$row[3]]);
             echo  "<br><br>";
             $i++;
             break;
