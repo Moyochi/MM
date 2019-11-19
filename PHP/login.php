@@ -8,7 +8,6 @@ foreach (['teacher_id','password','token','submit'] as $key){
 }
 //エラーを格納する配列を初期化
 $errors=[];
-var_dump($_POST);
 //POSTのときのみ実行
 if($_SERVER['REQUEST_METHOD']==='POST'){
     // csrf

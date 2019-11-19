@@ -1,5 +1,6 @@
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
     <meta charset="UTF-8">
     <title>ACMS</title>
 </head>
@@ -25,19 +26,32 @@
 </div>
 
 
-<!--日付-->
-<p id="day">
-    <script type="text/javascript">
-        weeks=new Array("日","月","火","水","木","金","土");
-        today=new Date();
-        m=today.getMonth()+1;
-        d=today.getDate();
-        w=weeks[today.getDay()];
-        document.write("<span>",m,"<\/span>月");
-        document.write("<span>",d,"<\/span>日");
-        document.write("(<span>",w,"<\/span>)");
-    </script>
-</p>
+
+
+<!--    Jqueryのライブラリ-->
+<script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous">
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<!--momentのライブラリ（日付）-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ja.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#datepicker').datepicker({dateFormat: "yy-mm-dd"});
+        $('#datepicker').datepicker("setDate",new Date());
+        var now_jpn = moment();
+    })
+</script>
+
+
+
+
 
 <!--検索バー-->
 🔎<input type="text" id="sa-ch">
