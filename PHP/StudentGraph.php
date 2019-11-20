@@ -12,17 +12,32 @@ if(isset($_GET['studnet_id'])){
 }else{
     header('Location: index.php');
 }
-$data_previous = prepareQuery("
+$count_data_previous = prepareQuery("
     select student_id, month, `1`,`2`,`3`
     from attend_count_all_month
     where month between 4 and 8
       and student_id = ?",[$student_id]);
-$data_late = prepareQuery("
+$count_data_late = prepareQuery("
     select student_id, month, `1`,`2`,`3`
     from attend_count_all_month
     where student_id = ? and month between 9 and 12 or student_id = ? and month = 1
     ",[$student_id,$student_id]);
+$rate_data_previous = prepareQuery("
+    select * 
+    from load_studentgraph_2_previous
+    where student_id = ?",[$student_id]);
+$rate_data_late = prepareQuery("
+    select * 
+    from load_studentgraph_2_late
+    where student_id = ?",[$student_id]);
 
+var_dump($count_data_previous);
+echo '<br>';
+var_dump($count_data_late);
+echo '<br>';
+var_dump($rate_data_previous);
+echo '<br>';
+var_dump($rate_data_late);
 //SQLで受け取るデータが、出席情報が存在している月の情報だけなので、該当月に1回も出席していない生徒の場合は、
 //0というデータが入っていない。そのため、データの形式を統一するために、0で埋める作業をする。
 $month_pre = [4,5,6,7,8];
