@@ -43,8 +43,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
                 WHERE L.login_id = ?
                 ORDER BY class_id",[$teacher_id]);
             foreach ($class as $row) {
-                $_SESSION['class']['id'][] = $row['class_id'];
-                $_SESSION['class']['name'][] = $row['class_name'];
+                $_SESSION['class'][] = ['id' => $row['class_id'],'name' => $row['class_name']];
             }
             // 画面遷移する処理
             header('Location: index.php');
