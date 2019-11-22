@@ -3,49 +3,47 @@ require 'db.php';
 ?>
 
 <?php
-session_destroy();
-    //テスト用データ
-    $_POST['data']['class_id'] = 1;
-    $_POST['data']['class_year'] = $_POST['grade'];
+//テスト用データ
+    //Users.html -web
 
+        //$_POST['user-search'] 遷移先画面のurl /PHP/['ここを入れる']
 
-    if(isset($_POST['redirect'])){
-        //sa-chからの検索。
-        if ($_POST['redirect'] == "redirect_name_search.php") {
-            $data = prepareQuery('select * from students where student_id = ? or student_name = ?',[$_POST['name'],$_POST['name']]);
-        }
-        //AttendanceConfirmation.htmlからの検索。
-        else if($_POST['redirect'] == "redirect_ACM.php"){
+        //$_POST['name'] 検索するユーザーの学籍番号 or 学生ユーザー名。
+
+    //出席情報取得API -electron
+        //$_POST['pc_id'] リクエスト元PCのpc_id
+        $_POST['pc_id'] = '11_A';
+
+        //$_POST['request_flg'] どのAPIを呼び出すかのフラグ。
+
+    //クラス出席状況取得API -electron
+        //$_POST['day_week'] 何曜日かの数字。月:1 火:2 ・・・
+        $_POST['day_week'] = 1;
+
+        //$_POST['time_period'] 何限目かの数字。 1限目:1 2限目:2　・・・
+        $_POST['time_period'] = 1;
+
+        //$_POST['request_flg'] どのAPIを呼び出すかのフラグ。
+
+        //$_POST['pc_id'] リクエスト元PCのpc_id
+        $_POST['pc_id'] = '11_A';
+
+    $day = date("Y-m-d");
+
+    //テストデータ
+    $day = "2019-09-01";
+
+//
+    if(isset($_POST['user-search'])){
+        //Users.html -web
+        $data = prepareQuery('select * from students where student_id = ? or student_name = ?',[$_POST['name'],$_POST['name']]);
+        $_POST['user-search-data'] = $data;
+        header("Location: http://localhost:8081/mm_project/PHP/" . $_POST['user-search']);
+    }else if(isset($_POST['pc_id']) and isset($_POST['request_flg'])) {
+        //出席情報取得API -electron
+        if ($_POST['request_flg'] == 'yes.html') {
             $data = prepareQuery(
-                "select student_num, student_name, ROUND(lesson_rate)lesson_rate, COALESCE(attend_name,'欠席')attend_data
-            from (
-              select S.student_id,CS.student_num,student_name,COALESCE(rate, 0) lesson_rate
-              from (select SQ1.class_id
-                    from (select *
-                          from courses_classes
-                          where class_id = ? ## 学科選択
-                         ) SQ1
-                    where SQ1.class_year = ? ## 学年選択
-                   ) SQ2
-                left join students S on SQ2.class_id = S.class_id
-                left join classes_students CS on SQ2.class_id = CS.class_id and S.student_id = CS.student_id
-                left join lesson_rate LR on S.student_id = LR.student_id and LR.subject_id = ? ## 教科選択
-              order by S.student_id
-            )SQ3 left join students_attend_lesson SAL on SQ3.student_id = SAL.student_id and SAL.date = ? and SAL.time_period = ?
-              left join attend A on SAL.attend_id=A.attend_id
-              order by SQ3.student_num",
-                [$_POST['data']['class_id'], $_POST['data']['class_year'], $_POST['subject_id'], $_POST['date'], $_POST['time']]
-            );
-        }
-        session_start();
-        $_SESSION['data'] = $data;
-        header("Location: http://localhost:63342/mm_project/PHP/" . $_POST['redirect']);
-    }
-
-    //出席情報取得API
-    if(isset($_POST['pc_id'])){
-        $data = prepareQuery(
-            "select SID.student_id,student_name,COALESCE(ROUND(LR.rate),0)totalRate,COALESCE(ROUND(LRM.rate),0)monthRate
+                "select SID.student_id,student_name,COALESCE(ROUND(LR.rate),0)totalRate,COALESCE(ROUND(LRM.rate),0)monthRate
                 from (
                   select
                     student_id,
@@ -55,8 +53,26 @@ session_destroy();
                 )SID
                   left join lesson_rate LR on SID.student_id = LR.student_id and LR.subject_id = ?
                   left join lesson_rate_month LRM on SID.student_id = LRM.student_id and LRM.subject_id = ? and LRM.month = ?",
-            [$_POST['student_id'], $_POST['subject_id'], $_POST['subject_id'], date('m')+1]
-        );
-        print json_encode($data, JSON_PRETTY_PRINT);
+                [$_POST['student_id'], $_POST['subject_id'], $_POST['subject_id'], date('m') + 1]
+            );
+            print json_encode($data, JSON_PRETTY_PRINT);
+        }
+        //クラス出席状況取得API -electron
+        if ($_POST['request_flg'] == 'ACM.html') {
+            $data = prepareQuery("
+                select student_id,attend_id
+                from(
+                  select time_period, subject_id
+                  from pc_classroom PC
+                  left join classrooms_lesson_schedule CLS on PC.classroom_id = CLS.classroom_id
+                  where PC.pc_id = ?
+                        and day_of_the_week = ?
+                        and time_period = ?)SQ
+                  left join students_attend_lesson SAS on SAS.time_period = SQ.time_period and SAS.subject_id = SQ.subject_id
+                where date = ?",
+                [$_POST['pc_id'], $_POST['day_week'], $_POST['time_period'], $day]
+            );
+            print json_encode($data, JSON_PRETTY_PRINT);
+        }
     }
 ?>
