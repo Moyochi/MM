@@ -36,9 +36,10 @@ require 'db.php';
 //
     if(isset($_POST['user-search'])){
         //Users.html -web
-        $data = prepareQuery('select * from students where student_id = ? or student_name = ?',[$_POST['name'],$_POST['name']]);
-        $_POST['user-search-data'] = $data;
-        header("Location: http://localhost:8081/mm_project/PHP/" . $_POST['user-search']);
+        $data = prepareQuery('select student_id from students where student_id = ? or student_name = ?',[$_POST['name'],$_POST['name']]);
+        $get_student_id = '?selected_student_id='.$data[0]['student_id'];
+        var_dump($data[0]);
+        header("Location: http://localhost:8081/mm_project/PHP/StudentPro.php" . $get_student_id);
     }else if(isset($_POST['pc_id']) and isset($_POST['request_flg'])) {
         //出席情報取得API -electron
         if ($_POST['request_flg'] == 'yes.html') {
