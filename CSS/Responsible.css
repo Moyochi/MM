@@ -74,11 +74,29 @@ table{
     left: 340px;
 }
 th{
-    border: 1px solid #ccc; /* 枠線 */
-    /*display: inline-block;*/
     padding: 30px;
+    margin: 25px;
+    /*width: 100px;*/
 }
-td{
+th:nth-child(1) {
+    width: 70px;
+}
+th:nth-child(2) {
+    width: 40px;
+}
+th:nth-child(3){
+    width: 150px;
+}
+th:nth-child(4){
+    width: 100px;
+}
+th:nth-child(5),th:nth-child(6),th:nth-child(7){
+    width: 50px;
+}
+#sname{
+    width: 30px;
+}
+td:nth-child{
     display: inline-block;
     padding: 30px;
     margin: 35px;

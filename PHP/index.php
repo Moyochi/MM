@@ -64,7 +64,7 @@
                             location.href = 'index.php?class_id=' + a;
                             <?php
         //                      $class_idをほかのページでも使えるようにした。
-                                $_SESSION['class_id']=$class_id;
+                                $_SESSION['index_class_id']=$class_id;
                             ?>
                         }
                     </script>
@@ -84,9 +84,10 @@
 
             <!-- 上のメニューバー -->
             <div class="bu">
-            <a href="AttendanceConfirmation.php" id="attend">状況管理</a>
-            <a href="ACM.php" id="attendata">出席簿</a>
-            <a href="TeacherPro.php" id="teacher">担任</a>
+                <a href="./AttendanceConfirmation.php" id="edit">編集</a>
+                <a href="AttendanceConfirmation.php" id="attend">状況管理</a>
+                <a href="ACM.php" id="attendata">出席簿</a>
+                <a href="TeacherPro.php" id="teacher">担任</a>
             <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
             </div>
 
@@ -159,7 +160,7 @@
                     <?php } $pdo=null; ?>
                     </tbody>
                 </table>
-                <a href="./Resuser.php" id="edit">編集</a>
+                <a href="ResponsibleEdit.php" id="edit">編集</a>
             </form>
         </div>
     </body>
