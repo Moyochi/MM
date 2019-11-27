@@ -49,11 +49,12 @@ while ($i>0){
     $i--;
 }
 $i= 0;
+var_dump($data);
 foreach ($data_late as $row){
     while(true){
         if($month_late[$i]==$row['month']){
             $graph_data_late[] = [$row[1],$row[2],$row[3]];
-            debug([$row[1],$row[2],$row[3]]);
+//            debuzg([$row[1],$row[2],$row[3]]);
             echo  "<br><br>";
             $i++;
             break;

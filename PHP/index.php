@@ -13,7 +13,7 @@
         $class_id=$_SESSION['class']['id'][0];
     }
 
-    try{
+try{
         $student = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
@@ -71,7 +71,7 @@
                     <select id="class_name" onchange="test()">
                     <!-- 折り返し処理 -->
                         <div id="re">
-                    <?php foreach($_SESSION['class']['name'] as $d){?>
+                    <?php foreach($_SESSION['class']['id'] as $d){?>
                     <!--flex-grow: 1;-->
                         <option value="<?=htmlspecialchars($d) ?>" <?php if(isset($_GET['class_id']) && $d == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d) ?></option>
                     <?php }$pdo=null; ?>
@@ -84,10 +84,10 @@
 
             <!-- 上のメニューバー -->
             <div class="bu">
-            <a href="AttendanceConfirmation.php" id="attend">状況管理</a>
-            <a href="ACM.php" id="attendata">出席簿</a>
-            <a href="TeacherPro.php" id="teacher">担任</a>
-            <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
+                <a href="./ResponsibleEdit.php" id="edit">編集</a>
+                <a href="ACM1.php" id="attendata">出席簿</a>
+                <a href="TeacherPro.php" id="teacher">担任</a>
+                <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
             </div>
 
         <!--検索バー -->
@@ -97,6 +97,8 @@
         </div>
 
             <div class="contents">
+
+
                 <ul class="nav">
                 <li><a href="./index.php">担当グループ</a></li>
                 <li><a href="Group.php">グループ管理</a></li>
@@ -106,61 +108,61 @@
                 <li><a href="Classroom.php">教室管理</a></li>
                 <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
                 </ul>
-            </div>
-
-            <!--人の表情が入ります-->
-            <!--<input type="image" src="image/face.png">-->
-
-            <!-- フォームタグ -->
-            <p><form action="" method="post">
-                <!-- 写真が入ります -->
-                <!-- グラフに飛ぶよん -->
-                <form action="ぐらふのPHP" method="post"></form>
-                <input type="image" src="" id="img">
 
 
 
-                <!-- クラスメンバーの表示 -->
-                <style>
-                    td {
-                        border: 1px solid #000;
-                    }
-                    td:nth-child(1),
-                    td:nth-child(2) {
-                        border: none;
-                    }
-                </style>
 
-                <table>
-                    <thead>
-                    <tr>
-                        <th>出席番号</th>
-                        <th>名前</th>
-                        <th>月別の出席の推移</th>
-                        <th>累計の遅刻数</th>
-                        <th>欠席数</th>
-                        <th>早退数</th>
-                        <th>出席率</th>
-                    </tr>
-                    </thead>
-                    <!-- exec_selectによる折り返し処理:開始 -->
+                <!--人の表情が入ります-->
+                <!--<input type="image" src="image/face.png">-->
 
-                    <tbody>
-                    <?php foreach ($student as $st){ ?>
+
+                <!-- フォームタグ -->
+                <p><form action="ACM1.php" method="post">
+                    <!-- 写真が入ります -->
+                    <!-- グラフに飛ぶよん -->
+                    <form action="ぐらふのPHP" method="post"></form>
+<!--                    <input type="image" src="" id="img">-->
+
+
+
+                    <!-- クラスメンバーの表示 -->
+                    <style>
+                        td {
+                            border: 1px solid #000;
+                        }
+                        td:nth-child(1),
+                        td:nth-child(2) {
+                            border: none;
+                        }
+                    </style>
+                    <table>
+                        <thead>
                         <tr>
-                            <th><?=htmlspecialchars($st['student_num']) ?></th>
-                            <th><a href="StudentPro.php"><?=htmlspecialchars($st['student_name'])?></a></th>
-                            <td style="margin: 0; display: none;">100</td><!--<td style="margin: 0">--><?//=htmlspecialchars($st['']) ?><!--</td><!-- 月別出席 -->
-                            <td style="margin: 0"><?=htmlspecialchars($st['late']) ?></td><!-- 累計の遅刻数 -->
-                            <td style="margin: 0"><?=htmlspecialchars($st['absence']) ?></td><!-- 欠席数 -->
-                            <td style="margin: 0"><?=htmlspecialchars($st['early']) ?></td><!-- 相対数 -->
-                            <td style="margin: 0"><?=htmlspecialchars($st['attend_rate']) ?></td><!-- 出席率 -->
+                            <th>出席番号</th>
+                            <th>名前</th>
+                            <th>月別の出席の推移</th>
+                            <th>累計の遅刻数</th>
+                            <th>欠席数</th>
+                            <th>出席率</th>
                         </tr>
-                    <?php } $pdo=null; ?>
-                    </tbody>
-                </table>
-                <a href="./Resuser.php" id="edit">編集</a>
-            </form>
-        </div>
+                        </thead>
+                        <!-- exec_selectによる折り返し処理:開始 -->
+
+                        <tbody>
+                        <?php foreach ($student as $st){ ?>
+                            <tr>
+                                <th><?=htmlspecialchars($st['student_num']) ?></th>
+                                <th><a id="name" href="StudentPro.php"><?=htmlspecialchars($st['student_name'])?></a></th>
+                                <td style="margin: 0"><?=htmlspecialchars($st['late']) ?></td><!-- 累計の遅刻数 -->
+                                <td style="margin: 0"><?=htmlspecialchars($st['absence']) ?></td><!-- 欠席数 -->
+                                <td style="margin: 0"><?=htmlspecialchars($st['early']) ?></td><!-- 相対数 -->
+                                <td style="margin: 0"><?=htmlspecialchars($st['attend_rate']) ?></td><!-- 出席率 -->
+                            </tr>
+                        <?php } $pdo=null; ?>
+                        </tbody>
+                    </table>
+                </form>
+
+            </div>
     </body>
 </html>

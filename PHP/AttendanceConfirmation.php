@@ -36,7 +36,6 @@
           left join attend a on SAL.attend_id = a.attend_id
           left join lesson_rate LR on SQ.student_id = LR.student_id and SAL.subject_id = LR.subject_id
         where date = ? and time_period = ?",[$class_id,date('Y-').$day,$time]);
-
     try{
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
@@ -142,38 +141,40 @@
         <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
+
+
+    <!--写真が入ります-->
+    <!--グラフに飛ぶよん-->
+    <form action="update.php" method="post">
+        <input type="image" src="../image/noimage.gif">
+
+        <p>
+        <table>
+            <tr>
+                <th>出席番号</th>
+                <th>名前</th>
+                <th>出席率</th>
+                <th>出席判定</th>
+            </tr>
+            <!-- exec_selectによる折り返し処理:開始 -->
+
+            <?php foreach ($student as $row){ ?>
+                <tr>
+                    <th><?=htmlspecialchars($row['student_num']) ?></th>
+                    <th><?=htmlspecialchars($row['student_name'])?></th>
+                    <th><?=htmlspecialchars($row['rate'].'%')?></th>
+                    <th><?=htmlspecialchars($row['attend_name'])?></th>
+                </tr>
+            <?php } $pdo=null; ?>
+        </table>
+        <!--            <input type="submit" value="決定">-->
+        <button type=“submit”>決定</button>
+
+    </form>
+
+    ◯人中◯人出席しました。
+
 </div>
-
-<!--写真が入ります-->
-<!--グラフに飛ぶよん-->
-<form action="update.php" method="post">
-    <input type="image" src="../image/noimage.gif">
-
-    <p>
-    <table>
-        <tr>
-            <th>出席番号</th>
-            <th>名前</th>
-            <th>出席率</th>
-            <th>出席判定</th>
-        </tr>
-        <!-- exec_selectによる折り返し処理:開始 -->
-
-                <?php foreach ($student as $row){ ?>
-                    <tr>
-                        <th><?=htmlspecialchars($row['student_num']) ?></th>
-                        <th><?=htmlspecialchars($row['student_name'])?></th>
-                        <th><?=htmlspecialchars($row['rate'].'%')?></th>
-                        <th><?=htmlspecialchars($row['attend_name'])?></th>
-                        </tr>
-                <?php } $pdo=null; ?>
-            </table>
-<!--            <input type="submit" value="決定">-->
-            <button type=“submit”>決定</button>
-
-</form>
-
-◯人中◯人出席しました。
 
 
 </body>

@@ -55,6 +55,10 @@ require 'db.php';
         <li><a href="Groupmake.php">グループ作成</a></li>
         <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
+
+
+
+
     </ul>
 </div>
 </body>

@@ -11,23 +11,13 @@
                 INNER JOIN teachers_homerooms TH ON T.teacher_id=TH.teacher_id) 
                 INNER JOIN classes C ON TH.class_id=C.class_id 
                 WHERE L.login_id = ? 
-                ORDER BY class_id",[$_SESSION['username']]);
-
-    $student = prepareQuery("SELECT TH.class_id,class_name,CS.student_num,S.student_name
-                FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
-                INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id)
-                INNER JOIN classes C ON TH.class_id=C.class_id
-                INNER JOIN students S ON S.class_id = C.class_id
-                INNER JOIN classes_students CS ON CS.class_id = S.class_id and CS.student_id = S.student_id
-                WHERE L.login_id = ?
-                AND C.class_id = ?
-                GROUP BY S.student_name
-                ORDER BY student_num asc ,class_id",[$_SESSION['username'], $_SESSION['class_id']]);
+                ORDER BY class_id",[$_SESSION['teacher_id']]);
 
     try{
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
     }
+var_dump($_SESSION);
 ?>
 
 <html xmlns="http://www.w3.org/1999/html">
@@ -57,15 +47,14 @@
                 <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
             </div>
 
-                    <!--フォームタグ-->
-                    <p><form action="" method="post">
+
 
 <!--                    <p id="kyoid">教師ID</p>-->
-                    <p id="kyoid1"><?php echo $teacher[0]['teacher_id'] ?></p>
+                    <p id="kyoid1"><?php echo $_SESSION['teacher_id'] ?></p>
 <!--                    <p id="name">名前<p>-->
                     <p id="name1"><?php echo $teacher[0]['teacher_name']; ?><p>
 <!--                    <p id="class">担当クラス</p>-->
-                    <p id="class1"><?php foreach ($teacher as $st){ ?>
+                    <p id="class1"><?php foreach ($_SESSION['class']['name'] as $st){ ?>
                         <tr>
                             <?=htmlspecialchars($st['class_name']) ?>
                         </tr>
@@ -92,13 +81,6 @@
 
 
 
-
-                    <div class="sub">
-                        <button type=“button”><a href="TeacherProEdit.html">編集</a></button>
-                    </div></<form>
-
-                </form>
-        <a href="./TeacherProEdit.php" id="edit">編集</a>
     </body>
 </html>
 
