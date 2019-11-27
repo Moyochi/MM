@@ -6,8 +6,8 @@
     require 'db.php';
 
     //var_dump($_GET);
-    if(isset($_GET['class_id'])){
-        $class_id=$_GET['class_id'];
+    if(isset($_GET['index_class_id'])){
+        $class_id=$_GET['index_class_id'];
     }else{
         //login.phpから飛んできた1行目のclass_idが入る。
         $class_id=$_SESSION['class'][0]['id'];
@@ -60,20 +60,20 @@ try{
                             var element = document.getElementById("class_name");
                             // クラスIDを自分に渡すURLを組み立てる
                             var a = element.value;
-                            // location.hrefに渡して遷移する
-                            location.href = 'index.php?class_id=' + a;
                             <?php
         //                      $class_idをほかのページでも使えるようにした。
                                 $_SESSION['index_class_id']=$class_id;
                             ?>
+                            // location.hrefに渡して遷移する
+                            location.href = 'index.php?index_class_id=' + a;
                         }
                     </script>
                     <select id="class_name" onchange="test()">
                     <!-- 折り返し処理 -->
                         <div id="re">
-                    <?php foreach($_SESSION['class']['id'] as $d){?>
+                    <?php foreach($_SESSION['class'] as $d){?>
                     <!--flex-grow: 1;-->
-                        <option value="<?=htmlspecialchars($d) ?>" <?php if(isset($_GET['class_id']) && $d == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d) ?></option>
+                        <option value="<?=htmlspecialchars($d['id']) ?>" <?php if(isset($_GET['index_class_id']) && $d['id'] == $_GET['index_class_id']){echo 'selected';}?>><?=htmlspecialchars($d['name']) ?></option>
                     <?php }$pdo=null; ?>
                         </div>
                     </select>
