@@ -10,7 +10,7 @@
         $class_id=$_GET['class_id'];
     }else{
         //login.phpから飛んできた1行目のclass_idが入る。
-        $class_id=$_SESSION['class']['id'][0];
+        $class_id=$_SESSION['class'][0]['id'];
     }
 
 try{

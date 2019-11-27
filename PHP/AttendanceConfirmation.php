@@ -10,20 +10,26 @@
         $class_name = $_GET['class_name'];
     }else{
         //別のページから飛んできた時は1行目のclassが入る。
-        $class_id = $_SESSION['class']['id'][0];
-        $class_name = $_SESSION['class']['name'][0];
+        $class_id = $_SESSION['class'][0]['id'];
+        $class_name = $_SESSION['class'][0]['name'];
     }
-    if(isset($_GET['time'])){
+    if(isset($_GET['time']) and isset($_GET['day'])){
+        $day = $_GET['day'];
         $time = $_GET['time'];
     }else{
+        $day = date("Y-m-d");
         $time = 1;
     }
+    $day = '2019-09-01';
+    $time = 1;
     //指定なしの場合は今日の日付を設定する。
-    if(isset($_GET['day'])){
-        $day = $_GET['day'];
-    }else{
-        $day = date("m-d");
-    }
+    $subject_name = prepareQuery("
+        select subject_name
+        from lesson_history LH
+          left join subjects S on LH.subject_id = S.subject_id
+        where class_id = ? and date = ? and time = ?",
+        [$class_id, $day, $time])[0];
+
 
     $student = prepareQuery("
         select SQ.student_id, student_num, student_name, SAL.attend_id, attend_name, ROUND(rate)rate
