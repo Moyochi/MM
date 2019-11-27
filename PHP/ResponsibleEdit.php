@@ -1,9 +1,9 @@
 <?php
 require_once 'functions.php';
 require_logined_session();
+require 'db.php';
 
 header('Content-Type:text/html; charset=UTF-8');
-require 'db.php';
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +56,29 @@ require 'db.php';
         <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
+
+
+    <form action="Classroom.php" method="post">
+        <div class="group_name">
+            <p>学科名</p>
+            <p><input type="text" name="" placeholder="" size="50"　></p>
+        </div>
+        <!--画面遷移-->
+        <button type="submit">グループ名変更</button>
+
+
+        <div class="Timetable">
+            <p>時間割</p>
+            <?php
+                echo $_SESSION['class']['id'][0]
+            ?>
+        </div>
+
+
+
+    </form>
+
+
 </div>
 </body>
 </html>
