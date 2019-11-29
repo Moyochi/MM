@@ -151,13 +151,15 @@ try{
                         <tbody>
                         <?php foreach ($student as $st){ ?>
                             <tr>
-                                <th><?=htmlspecialchars($st['student_num']) ?></th>
-                                <th><a id="name" href="StudentPro.php"><?=htmlspecialchars($st['student_name'])?></a></th>
-                                <td style="margin: 0"><?=htmlspecialchars($st['late']) ?></td><!-- 累計の遅刻数 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['absence']) ?></td><!-- 欠席数 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['early']) ?></td><!-- 相対数 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['attend_rate']) ?></td><!-- 出席率 -->
-                            </tr>
+                                <form method="get" name="student">
+                                    <th><?=htmlspecialchars($st['student_num']) ?></th>
+                                    <th><a id="name" href="StudentPro.php?id=<?=htmlspecialchars($st['student_num']) ?>&class_id=<?php echo $class_id ?>"><?=htmlspecialchars($st['student_name'])?></a></th>
+                                    <td style="margin: 0"><?=htmlspecialchars($st['late']) ?></td><!-- 累計の遅刻数 -->
+                                    <td style="margin: 0"><?=htmlspecialchars($st['absence']) ?></td><!-- 欠席数 -->
+                                    <td style="margin: 0"><?=htmlspecialchars($st['early']) ?></td><!-- 相対数 -->
+                                    <td style="margin: 0"><?=htmlspecialchars($st['attend_rate']) ?></td><!-- 出席率 -->
+                                </form>
+                                </tr>
                         <?php } $pdo=null; ?>
                         </tbody>
                     </table>
