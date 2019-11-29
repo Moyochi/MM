@@ -7,10 +7,10 @@ header('Content-Type:text/html; charset=UTF-8');
 ?>
 
 <?php
-if(isset($_GET['studnet_id'])){
-    $student_id = $_GET['studnet_id'];
+if(isset($_GET['student_id'])){
+    $student_id = $_GET['student_id'];
 }else{
-    header('Location: index.php');
+//    header('Location: index.php');
 }
 $count_data_previous = prepareQuery("
     select student_id, month, `1`,`2`,`3`
@@ -32,21 +32,23 @@ $rate_data_late = prepareQuery("
     where student_id = ?",[$student_id]);
 
 var_dump($count_data_previous);
-echo '<br>';
+echo '<br><br>';
 var_dump($count_data_late);
-echo '<br>';
+echo '<br><br>';
 var_dump($rate_data_previous);
-echo '<br>';
+echo '<br><br>';
 var_dump($rate_data_late);
 //SQLで受け取るデータが、出席情報が存在している月の情報だけなので、該当月に1回も出席していない生徒の場合は、
 //0というデータが入っていない。そのため、データの形式を統一するために、0で埋める作業をする。
-$month_pre = [4,5,6,7,8];
+$month_pre = ['04','05','06','07','08'];
 $graph_data_pre = [];
-$month_late = [9,10,11,12,1];
+$month_late = ['09','10','11','12','01'];
 $graph_data_late = [];
 
+//エラー起きるけど、上のdumpを見ながら修正したいから、ページができるまで待機。
+
 $i= 0;
-foreach ($data_previous as $row){
+foreach ($count_data_previous as $row){
     while(true){
         if($month_pre[$i]==$row['month']){
             $graph_data_pre[] = [$row[1],$row[2],$row[3]];
@@ -63,7 +65,7 @@ while ($i>0){
     $i--;
 }
 $i= 0;
-foreach ($data_late as $row){
+foreach ($count_data_late as $row){
     while(true){
         if($month_late[$i]==$row['month']){
             $graph_data_late[] = [$row[1],$row[2],$row[3]];
@@ -87,7 +89,7 @@ echo '<br><br>';
     var_dump($graph_data_late);
 
 ?>
-?>
+
 
 <!DOCTYPE html>
 <html>

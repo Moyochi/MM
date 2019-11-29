@@ -2,6 +2,7 @@
 require 'db.php';
 require_once 'functions.php';
 require_logined_session();
+header('Content-Type:text/html; charset=UTF-8');
 
 //左上のクラスの選択で利用。
 $class_list = query("select * from classrooms order by classroom_name");
@@ -10,12 +11,10 @@ $class_list = query("select * from classrooms order by classroom_name");
 if(isset($_POST['class_update'])){
     $class_update = $_POST['class_update'];
 }else{
-    $class_update = $class_list[0];
+    $class_update = $class_list[0]['classroom_id'];
 }
 //スケジュールを取得。
 $schedule = prepareQuery("select * from classrooms_lesson_schedule where classroom_id = ?",[$class_update]);
-header('Content-Type:text/html; charset=UTF-8');
-
 ?>
 
 <!DOCTYPE html>

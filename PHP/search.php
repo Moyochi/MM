@@ -6,7 +6,7 @@ require 'db.php';
 //テスト用データ
     //Users.html -web
 
-        //$_POST['user-search'] 遷移先画面のurl /PHP/['ここを入れる']
+        //$_POST['user_search'] 遷移先画面のurl /PHP/['ここを入れる']
 
         //$_POST['name'] 検索するユーザーの学籍番号 or 学生ユーザー名。
 
@@ -34,7 +34,7 @@ require 'db.php';
     $day = "2019-09-01";
 
 //
-    if(isset($_POST['user-search'])){
+    if(isset($_POST['user_search'])){
         //Users.html -web
         $data = prepareQuery('select student_id from students where student_id = ? or student_name = ?',[$_POST['name'],$_POST['name']]);
         $get_student_id = '?selected_student_id='.$data[0]['student_id'];
