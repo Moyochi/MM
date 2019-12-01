@@ -113,10 +113,13 @@ try{
         <!-- 時間割選択 -->
         <div id="class" class="title_menu">
             <select name="time_period"  id="class_name" onchange="cale()">
-                <option value="1">1限目</option>
-                <option value="2">2限目</option>
-                <option value="3">3限目</option>
-                <option value="4">4限目</option>
+                <?php //$_GET['time']が指定されている場合はselected修飾を付ける。
+                for($i=1; $i<5; $i++){
+                    $htmlText = "<option value='".$i."'";
+                    if(isset($_GET['time']) && $i == $_GET['time']){$htmlText .= 'selected';}
+                    $htmlText .= ">".$i."限目</option>";
+                    echo $htmlText;
+                } ?>
             </select>
         </div>
 
@@ -135,6 +138,7 @@ try{
             </tr>
             <!-- exec_selectによる折り返し処理:開始 -->
 
+            <?php if(isset($error) and $error!=null){echo $error;}else{ ?>
             <?php foreach ($student as $row){ ?>
                 <input type="hidden" value="<?=htmlspecialchars($row['student_id']) ?>" name="student_id[]">
                 <th><?=htmlspecialchars($row['student_num']) ?></th>
@@ -152,7 +156,7 @@ try{
                     </select>
                 </th>
                 </tr>
-            <?php } $pdo=null; ?>
+            <?php }} ?>
         </table>
         <!--            <input type="submit" value="決定">-->
         <button type=“submit”>決定</button>
