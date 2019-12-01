@@ -14,7 +14,14 @@
     }
 
 try{
+        //出席番号 名前 累計の遅刻数 欠席数 出席率
         $student = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
+        //今月出席率
+        $month_rate = prepareQuery('
+            select students.student_id, COALESCE(attend_rate,0)month_rate
+            from mm.students
+              left join mm.attend_rate_month on students.student_id = attend_rate_month.student_id
+            where class_id = ? and month = ?',[$class_id,date("m")]);
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
 }
@@ -140,23 +147,23 @@ try{
                         <tr>
                             <th>出席番号</th>
                             <th>名前</th>
-                            <th>月別の出席の推移</th>
-                            <th>累計の遅刻数</th>
-                            <th>欠席数</th>
-                            <th>出席率</th>
+                            <th>今月出席率</th>
+                            <th>年間遅刻数</th>
+                            <th>年間欠席数</th>
+                            <th>年間出席率</th>
                         </tr>
                         </thead>
                         <!-- exec_selectによる折り返し処理:開始 -->
 
                         <tbody>
-                        <?php foreach ($student as $st){ ?>
+                        <?php foreach ($student as $i => $st){ ?>
                             <tr>
                                 <th><?=htmlspecialchars($st['student_num']) ?></th>
-                                <th><a id="name" href="StudentPro.php"><?=htmlspecialchars($st['student_name'])?></a></th>
-                                <td style="margin: 0"><?=htmlspecialchars($st['late']) ?></td><!-- 累計の遅刻数 -->
+                                <th><a id="name" href="StudentPro.php"><?=htmlspecialchars($st['student_name']) ?></a></th>
+                                <td style="margin: 0"><?=htmlspecialchars($month_rate[$i]['month_rate']).'%' ?></td><!-- 今月出席率 -->
+                                <td style="margin: 0"><?=htmlspecialchars($st['late']) ?></td><!-- 遅刻数 -->
                                 <td style="margin: 0"><?=htmlspecialchars($st['absence']) ?></td><!-- 欠席数 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['early']) ?></td><!-- 相対数 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['attend_rate']) ?></td><!-- 出席率 -->
+                                <td style="margin: 0"><?=htmlspecialchars($st['attend_rate']).'%' ?></td><!-- 合計出席率 -->
                             </tr>
                         <?php } $pdo=null; ?>
                         </tbody>

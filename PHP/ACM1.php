@@ -7,29 +7,31 @@ header('Content-Type:text/html; charset=UTF-8');
 
 if(isset($_GET['class_id'])){
     $class_id = $_GET['class_id'];
-//    $class_name = $_GET['class_name'];
+    $class_name = $_GET['class_name'];
 }else{
     //別のページから飛んできた時は1行目のclassが入る。
-    $class_id = $_SESSION['class']['id'][0];
-    $class_name = $_SESSION['class']['name'][0];
+    $class_id = $_SESSION['class'][0]['id'];
+    $class_name = $_SESSION['class'][0]['name'];
 }
-if(isset($_GET['time'])){
+if(isset($_GET['time']) and isset($_GET['day'])){
+    $day = $_GET['day'];
     $time = $_GET['time'];
 }else{
+    $day = $day = '2019-09-01';
+//    $day = date("Y-m-d");
     $time = 1;
 }
-//指定なしの場合は今日の日付を設定する。
-if(isset($_GET['day'])){
-    $day = $_GET['day'];
-}else{
-    $day = date("20y-m-d");
-    $_SESSION['day']=$day;
-}
 
-//var_dump($_SESSION['index_class_id']);
-
-
-$student = prepareQuery("
+try{
+    $subject_name = prepareQuery("
+        select subject_name
+        from lesson_history LH
+          left join subjects S on LH.subject_id = S.subject_id
+        where class_id = ? and date = ? and time = ?",
+        [$class_id, $day, $time]);
+    if($subject_name!=array()){
+        $subject_name = $subject_name[0];
+        $student = prepareQuery("
         select SQ.student_id, student_num, student_name, SAL.attend_id, attend_name, ROUND(rate)rate
         from students_attend_lesson SAL
           right join (SELECT S.student_id, CS.student_num, student_name
@@ -39,15 +41,13 @@ $student = prepareQuery("
           ORDER BY student_num asc) SQ on SAL.student_id = SQ.student_id
           left join attend a on SAL.attend_id = a.attend_id
           left join lesson_rate LR on SQ.student_id = LR.student_id and SAL.subject_id = LR.subject_id
-        where date = ? and time_period = ?",[$_SESSION['index_class_id'],$day,$time]);
-try{
+        where date = ? and time_period = ?",[$class_id,$day,$time]);
+    }else{
+        $error = "該当の時間に授業は行われていません。";
+    }
 }catch (PDOException $exception){
     die('接続エラー:'.$exception->getMessage());
 }
-//var_dump($student);
-
-
-
 
 ?>
 
@@ -81,27 +81,18 @@ try{
 </div>
 
 
-
-
-
-
-<?php
-// var_dump($_SESSION);
-//?>
 <!-- 先生の名前 -->
 <a href="./TeacherPro.php" ><?php echo h($_SESSION['teacher_name']) ?></a>
-
 
 <!-- 上のメニューバー -->
 <div class="bu">
     <!--    <a href="AttendanceConfirmation.php" id="attend">状況管理</a>-->
 </div>
-
 <!--　検索バー -->
-<!--<div class="container">-->
-<!--    <input type="text" placeholder="Search..." id="sa-ch">-->
-<!--    <div class="search"></div>-->
-<!--</div>-->
+<div class="container">
+    <input type="text" placeholder="Search..." id="sa-ch">
+    <div class="search"></div>
+</div>
 
 <div class="contents">
     <ul class="nav">
@@ -113,40 +104,38 @@ try{
         <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
-</div>
 
 
 
-<!--写真が入ります-->
-<!--グラフに飛ぶよん-->
-<form action="update.php" method="post" >
+    <!--写真が入ります-->
+    <form action="update.php" method="post" >
 
-    <!-- 時間割選択 -->
-    <div id="class" class="title_menu">
-        <select name="time_period"  id="class_name" onchange="cale()">
-            <option value="1">1限目</option>
-            <option value="2">2限目</option>
-            <option value="3">3限目</option>
-            <option value="4">4限目</option>
-        </select>
-    </div>
+        <!-- 時間割選択 -->
+        <div id="class" class="title_menu">
+            <select name="time_period"  id="class_name" onchange="cale()">
+                <option value="1">1限目</option>
+                <option value="2">2限目</option>
+                <option value="3">3限目</option>
+                <option value="4">4限目</option>
+            </select>
+        </div>
 
-    <!-- 日付の選択 -->
-    <input name="datepicker" type="text" id="datepicker" onchange="cale()" value="<?php if(!empty($_GET['day'])) echo $_GET['day'] ?>">
-    <ul id="myList"></ul>
-    <input type="hidden" name="day_js" value="hoge">
+        <!-- 日付の選択 -->
+        <input name="datepicker" type="text" id="datepicker" onchange="cale()" value="<?php if(!empty($_GET['day'])) echo $_GET['day'] ?>">
+        <ul id="myList"></ul>
+        <input type="hidden" name="day_js" value="hoge">
 
 
-    <table>
-        <tr>
-            <th>出席番号</th>
-            <th>名前</th>
-            <th>出席率</th>
-            <th>出席判定</th>
-        </tr>
-        <!-- exec_selectによる折り返し処理:開始 -->
+        <table>
+            <tr>
+                <th>出席番号</th>
+                <th>名前</th>
+                <th>出席率</th>
+                <th>出席判定</th>
+            </tr>
+            <!-- exec_selectによる折り返し処理:開始 -->
 
-        <?php foreach ($student as $row){ ?>
+            <?php foreach ($student as $row){ ?>
                 <input type="hidden" value="<?=htmlspecialchars($row['student_id']) ?>" name="student_id[]">
                 <th><?=htmlspecialchars($row['student_num']) ?></th>
                 <th><?=htmlspecialchars($row['student_name'])?></th>
@@ -159,19 +148,22 @@ try{
                         <option value="4" <?php if($row['attend_id'] == 4)echo 'selected';?>>早退</option>
                         <option value="5" <?php if($row['attend_id'] == 5)echo 'selected';?>>欠課</option>
                         <option value="6" <?php if($row['attend_id'] == 6)echo 'selected';?>>遅延</option>
-<!--                        --><?//=htmlspecialchars($row['attend_name'])?>
+                        <!--                        --><?//=htmlspecialchars($row['attend_name'])?>
                     </select>
                 </th>
-            </tr>
-        <?php } $pdo=null; ?>
-    </table>
-    <!--            <input type="submit" value="決定">-->
-    <button type=“submit”>決定</button>
+                </tr>
+            <?php } $pdo=null; ?>
+        </table>
+        <!--            <input type="submit" value="決定">-->
+        <button type=“submit”>決定</button>
+        <br>
+        <br>
+        ◯人中◯人出席しました。
     </form>
 
+</div>
 
 
-    ◯人中◯人出席しました。
 
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

@@ -42,7 +42,7 @@ require 'db.php';
         header("Location: http://localhost:8081/mm_project/PHP/StudentPro.php" . $get_student_id);
     }else if(isset($_POST['pc_id']) and isset($_POST['request_flg'])) {
         //出席情報取得API -electron
-        if ($_POST['request_flg'] == 'yes.html') {
+        if ($_GET['request_flg'] == 'yes.html') {
             $data = prepareQuery(
                 "select SID.student_id,student_name,COALESCE(ROUND(LR.rate),0)totalRate,COALESCE(ROUND(LRM.rate),0)monthRate
                 from (
@@ -54,7 +54,7 @@ require 'db.php';
                 )SID
                   left join lesson_rate LR on SID.student_id = LR.student_id and LR.subject_id = ?
                   left join lesson_rate_month LRM on SID.student_id = LRM.student_id and LRM.subject_id = ? and LRM.month = ?",
-                [$_POST['student_id'], $_POST['subject_id'], $_POST['subject_id'], date('m') + 1]
+                [$_GET['student_id'], $_GET['subject_id'], $_GET['subject_id'], date('m') + 1]
             );
             print json_encode($data, JSON_PRETTY_PRINT);
         }

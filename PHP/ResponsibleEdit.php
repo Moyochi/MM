@@ -4,6 +4,31 @@ require_logined_session();
 require 'db.php';
 
 header('Content-Type:text/html; charset=UTF-8');
+
+//グループ名変更の場合
+if(isset($_POST['update_grope_id'])&isset($_POST['update_grope_name'])){
+    prepareQuery("update classes set class_name = ? where class_id = ?"
+        ,[$_POST['update_grope_name'],$_POST['update_grope_id']]);
+    $class = prepareQuery("
+                select c.class_id, class_name
+                from teachers_homerooms t2
+                left join classes c on t2.class_id = c.class_id
+                where teacher_id = ?",[$_SESSION['teacher_id']]);
+    $_SESSION['class'] = null;
+    foreach ($class as $row) {
+        $_SESSION['class'][] = ['id' => $row['class_id'],'name' => $row['class_name']];
+    }
+}
+
+if(isset($_GET['grope_id'])){
+    $grope_id = $_GET['grope_id'];
+    foreach ($_SESSION['class'] as $row){
+        if($_GET['grope_id']==$row['id']) $grope_name = $row['name'];
+    }
+}else {
+    $grope_id = $_SESSION['class'][0]['id'];
+    $grope_name = $_SESSION['class'][0]['name'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +53,29 @@ header('Content-Type:text/html; charset=UTF-8');
             <!--flex-grow: 3;-->
             <h1 class="head">
                 <!-- 題名 -->
-                管理者ユーザー編集
+                担当グループ編集
             </h1>
+        </div>
+        <div id="class" class="title_menu">
+            <script type="text/javascript">
+                function test () {
+                    // 選択されたオプションのバリューを取得する
+                    var element = document.getElementById("class_name");
+                    // クラスIDを自分に渡すURLを組み立てる
+                    var grope_id = element.value;
+                    // location.hrefに渡して遷移する
+                    location.href = 'ResponsibleEdit.php?grope_id=' + grope_id;
+                }
+            </script>
+            <select id="class_name" onchange="test()">
+                <!-- 折り返し処理 -->
+                <div id="re">
+                    <?php foreach($_SESSION['class'] as $d){?>
+                        <!--flex-grow: 1;-->
+                        <option value="<?=htmlspecialchars($d['id']) ?>" <?php if(isset($_GET['grope_id']) && $d['id'] == $_GET['grope_id']){echo 'selected';}?>><?=htmlspecialchars($d['name']) ?></option>
+                    <?php }$pdo=null; ?>
+                </div>
+            </select>
         </div>
     </div>
 
@@ -37,7 +83,7 @@ header('Content-Type:text/html; charset=UTF-8');
 
 <!-- 上のメニューバー -->
 <div class="bu">
-    <!--    <a href="AttendanceConfirmation.php" id="attend">状況管理</a>-->
+<!--        <a href="AttendanceConfirmation.php" id="attend">状況管理</a>-->
 </div>
 
 <!--検索バー -->
@@ -57,25 +103,13 @@ header('Content-Type:text/html; charset=UTF-8');
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
 
-
-    <form action="Classroom.php" method="post">
+    <form action="" method="post">
         <div class="group_name">
-            <p>学科名</p>
-            <p><input type="text" name="" placeholder="" size="50"　></p>
+            <p>グループ名変更</p>
+            <p><input type="text" name="update_grope_name" placeholder="<? echo $grope_name?>" size="50"></p>
         </div>
-        <!--画面遷移-->
-        <button type="submit">グループ名変更</button>
-
-
-        <div class="Timetable">
-            <p>時間割</p>
-            <?php
-                echo $_SESSION['class']['id'][0]
-            ?>
-        </div>
-
-
-
+        <input type="hidden" name="update_grope_id" value="<? echo $grope_id?>">
+        <button type="submit">決定</button>
     </form>
 
 
