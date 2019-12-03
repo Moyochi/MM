@@ -17,8 +17,8 @@ if(isset($_GET['time']) and isset($_GET['day'])){
     $day = $_GET['day'];
     $time = $_GET['time'];
 }else{
+    //    $day = date("Y-m-d");
     $day = $day = '2019-09-01';
-//    $day = date("Y-m-d");
     $time = 1;
 }
 
@@ -48,7 +48,6 @@ try{
 }catch (PDOException $exception){
     die('接続エラー:'.$exception->getMessage());
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -126,8 +125,6 @@ try{
         <!-- 日付の選択 -->
         <input name="datepicker" type="text" id="datepicker" onchange="cale()" value="<?php if(!empty($_GET['day'])) echo $_GET['day'] ?>">
         <ul id="myList"></ul>
-        <input type="hidden" name="day_js" value="hoge">
-
 
         <table>
             <tr>
@@ -139,13 +136,13 @@ try{
             <!-- exec_selectによる折り返し処理:開始 -->
 
             <?php if(isset($error) and $error!=null){echo $error;}else{ ?>
-            <?php foreach ($student as $row){ ?>
-                <input type="hidden" value="<?=htmlspecialchars($row['student_id']) ?>" name="student_id[]">
+            <?php foreach ($student as $i => $row){ ?>
+                <?php echo '<input type="hidden" name="'.$i.'" value="'.$row['student_id'].'">' ?>
                 <th><?=htmlspecialchars($row['student_num']) ?></th>
                 <th><?=htmlspecialchars($row['student_name'])?></th>
                 <th><?=htmlspecialchars($row['rate'].'%')?></th>
                 <th>
-                    <select name="attend_id[]">
+                    <select name="attend_id_<? echo $i ?>">
                         <option value="1" <?php if($row['attend_id'] == 1)echo 'selected';?>>出席</option>
                         <option value="2" <?php if($row['attend_id'] == 2)echo 'selected';?>>欠席</option>
                         <option value="3" <?php if($row['attend_id'] == 3)echo 'selected';?>>遅刻</option>
@@ -158,7 +155,9 @@ try{
                 </tr>
             <?php }} ?>
         </table>
-        <!--            <input type="submit" value="決定">-->
+
+        <input type="hidden" name="class_id" value="<?php echo $class_id ?>">
+        <input type="hidden" name="class_name" value="<?php echo $class_name ?>">
         <button type=“submit”>決定</button>
         <br>
         <br>
@@ -196,7 +195,8 @@ try{
 
             // クラスIDを自分に渡すURLを組み立てる
             let params = getParameter();
-            // params['class_id'] = params['class_id'];
+            params['class_id'] = <?php echo $class_id ?>;
+            params['class_name'] = "<?php echo $class_name ?>";
             params['day'] = datapicker;
             params['time'] = date;
             let url = setParameter(params);
@@ -204,12 +204,7 @@ try{
 
             location.href = url;
 
-
-            // location.hrefに渡して遷移する
-
-            // location.href = 'ACM1.php?time=' + a;
             <?php
-            //                      $class_idをほかのページでも使えるようにした。
             $_SESSION['time']=$time;
             ?>
         }
