@@ -6,12 +6,16 @@
     require 'db.php';
 
     //var_dump($_GET);
-    if(isset($_GET['index_class_id'])){
-        $class_id=$_GET['index_class_id'];
+    if(isset($_GET['class_id']) and isset($_GET['class_name'])){
+        $class_id=$_GET['class_id'];
+        $class_name=$_GET['class_name'];
     }else{
         //login.phpから飛んできた1行目のclass_idが入る。
         $class_id=$_SESSION['class'][0]['id'];
+        $class_name=$_SESSION['class'][0]['name'];
     }
+    $_SESSION['index_class_id'] = $class_id;
+    $_SESSION['index_class_name']= $class_name;
 
 try{
         //出席番号 名前 累計の遅刻数 欠席数 出席率
@@ -38,16 +42,6 @@ try{
         <title>Responsible.html</title>
     </head>
     <body>
-
-        <!--<p>--><?php //echo h($_SESSION['teahcer_id']); ?><!--さんいらっしゃい！</p>-->
-        <!---->
-        <!--<p><input type="password" name="password" placeholder="--><?php //echo h($_SESSION['teahcer_id']); ?><!--"></p>-->
-
-
-
-
-        <!--どのアカウントで入ったか確認-->
-
         <div class="header">
 
             <div class="title">
@@ -64,23 +58,19 @@ try{
                     <script type="text/javascript">
                         function test () {
                             // 選択されたオプションのバリューを取得する
-                            var element = document.getElementById("class_name");
+                            var element = document.getElementById("class_id");
                             // クラスIDを自分に渡すURLを組み立てる
-                            var a = element.value;
-                            <?php
-        //                      $class_idをほかのページでも使えるようにした。
-                                $_SESSION['index_class_id']=$class_id;
-                            ?>
+                            var class_id = element.value;
                             // location.hrefに渡して遷移する
-                            location.href = 'index.php?index_class_id=' + a;
+                            location.href = 'index.php?class_id=' + class_id;
                         }
                     </script>
-                    <select id="class_name" onchange="test()">
+                    <select id="class_id" onchange="test()">
                     <!-- 折り返し処理 -->
                         <div id="re">
                     <?php foreach($_SESSION['class'] as $d){?>
                     <!--flex-grow: 1;-->
-                        <option value="<?=htmlspecialchars($d['id']) ?>" <?php if(isset($_GET['index_class_id']) && $d['id'] == $_GET['index_class_id']){echo 'selected';}?>><?=htmlspecialchars($d['name']) ?></option>
+                        <option value="<?=htmlspecialchars($d['id']) ?>" <?php if($d['id'] == $class_id){echo 'selected';}?>><?=htmlspecialchars($d['name']) ?></option>
                     <?php }$pdo=null; ?>
                         </div>
                     </select>
