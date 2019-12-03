@@ -5,18 +5,70 @@ require 'db.php';
 
 header('Content-Type:text/html; charset=UTF-8');
 
-//グループ名変更の場合
-if(isset($_POST['update_grope_id'])&isset($_POST['update_grope_name'])){
-    prepareQuery("update classes set class_name = ? where class_id = ?"
-        ,[$_POST['update_grope_name'],$_POST['update_grope_id']]);
-    $class = prepareQuery("
+//グループ名変更
+if(isset($_POST['function_flg']) and $_POST['function_flg']=='UPDATE_NAME') {
+    if (isset($_POST['update_grope_id']) and isset($_POST['update_grope_name'])) {
+        prepareQuery("update classes set class_name = ? where class_id = ?"
+            , [$_POST['update_grope_name'], $_POST['update_grope_id']]);
+        $class = prepareQuery("
                 select c.class_id, class_name
                 from teachers_homerooms t2
                 left join classes c on t2.class_id = c.class_id
-                where teacher_id = ?",[$_SESSION['teacher_id']]);
-    $_SESSION['class'] = null;
-    foreach ($class as $row) {
-        $_SESSION['class'][] = ['id' => $row['class_id'],'name' => $row['class_name']];
+                where teacher_id = ?", [$_SESSION['teacher_id']]);
+        $_SESSION['class'] = null;
+        foreach ($class as $row) {
+            $_SESSION['class'][] = ['id' => $row['class_id'], 'name' => $row['class_name']];
+        }
+    }
+}
+//グループ作成
+if(isset($_POST['function_flg']) and $_POST['function_flg']=='CREATE_GROPE') {
+    if (isset($_POST['gname']) and $_POST['gname'] != "" and $_FILES['file']['tmp_name'] != null) {
+        //ファイルの受け取りが正常に行われている場合、ファイルのアクセス権限を変更する
+        $file_path = './test_csv/' . $_FILES["file"]["name"];
+        chmod($_FILES['file']['tmp_name'], 0666);
+        //ファイルをプロジェクト配下のディレクトリに配置し、値を読み込む。
+        if (move_uploaded_file($_FILES["file"]["tmp_name"], $file_path)) {
+            //ファイルのプロジェクト配下への再配置が成功
+            $file = new SplFileObject($file_path);
+            $file->setFlags(
+                SplFileObject::READ_CSV |
+                SplFileObject::SKIP_EMPTY |
+                SplFileObject::READ_AHEAD
+            );
+            $records = array();
+            foreach ($file as $i => $row) {
+                if ($i === 0) {
+                    foreach ($row as $j => $col) {
+                        if ($j == 0) {
+                            $colbook[$j] = "ID";
+                        } else {
+                            $colbook[$j] = $col;
+                        }
+                    }
+                    continue;
+                }
+                // 2行目以降はデータ行として取り込み
+                $line = array();
+                foreach ($colbook as $j => $col) {
+                    $line[$colbook[$j]] = @$row[$j];
+                }
+                $records[] = $line;
+            }
+            //新規グループに付与するクラスID(クラスIDの最大+1)を取得する
+            $cid = query('select max(class_id)id from classes')[0]['id'] + 1;
+            //グループsqlを実行する
+            $sql = 'insert into classes values (' . $cid . ',\'' . $_POST['gname'] . '\');';
+            //グループ内にレコードを追加する
+            foreach ($records as $j) {
+                $sql = $sql . 'insert into students values (' . $j[$colbook[0]] . ',' . $cid . ',\'' . $j[$colbook[2]] . '\',' . $j[$colbook[3]] . ');';
+                $sql = $sql . "insert into classes_students values (" . $cid . "," . $j[$colbook[1]] . "," . $j[$colbook[0]] . ");";
+            }
+            query($sql);
+        } else {
+            //ファイルのプロジェクト配下への再配置が失敗
+            echo 'ファイルアップロードに失敗しました。';
+        }
     }
 }
 
@@ -102,16 +154,25 @@ if(isset($_GET['grope_id'])){
         <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
-
+    <div>
     <form action="" method="post">
         <div class="group_name">
-            <p>グループ名変更</p>
+            <h2>グループ名変更</h2>
             <p><input type="text" name="update_grope_name" placeholder="<? echo $grope_name?>" size="50"></p>
         </div>
         <input type="hidden" name="update_grope_id" value="<? echo $grope_id?>">
+        <input type="hidden" name="function_flg" value="UPDATE_NAME">
         <button type="submit">決定</button>
     </form>
-
+    <hr>
+    <form action="" method="post" enctype="multipart/form-data">
+        <h2>グループ作成<br></h2>
+        グループ名 : <input type="text" name="gname" placeholder="grope_name"><br>
+        <input type="file" name="file" size="30">
+        <input type="hidden" name="function_flg" value="CREATE_GROPE">
+        <input type="submit" value="送信">
+    </form>
+    </div>
 
 </div>
 </body>
