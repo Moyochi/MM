@@ -23,14 +23,17 @@ if(isset($_GET['time']) and isset($_GET['day'])){
 }
 
 try{
+    //教科名を実施授業履歴から取得。
     $subject_name = prepareQuery("
         select subject_name
         from lesson_history LH
           left join subjects S on LH.subject_id = S.subject_id
-        where class_id = ? and date = ? and time = ?",
+        where classroom_id = ? and date = ? and time = ?",
         [$class_id, $day, $time]);
     if($subject_name!=array()){
-        $subject_name = $subject_name[0];
+        //その時間に行われた授業名。
+        $subject_name = $subject_name[0]['subject_name'];
+        //student_attend_lessonに登録されている出席情報を基に他情報(学生名など)をjoinして取得。
         $student = prepareQuery("
         select SQ.student_id, student_num, student_name, SAL.attend_id, attend_name, ROUND(rate)rate
         from students_attend_lesson SAL
@@ -135,25 +138,29 @@ try{
             </tr>
             <!-- exec_selectによる折り返し処理:開始 -->
 
-            <?php if(isset($error) and $error!=null){echo $error;}else{ ?>
-            <?php foreach ($student as $i => $row){ ?>
-                <?php echo '<input type="hidden" name="'.$i.'" value="'.$row['student_id'].'">' ?>
+            <? if(isset($error) and $error!=null){echo $error;}else{
+                //出席(attend_id = 1)の数
+                $attend_presence = 0;
+                foreach ($student as $i => $row){
+                //何人出席したかを集計する。
+                if($row['attend_id']==1) $attend_presence++;
+                echo '<input type="hidden" name="'.$i.'" value="'.$row['student_id'].'">' ?>
+
                 <th><?=htmlspecialchars($row['student_num']) ?></th>
                 <th><?=htmlspecialchars($row['student_name'])?></th>
                 <th><?=htmlspecialchars($row['rate'].'%')?></th>
                 <th>
                     <select name="attend_id_<? echo $i ?>">
-                        <option value="1" <?php if($row['attend_id'] == 1)echo 'selected';?>>出席</option>
-                        <option value="2" <?php if($row['attend_id'] == 2)echo 'selected';?>>欠席</option>
-                        <option value="3" <?php if($row['attend_id'] == 3)echo 'selected';?>>遅刻</option>
-                        <option value="4" <?php if($row['attend_id'] == 4)echo 'selected';?>>早退</option>
-                        <option value="5" <?php if($row['attend_id'] == 5)echo 'selected';?>>欠課</option>
-                        <option value="6" <?php if($row['attend_id'] == 6)echo 'selected';?>>遅延</option>
-                        <!--                        --><?//=htmlspecialchars($row['attend_name'])?>
+                        <option value="1" <? if($row['attend_id'] == 1)echo 'selected';?>>出席</option>
+                        <option value="2" <? if($row['attend_id'] == 2)echo 'selected';?>>欠席</option>
+                        <option value="3" <? if($row['attend_id'] == 3)echo 'selected';?>>遅刻</option>
+                        <option value="4" <? if($row['attend_id'] == 4)echo 'selected';?>>早退</option>
+                        <option value="5" <? if($row['attend_id'] == 5)echo 'selected';?>>欠課</option>
+                        <option value="6" <? if($row['attend_id'] == 6)echo 'selected';?>>遅延</option>
                     </select>
                 </th>
                 </tr>
-            <?php }} ?>
+            <?}} ?>
         </table>
 
         <input type="hidden" name="class_id" value="<?php echo $class_id ?>">
@@ -161,7 +168,7 @@ try{
         <button type=“submit”>決定</button>
         <br>
         <br>
-        ◯人中◯人出席しました。
+        <?= count($student)."人中".$attend_presence."人出席しました。"?>
     </form>
 
 </div>

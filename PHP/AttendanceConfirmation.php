@@ -27,7 +27,7 @@
         select subject_name
         from lesson_history LH
           left join subjects S on LH.subject_id = S.subject_id
-        where class_id = ? and date = ? and time = ?",
+        where classroom_id = ? and date = ? and time = ?",
         [$class_id, $day, $time])[0];
 
 
