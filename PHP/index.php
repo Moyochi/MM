@@ -16,7 +16,6 @@
     }
     $_SESSION['index_class_id'] = $class_id;
     $_SESSION['index_class_name']= $class_name;
-
 try{
         //出席番号 名前 累計の遅刻数 欠席数 出席率
         $student = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
@@ -56,27 +55,32 @@ try{
                 <!-- クラスメニュー -->
                 <div id="class" class="title_menu">
                     <script type="text/javascript">
-                        function test () {
+                        function selectClass() {
                             // 選択されたオプションのバリューを取得する
                             var element = document.getElementById("class_id");
                             // クラスIDを自分に渡すURLを組み立てる
-                            var class_id = element.value;
+                            var selectedIndex = element.selectedIndex;
+                            var form_class_id = element.options[selectedIndex].dataset.id;
+                            var form_class_name = element.options[selectedIndex].dataset.name;
                             // location.hrefに渡して遷移する
-                            location.href = 'index.php?class_id=' + class_id;
+                            location.href = 'index.php?class_id=' + form_class_id + '&class_name=' + form_class_name ;
                         }
                     </script>
-                    <select id="class_id" onchange="test()">
+                    <select id="class_id" onchange="selectClass()">
                     <!-- 折り返し処理 -->
                         <div id="re">
-                    <?php foreach($_SESSION['class'] as $d){?>
-                    <!--flex-grow: 1;-->
-                        <option value="<?=htmlspecialchars($d['id']) ?>" <?php if($d['id'] == $class_id){echo 'selected';}?>><?=htmlspecialchars($d['name']) ?></option>
-                    <?php }$pdo=null; ?>
+                            <?php foreach($_SESSION['class'] as $d){?>
+                            <!--flex-grow: 1;-->
+                                <option
+                                    data-id="<?=h($d['id'])?>" data-name="<?=h($d['name'])?>"
+                                    <?php if($d['id'] == $class_id){echo 'selected';}?>>
+                                    <?=h($d['name'])?>
+                                </option>
+                            <?}?>
                         </div>
                     </select>
                 </div>
             </div>
-
         </div>
 
             <!-- 上のメニューバー -->

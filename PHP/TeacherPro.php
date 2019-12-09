@@ -6,7 +6,7 @@
     require 'db.php';
 
     $teacher = prepareQuery("
-                SELECT T.teacher_id,T.teacher_name,T.tell,T.mail,T.personalnum,TH.class_id,class_name 
+                SELECT T.teacher_id,T.teacher_name,T.tell,T.asomail,T.personalnum,TH.class_id,class_name 
                 FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
                 INNER JOIN teachers_homerooms TH ON T.teacher_id=TH.teacher_id) 
                 INNER JOIN classes C ON TH.class_id=C.class_id 
@@ -16,6 +16,7 @@
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
     }
+    var_dump($teacher);
 ?>
 
 <!DOCTYPE html>
@@ -87,13 +88,13 @@
     <?php echo '<br>'?>
 
     <p id="asomail">麻生メアド<br>
-        <?php echo $teacher[0]['mail'] ?></p>
+        <?php echo ":".$teacher[0]['asomail'] ?></p>
     <?php echo '<br>'?>
     <p id="tell">内線<br>
-        <?php echo $teacher[0]['tell']; ?></p>
+        <?php echo ":".$teacher[0]['tell']; ?></p>
     <?php echo '<br>'?>
     <p id="personaltell">個人番号<br>
-        0<?php echo $teacher[0]['personalnum']; ?></p>
+        0<?php echo ":".$teacher[0]['personalnum']; ?></p>
 
 </div>
 </body>

@@ -92,16 +92,26 @@ require 'db.php';
         }
         //出席予定学生一覧取得API -electron
         if ($_POST['request_flg'] == 'shooting_student') {
-            $data = prepareQuery("
+            //曜日・時限・教科IDを指定して、授業の現状での出席情報を取得する。
+            //教科IDに関しては、同じ日・時限には同一の授業は1つしか行われないものとしている。
+            $attend_data = prepareQuery("
                 select S.student_id, student_name
                 from classes_lesson_schedule CLS
                     left join students S on S.class_id = CLS.class_id
                     left join students_subjects ss on S.student_id = ss.student_id and CLS.subject_id = ss.subject_id
-                where day_of_the_week = ? and time = ? and CLS.subject_id = ?
-                ",
+                where day_of_the_week = ? and time = ? and CLS.subject_id = ?",
                 [$_POST['day_week'], $_POST['time_period'], $_POST['subject_id']]
             );
-            print json_encode($data, JSON_PRETTY_PRINT);
+            if($attend_data = []){
+                $student_list = prepareQuery("
+                    select *
+                    from students_subjects
+                    where subject_id = '111'",
+                    [$_POST['subject_id']]);
+                echo 'a';
+                var_dump($student_list);
+            }
+            print json_encode($attend_data, JSON_PRETTY_PRINT);
         }
     }
 ?>
