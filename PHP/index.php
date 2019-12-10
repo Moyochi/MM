@@ -85,7 +85,7 @@ try{
 
             <!-- 上のメニューバー -->
             <div class="bu">
-                <a href="./ResponsibleEdit.php" id="edit">編集</a>
+                <a href="./ResponsibleEdit.php<?="?grope_id=".$class_id?>" id="edit">編集</a>
                 <a href="ACM1.php<?="?class_id=".$class_id."&class_name=".$class_name?>" id="attendata">出席簿</a>
                 <a href="TeacherPro.php" id="teacher">担任</a>
                 <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
@@ -115,15 +115,6 @@ try{
 
                 <!--人の表情が入ります-->
                 <!--<input type="image" src="image/face.png">-->
-
-
-                <!-- フォームタグ -->
-                <p><form action="ACM1.php" method="post">
-                    <!-- 写真が入ります -->
-                    <!-- グラフに飛ぶよん -->
-                    <form action="ぐらふのPHP" method="post"></form>
-<!--                    <input type="image" src="" id="img">-->
-
 
 
                     <!-- クラスメンバーの表示 -->
