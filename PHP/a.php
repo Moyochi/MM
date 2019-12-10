@@ -1,27 +1,27 @@
 <?php
-
-//DB接続
-require_once 'functions.php';
-require_logined_session();
-
-header('Content-Type:text/html; charset=UTF-8');
-require 'db.php';
-if (isset($_GET['class_id'])) {
-    $class_id = $_GET['class_id'];
-} else {
-    //login.phpから飛んできた1行目のclass_idが入る。
-    $class_id = $_SESSION['class']['id'][0];
-}
-$student = prepareQuery("select * from load_responsible_1 where class_id = ?", [$class_id]);
-
-try {
-} catch (PDOException $exception) {
-    die('接続エラー:' . $exception->getMessage());
-}
-try {
-} catch (PDOException $exception) {
-    die('接続エラー:' . $exception->getMessage());
-}
+//
+////DB接続
+//require_once 'functions.php';
+//require_logined_session();
+//
+//header('Content-Type:text/html; charset=UTF-8');
+//require 'db.php';
+//if (isset($_GET['class_id'])) {
+//    $class_id = $_GET['class_id'];
+//} else {
+//    //login.phpから飛んできた1行目のclass_idが入る。
+//    $class_id = $_SESSION['class']['id'][0];
+//}
+//$student = prepareQuery("select * from load_responsible_1 where class_id = ?", [$class_id]);
+//
+//try {
+//} catch (PDOException $exception) {
+//    die('接続エラー:' . $exception->getMessage());
+//}
+//try {
+//} catch (PDOException $exception) {
+//    die('接続エラー:' . $exception->getMessage());
+//}
 
 
 
@@ -68,13 +68,11 @@ $groupbarplot = new GroupBarPlot(array($barplot1,$barplot2));
 $groupbarplot->SetWidth(0.35);//棒グラフの幅の広さ
 
 
-$graph->Add($groupbarplot);
-
 
 // プロットをグラフに追加
 $graph->Add($lineplot);//累計を表示
 $graph->Add($lineplot1);//月の出席率を表示
-$graph->Add($groupbarplot);
+//$graph->Add($groupbarplot);
 
 // グラフを表示
 $graph->Stroke();

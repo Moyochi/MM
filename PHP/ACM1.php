@@ -61,15 +61,11 @@ try{
     <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
     <link rel="stylesheet" media="all" href="../CSS/Style.css">
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-    <title>Responsible.html</title>
+    <meta charset="UTF-8">
+    <title>ACMS</title>
 </head>
 <body>
-
-
-<!--どのアカウントで入ったか確認-->
-
 <div class="header">
-
     <div class="title">
 
         <div class="title_text">

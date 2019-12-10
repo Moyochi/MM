@@ -1,21 +1,6 @@
+
 /*編集*/
 #edit {
-    display: block;
-    background-color: #afc6e2;
-    -webkit-appearance: unset;
-    padding: 10px 20px;
-    position: absolute;
-    box-sizing: border-box;
-    right: 435px;
-    top: 25px;
-    text-decoration: none;
-    color: white;
-    margin: 10px;
-    border-radius: 3px;
-}
-
-/*状況管理*/
-#attend {
     display: block;
     background-color: #afc6e2;
     -webkit-appearance: unset;
@@ -67,6 +52,8 @@ input#img{
     left: 150px;
     width: 100px;
     height: 100px;
+    border: 1px solid #ccc; /* 枠線 */
+
 }
 #ac table{
     position: absolute;
