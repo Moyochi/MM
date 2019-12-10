@@ -3,17 +3,17 @@ require 'db.php';
 ?>
 
 <?php
-$_POST['pc_id'] = '11_A';
-$_POST['attend_student_id'] = 1000001;
-$_POST['attend_id'] = 1;
+//$_POST['pc_id'] = '11_A';
+//$_POST['attend_student_id'] = 1000001;
+//$_POST['attend_id'] = 1;
 
 if(isset($_POST['pc_id']) and isset($_POST['attend_student_id']) and isset($_POST['attend_id'])){
     $pc_id = $_POST['pc_id'];
     $date = date('Y-m-d');
-    //    $day_of_week = date('w');
-    $day_of_week = 1;
-//    $time = date('H:i:s');
-    $time = '10:00:00';
+    $day_of_week = date('w');
+//    $day_of_week = 1;
+    $time = date('H:i:s');
+//    $time = '10:00:00';
 
     $attend_student_id = $_POST['attend_student_id'];
     $attend_id = $_POST['attend_id'];
