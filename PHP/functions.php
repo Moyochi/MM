@@ -44,4 +44,26 @@
             return htmlspecialchars($var,ENT_QUOTES,'UTF-8');
         }
     }
+
+    //updateの処理
+    function update($data){
+
+        try {
+            $attend_id = $data['attend_id'];
+            $time=$data['time_period'];
+            $day= $data['datepicer'];
+            $student_id = $data['student_id'];
+
+            $sql = "";
+            foreach ($attend_id as $i => $row){
+                $sql = $sql."UPDATE students_attend_lesson SET  attend_id = ".$row." WHERE student_id = ".$student_id[$i]." AND date='".$day."' AND time_period=".$time.";<br>";
+            }
+            query($sql);
+
+            echo "情報を更新しました。";
+
+        } catch (Exception $e) {
+            echo 'エラーが発生しました。:' . $e->getMessage();
+        }
+    }
 ?>

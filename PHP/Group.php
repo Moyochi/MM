@@ -25,10 +25,11 @@ require 'db.php';
 
         <div class="title_text">
             <!--flex-grow: 3;-->
-            <h1>グループ管理</h1>
+            <h1 class="head">
+                グループ管理
+            </h1>
         </div>
     </div>
-
 </div>
 
 

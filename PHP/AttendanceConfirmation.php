@@ -27,7 +27,7 @@
         select subject_name
         from lesson_history LH
           left join subjects S on LH.subject_id = S.subject_id
-        where class_id = ? and date = ? and time = ?",
+        where classroom_id = ? and date = ? and time = ?",
         [$class_id, $day, $time])[0];
 
 
@@ -42,13 +42,13 @@
           left join attend a on SAL.attend_id = a.attend_id
           left join lesson_rate LR on SQ.student_id = LR.student_id and SAL.subject_id = LR.subject_id
         where date = ? and time_period = ?",[$class_id,date('Y-').$day,$time]);
-
     try{
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
     }
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,25 +77,53 @@
         </div>
     </div>
 </div>
-<!--    Jqueryのライブラリ-->
-<script
-        src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<!--momentのライブラリ（日付）-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/ja.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('#datepicker').datepicker({dateFormat: "yy-mm-dd"});
-        $('#datepicker').datepicker("setDate",new Date());
-        var now_jpn = moment();
-    })
-</script>
 
-        <a href="./TeacherPro.php" ><?php echo h($_SESSION['teacher_name']) ?></a>
+
+
+<input type="text" id="datepicker">
+<ul id="myList">
+</ul>
+
+
+
+
+
+
+
+<!-- 科目選択 -->
+<div id="class" class="title_menu">
+    <script type="text/javascript">
+        function test () {
+            // 選択されたオプションのバリューを取得する
+            var element = document.getElementById("class_name");
+            // クラスIDを自分に渡すURLを組み立てる
+            var a = element.value;
+            // location.hrefに渡して遷移する
+            location.href = 'index.php?class_id=' + a;
+            <?php
+            //                      $class_idをほかのページでも使えるようにした。
+            $_SESSION['index_class_id']=$class_id;
+            ?>
+        }
+    </script>
+    <select id="class_name" onchange="test()">
+        <!-- 折り返し処理 -->
+        <div id="re">
+            <?php foreach($_SESSION['class']['name'] as $d){?>
+                <!--flex-grow: 1;-->
+                <option value="<?=htmlspecialchars($d) ?>" <?php if(isset($_GET['class_id']) && $d == $_GET['class_id']){echo 'selected';}?>><?=htmlspecialchars($d) ?></option>
+            <?php }$pdo=null; ?>
+        </div>
+    </select>
+</div>
+</div>
+
+
+
+
+
+<!-- 先生の名前 -->
+<a href="./TeacherPro.php" ><?php echo h($_SESSION['username']) ?></a>
 
 
 <!-- 上のメニューバー -->
@@ -119,37 +147,41 @@
         <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
+
+
+    <!--写真が入ります-->
+    <!--グラフに飛ぶよん-->
+    <form action="update.php" method="post">
+        <input type="image" src="../image/noimage.gif">
+
+        <p>
+        <table>
+            <tr>
+                <th>出席番号</th>
+                <th>名前</th>
+                <th>出席率</th>
+                <th>出席判定</th>
+            </tr>
+            <!-- exec_selectによる折り返し処理:開始 -->
+
+            <?php foreach ($student as $row){ ?>
+                <tr>
+                    <th><?=htmlspecialchars($row['student_num']) ?></th>
+                    <th><?=htmlspecialchars($row['student_name'])?></th>
+                    <th><?=htmlspecialchars($row['rate'].'%')?></th>
+                    <th><?=htmlspecialchars($row['attend_name'])?></th>
+                </tr>
+            <?php } $pdo=null; ?>
+        </table>
+        <!--            <input type="submit" value="決定">-->
+        <button type=“submit”>決定</button>
+
+    </form>
+
+    ◯人中◯人出席しました。
+
 </div>
 
-<!--写真が入ります-->
-<!--グラフに飛ぶよん-->
-<form action="update.php" method="post">
-    <input type="image" src="../image/noimage.gif">
 
-    <p>
-    <table>
-        <tr>
-            <th>出席番号</th>
-            <th>名前</th>
-            <th>出席率</th>
-            <th>出席判定</th>
-        </tr>
-        <!-- exec_selectによる折り返し処理:開始 -->
-
-                <?php foreach ($student as $row){ ?>
-                    <tr>
-                        <th><?=htmlspecialchars($row['student_num']) ?></th>
-                        <th><?=htmlspecialchars($row['student_name'])?></th>
-                        <th><?=htmlspecialchars($row['rate'].'%')?></th>
-                        <th><?=htmlspecialchars($row['attend_name'])?></th>
-                        </tr>
-                <?php } $pdo=null; ?>
-            </table>
-<!--            <input type="submit" value="決定">-->
-            <button type=“submit”>決定</button>
-
-</form>
-
-◯人中◯人出席しました。
 </body>
 </html>

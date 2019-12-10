@@ -68,12 +68,14 @@ input#img{
     width: 100px;
     height: 100px;
 }
-table{
+#ac table{
     position: absolute;
     top: 130px;
     left: 340px;
 }
-th{
+.ad th{
+    border: 1px solid #ccc; /* 枠線 */
+    /*display: inline-block;*/
     padding: 30px;
     margin: 25px;
     /*width: 100px;*/

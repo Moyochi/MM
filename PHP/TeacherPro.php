@@ -6,99 +6,97 @@
     require 'db.php';
 
     $teacher = prepareQuery("
-                SELECT T.teacher_id,T.teacher_name,T.tell,T.mail,T.personalnum,TH.class_id,class_name 
+                SELECT T.teacher_id,T.teacher_name,T.tell,T.asomail,T.personalnum,TH.class_id,class_name 
                 FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id) 
                 INNER JOIN teachers_homerooms TH ON T.teacher_id=TH.teacher_id) 
                 INNER JOIN classes C ON TH.class_id=C.class_id 
-                WHERE L.login_id = ? 
-                ORDER BY class_id",[$_SESSION['username']]);
-
-    $student = prepareQuery("SELECT TH.class_id,class_name,CS.student_num,S.student_name
-                FROM((login L INNER JOIN teachers T ON L.login_id=T.login_id)
-                INNER JOIN teacher_homeroom TH ON T.teacher_id=TH.teacher_id)
-                INNER JOIN classes C ON TH.class_id=C.class_id
-                INNER JOIN students S ON S.class_id = C.class_id
-                INNER JOIN classes_students CS ON CS.class_id = S.class_id and CS.student_id = S.student_id
-                WHERE L.login_id = ?
-                AND C.class_id = ?
-                GROUP BY S.student_name
-                ORDER BY student_num asc ,class_id",[$_SESSION['username'], $_SESSION['class_id']]);
-
+                WHERE T.teacher_id = ?
+                ORDER BY class_id",[$_SESSION['teacher_id']]);
     try{
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
     }
+    var_dump($teacher);
 ?>
 
-<html xmlns="http://www.w3.org/1999/html">
-    <head>
-        <meta charset="UTF-8">
-        <title>TeacherPro</title>
-    </head>
-    <body>
-        <div class="header">
-                <p class="title">
-                    <div class="title_text">
-                        <h1>教師プロフィール</h1>
-
-                    </div>
-
-                    <!--検索バー-->
-                    🔎<input type="text" id="sa-ch">
-
-                    <!--メニューバー-->
-            <div class="tabs">
-                <li><a href="./index.php">担当グループ</a></li>
-                <li><a href="Group.php">グループ管理</a></li>
-                <li><a href="Users.php">ユーザー検索</a></li>
-                <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
-                <li><a href="Groupmake.php">グループ作成</a></li>
-                <li><a href="Classroom.php">教室管理</a></li>
-                <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
-            </div>
-
-                    <!--フォームタグ-->
-                    <p><form action="" method="post">
-
-<!--                    <p id="kyoid">教師ID</p>-->
-                    <p id="kyoid1"><?php echo $teacher[0]['teacher_id'] ?></p>
-<!--                    <p id="name">名前<p>-->
-                    <p id="name1"><?php echo $teacher[0]['teacher_name']; ?><p>
-<!--                    <p id="class">担当クラス</p>-->
-                    <p id="class1"><?php foreach ($teacher as $st){ ?>
-                        <tr>
-                            <?=htmlspecialchars($st['class_name']) ?>
-                        </tr>
-                    <?php } $pdo=null; ?></p>
-<!--                    <p id="asomail">麻生メアド</p>-->
-                    <p id="asomail1"><?php echo $teacher[0]['mail'] ?></p>
-<!--                    <p id="tell">内線</p>-->
-                    <p id="tell1"><?php echo $teacher[0]['tell']; ?></p>
-<!--                    <p id="personaltell">個人番号</p>-->
-                    <p id="personaltell1">0<?php echo $teacher[0]['personalnum']; ?></p>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" media="all" href="../CSS/All.css">
+    <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
+    <link rel="stylesheet" media="all" href="../CSS/Style.css">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Responsible.html</title>
+</head>
+<body>
 
 
-                    <p id="class">担当クラス</p>
-                    >　
+<!--どのアカウントで入ったか確認-->
 
+<div class="header">
 
+    <div class="title">
 
-                    <!--写真が入ります-->
-                    <input type="image" src="../image/noimage.gif" 　id="img">
-                    自己紹介
-                    <input type="text" id="introduction" size="30">
-                    <!--LINEQRが入ります-->
-                    <input type="image" src="../image/line.png" 　id="png">
+        <div class="title_text">
+            <!--flex-grow: 3;-->
+            <h1 class="head">
+                <!-- 題名 -->
+                教師プロフィール
+            </h1>
+        </div>
+    </div>
 
+</div>
 
+<!-- 上のメニューバー -->
+<div class="bu">
+    <!--    <a href="AttendanceConfirmation.php" id="attend">状況管理</a>-->
+</div>
 
+<!--検索バー -->
+<div class="container">
+    <input type="text" placeholder="Search..." id="sa-ch">
+    <div class="search"></div>
+</div>
 
-                    <div class="sub">
-                        <button type=“button”><a href="TeacherProEdit.html">編集</a></button>
-                    </div></<form>
+<div class="contents">
+    <ul class="nav">
+        <li><a href="./index.php">担当グループ</a></li>
+        <li><a href="Group.php">グループ管理</a></li>
+        <li><a href="Users.php">ユーザー検索</a></li>
+        <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
+        <li><a href="Groupmake.php">グループ作成</a></li>
+        <li><a href="Classroom.php">教室管理</a></li>
+        <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
 
-                </form>
-        <a href="./TeacherProEdit.php" id="edit">編集</a>
-    </body>
+    </ul>
+    <p id="kyoid">教師ID<br>
+        <?php echo $teacher[0]['teacher_name'] ?></p>
+        <?php echo '<br>'?>
+
+    <p id="name">名前<br>
+    <?php echo $teacher[0]['teacher_name']; ?><p>
+        <?php echo '<br>'?>
+
+    <p id="class">担当クラス<br>
+        <?php foreach ($teacher as $st){ ?>
+        <tr>
+            <p><?=htmlspecialchars($st['class_name']) ?></p>
+        </tr>
+        <?php } $pdo=null; ?>
+    </p>
+    <?php echo '<br>'?>
+
+    <p id="asomail">麻生メアド<br>
+        <?php echo ":".$teacher[0]['asomail'] ?></p>
+    <?php echo '<br>'?>
+    <p id="tell">内線<br>
+        <?php echo ":".$teacher[0]['tell']; ?></p>
+    <?php echo '<br>'?>
+    <p id="personaltell">個人番号<br>
+        0<?php echo ":".$teacher[0]['personalnum']; ?></p>
+
+</div>
+</body>
 </html>
 

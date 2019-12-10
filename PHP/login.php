@@ -1,18 +1,17 @@
 <?php
 require_once __DIR__ . '/functions.php';
 require_unlogined_session();
+require 'db.php';
 
-foreach (['username','password','token','submit'] as $key){
+foreach (['teacher_id','password','token','submit'] as $key){
     $key=(string)filter_input(INPUT_POST,$key);
 }
-require 'db.php';
 //エラーを格納する配列を初期化
 $errors=[];
 
 //POSTのときのみ実行
 if($_SERVER['REQUEST_METHOD']==='POST'){
     // csrf
-
 
     //idのパラメータチェック
     if (isset($_POST['teacher_id'])){
@@ -44,7 +43,6 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             foreach ($class as $row) {
                 $_SESSION['class'][] = ['id' => $row['class_id'],'name' => $row['class_name']];
             }
-            $_SESSION['index_class_id']=$_SESSION['class']['id'][0];
             // 画面遷移する処理
             header('Location: index.php');
             exit();
