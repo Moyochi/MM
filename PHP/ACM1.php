@@ -126,49 +126,55 @@ try{
         </div>
 
         <!-- 日付の選択 -->
-        <input name="datepicker" type="text" id="datepicker" onchange="cale()" value="<?php if(!empty($_GET['day'])) echo $_GET['day'] ?>">
+        <input name="datepicker" type="text" id="datepicker" onchange="cale()" value="<? if(!empty($_GET['day']))echo $_GET['day']?>">
         <ul id="myList"></ul>
 
-        <table>
-            <tr>
-                <th>出席番号</th>
-                <th>名前</th>
-                <th>出席率</th>
-                <th>出席判定</th>
-            </tr>
-            <!-- exec_selectによる折り返し処理:開始 -->
+        <?php
+            if(!isset($error)){
+                echo "
+                    <table>
+                        <tr>
+                            <th>出席番号</th>
+                            <th>名前</th>
+                            <th>出席率</th>
+                            <th>出席判定</th>
+                        </tr>";
+                        //出席(attend_id = 1)の数をカウントする変数
+                        //出席者の行毎にattend_presenceを増加
+                        $attend_presence = 0;
+                        foreach ($student as $i => $row){
+                            if($row['attend_id']==1) $attend_presence++;
 
-            <? if(isset($error) and $error!=null){echo $error;}else{
-                //出席(attend_id = 1)の数
-                $attend_presence = 0;
-                foreach ($student as $i => $row){
-                //何人出席したかを集計する。
-                if($row['attend_id']==1) $attend_presence++;
-                echo '<input type="hidden" name="'.$i.'" value="'.$row['student_id'].'">' ?>
-
-                <th><?=htmlspecialchars($row['student_num']) ?></th>
-                <th><?=htmlspecialchars($row['student_name'])?></th>
-                <th><?=htmlspecialchars($row['rate'].'%')?></th>
-                <th>
-                    <select name="attend_id_<? echo $i ?>">
-                        <option value="1" <? if($row['attend_id'] == 1)echo 'selected';?>>出席</option>
-                        <option value="2" <? if($row['attend_id'] == 2)echo 'selected';?>>欠席</option>
-                        <option value="3" <? if($row['attend_id'] == 3)echo 'selected';?>>遅刻</option>
-                        <option value="4" <? if($row['attend_id'] == 4)echo 'selected';?>>早退</option>
-                        <option value="5" <? if($row['attend_id'] == 5)echo 'selected';?>>欠課</option>
-                        <option value="6" <? if($row['attend_id'] == 6)echo 'selected';?>>遅延</option>
-                    </select>
-                </th>
-                </tr>
-            <?}} ?>
-        </table>
-
-        <input type="hidden" name="class_id" value="<?php echo $class_id ?>">
-        <input type="hidden" name="class_name" value="<?php echo $class_name ?>">
+                            echo "
+                            <input type='hidden' name= $i value= $row[student_id]>
+                            <th>".h($row['student_num'])."</th>
+                            <th><a id='name' href='StudentPro.php?student_num=".h($row['student_num'])."&class_id=".h($class_id)."'>".h($row['student_name'])."</a></th>
+                            <th>".h($row['rate'])."%</th>
+                            <th>
+                                <select name=attend_id_$i>
+                                    <option value='1'"; if($row['attend_id']==1)echo' selected';echo ">出席</option>
+                                    <option value='2'"; if($row['attend_id']==2)echo' selected';echo ">欠席</option>
+                                    <option value='3'"; if($row['attend_id']==3)echo' selected';echo ">遅刻</option>
+                                    <option value='4'"; if($row['attend_id']==4)echo' selected';echo ">早退</option>
+                                    <option value='5'"; if($row['attend_id']==5)echo' selected';echo ">欠課</option>
+                                    <option value='6'"; if($row['attend_id']==6)echo' selected';echo ">遅延</option>
+                                </select>
+                            </th>
+                        </tr>";
+                        }
+                        echo"
+                    </table>
+                 ";
+            }else{
+                echo $error.'<br>';
+            }
+        ?>
+        <input type="hidden" name="class_id" value="<?=$class_id ?>">
+        <input type="hidden" name="class_name" value="<?=$class_name ?>">
         <button type=“submit”>決定</button>
         <br>
         <br>
-        <?= count($student)."人中".$attend_presence."人出席しました。"?>
+        <?if(isset($student))echo count($student)."人中".$attend_presence."人出席しました。"?>
     </form>
 
 </div>
