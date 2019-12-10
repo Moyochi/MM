@@ -26,7 +26,7 @@
             おはようございます。
 
             <!--写真が入ります-->
-            <input type="image" src="../image/noimage.gif" id="img">
+            <input type="image" src="../sample.jpg" id="img">
 
             <p id="name">名前</p>
             <p id="attend">この授業の出席率</p>

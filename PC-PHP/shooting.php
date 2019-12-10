@@ -22,6 +22,15 @@
         <form action="" method="post">
 
             <!--撮影画面がはいる-->
+            <body>
+
+            <video id="camera"></video>
+            <canvas id="picture"></canvas>
+
+            <audio id="se" preload="auto">
+                <source src="../mp3/camera-shutter1.mp3" type="audio/mp3">
+            </audio>
+            </body>
 
             <div class="sub">
                 <button type=“button”><a href="recognition.html">撮影</a></button>

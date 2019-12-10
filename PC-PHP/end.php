@@ -1,9 +1,7 @@
-<?php
-
-?>
-
-<html>
+<html lang="en">
 <head>
+    <link rel="stylesheet" media="all" href="../CSS2/All2.css">
+    <link rel="stylesheet" media="all" href="../CSS2/end.css">
     <meta charset="UTF-8">
     <title>end</title>
 </head>
@@ -19,13 +17,17 @@
         -->
         <!--フォームタグ-->
         <form action="" method="post">
+            <p id="subject"><h1>授業名</h1></p>
 
-            <p id="subject">授業名</p>
+            <div id="a">
+                受付時間を終了しました。
+            </div>
 
+            <p id="attend">○○人出席しました。</p>
 
-            受付時間を終了しました。
-
-            <p id="attend">出席人数</p>出席しました。
+            <div class="sub">
+                <a href="initial.html">戻る</a>
+            </div>
 
 
         </form>

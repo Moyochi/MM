@@ -6,16 +6,11 @@ header('Content-Type:text/html; charset=UTF-8');
 require 'db.php';
 ?>
 
-<?php
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" media="all" href="../CSS/All.css">
-    <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
-    <link rel="stylesheet" media="all" href="../CSS/Style.css">
+    <link rel="stylesheet" media="all" href="../CSS/Group.css">
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <title>Responsible.html</title>
 </head>
@@ -35,13 +30,8 @@ require 'db.php';
             </h1>
         </div>
     </div>
-
 </div>
 
-<!-- 上のメニューバー -->
-<div class="bu">
-    <!--    <a href="AttendanceConfirmation.php" id="attend">状況管理</a>-->
-</div>
 
 <!--検索バー -->
 <div class="container">
@@ -60,5 +50,21 @@ require 'db.php';
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
 </div>
+
+<div id="a">
+追加するグループを選んでください。
+</div>
+
+<!--フォームタグ-->
+<p><form action="" method="post">
+
+
+    <div class="addclass">
+    <input type="checkbox" value="JK1">情報工学科１
+    </div>
+
+
+        <a href="Responsible.html" id="sub">OK</a>
+</form>
 </body>
 </html>

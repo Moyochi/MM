@@ -20,7 +20,18 @@
         <form action="" method="post">
             <p id="subject">授業名</p>
 
-            <!--写真がはいる-->
+            <!-- 画像データの表示 -->
+            <p class="fot">
+
+                <img src="../sample.jpg">
+
+            </p>
+
+
+
+            <p id="a">
+                認証完了しました。
+            </p>
 
             おはようございます。
 

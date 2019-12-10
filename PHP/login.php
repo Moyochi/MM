@@ -77,7 +77,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
 <html lang="ja">
     <head>
         <link rel="stylesheet" media="all" href="../CSS/All.css">
-        <link rel="stylesheet" media="all" href="../CSS/lo.css">
+        <link rel="stylesheet" media="all" href="../CSS/Login.css">
         <meta charset="UTF-8">
         <title>Login</title>
     </head>

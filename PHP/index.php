@@ -5,8 +5,10 @@
     header('Content-Type:text/html; charset=UTF-8');
     require 'db.php';
 
-    //var_dump($_GET);
-    if(isset($_GET['class_id']) and isset($_GET['class_name'])){
+//表示するグループのclass_idを設定。
+//初回表示時はセッションから、1番上のclass_idが利用され、
+//指定された場合は、getで受け取った内容を設定する。
+    if(isset($_GET['class_id'])){
         $class_id=$_GET['class_id'];
         $class_name=$_GET['class_name'];
     }else{
@@ -98,8 +100,6 @@ try{
         </div>
 
             <div class="contents">
-
-
                 <ul class="nav">
                 <li><a href="./index.php">担当グループ</a></li>
                 <li><a href="Group.php">グループ管理</a></li>
@@ -109,22 +109,10 @@ try{
                 <li><a href="Classroom.php">教室管理</a></li>
                 <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
                 </ul>
+            </div>
 
-
-
-
-                <!--人の表情が入ります-->
-                <!--<input type="image" src="image/face.png">-->
-
-
-                <!-- フォームタグ -->
-                <p><form action="ACM1.php" method="post">
-                    <!-- 写真が入ります -->
-                    <!-- グラフに飛ぶよん -->
-                    <form action="ぐらふのPHP" method="post"></form>
-<!--                    <input type="image" src="" id="img">-->
-
-
+            <!--人の表情が入ります-->
+            <!--<input type="image" src="image/face.png">-->
 
                     <!-- クラスメンバーの表示 -->
                     <style>
