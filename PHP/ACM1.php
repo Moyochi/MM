@@ -80,7 +80,8 @@ try{
 
 
 <!-- 先生の名前 -->
-<a href="./TeacherPro.php" ><?php echo h($_SESSION['teacher_name']) ?></a>
+<a href="./TeacherPro.php" ><?=h($_SESSION['teacher_name']) ?></a>
+<p><?if($subject_name!=null)echo h($subject_name)?></p>
 
 <!-- 上のメニューバー -->
 <div class="bu">
@@ -135,12 +136,12 @@ try{
                             <th>出席率</th>
                             <th>出席判定</th>
                         </tr>";
-                        //出席(attend_id = 1)の数をカウントする変数
+                        //出席(attend_id = 1,3,4,6)の数をカウントする変数
                         //出席者の行毎にattend_presenceを増加
                         $attend_presence = 0;
+                        $is_attend = ['1','3','4','6'];
                         foreach ($student as $i => $row){
-                            if($row['attend_id']==1) $attend_presence++;
-
+                            if(in_array($row['attend_id'],$is_attend,true)) $attend_presence++;
                             echo "
                             <input type='hidden' name= $i value= $row[student_id]>
                             <th>".h($row['student_num'])."</th>
@@ -167,7 +168,7 @@ try{
         ?>
         <input type="hidden" name="class_id" value="<?=$class_id ?>">
         <input type="hidden" name="class_name" value="<?=$class_name ?>">
-        <button type=“submit”>決定</button>
+        <button type=“submit”>変更</button>
         <br>
         <br>
         <?if(isset($student))echo count($student)."人中".$attend_presence."人出席しました。"?>

@@ -56,10 +56,8 @@ require 'db.php';
     条件の絞り込みを選択してください。
 </div>
 
-条件の絞り込みを選択してください。<br><br>
-
 <!--フォームタグ-->
-<p><form action="" method="post">
+<form action="" method="post">
 
         <!--条件-->
         <div class="if">
@@ -92,8 +90,6 @@ require 'db.php';
 
     <div id="b">
         表示順番の指定をしてください。
-
-
         <div class="if2">
 
             <input type="checkbox" id="syouz">昇順

@@ -6,71 +6,20 @@ require 'db.php';
 header('Content-Type:text/html; charset=UTF-8');
 
 //グループ名変更
-if(isset($_POST['function_flg']) and $_POST['function_flg']=='UPDATE_NAME') {
-    if (isset($_POST['update_grope_id']) and isset($_POST['update_grope_name'])) {
-        prepareQuery("update classes set class_name = ? where class_id = ?"
-            , [$_POST['update_grope_name'], $_POST['update_grope_id']]);
-        $class = prepareQuery("
-                select c.class_id, class_name
-                from teachers_homerooms t2
-                left join classes c on t2.class_id = c.class_id
-                where teacher_id = ?", [$_SESSION['teacher_id']]);
-        $_SESSION['class'] = null;
-        foreach ($class as $row) {
-            $_SESSION['class'][] = ['id' => $row['class_id'], 'name' => $row['class_name']];
-        }
+if (isset($_POST['update_grope_id']) and isset($_POST['update_grope_name'])) {
+    prepareQuery("update classes set class_name = ? where class_id = ?"
+        , [$_POST['update_grope_name'], $_POST['update_grope_id']]);
+    $class = prepareQuery("
+            select c.class_id, class_name
+            from teachers_homerooms t2
+            left join classes c on t2.class_id = c.class_id
+            where teacher_id = ?", [$_SESSION['teacher_id']]);
+    $_SESSION['class'] = null;
+    foreach ($class as $row) {
+        $_SESSION['class'][] = ['id' => $row['class_id'], 'name' => $row['class_name']];
     }
 }
-//グループ作成
-if(isset($_POST['function_flg']) and $_POST['function_flg']=='CREATE_GROPE') {
-    if (isset($_POST['gname']) and $_POST['gname'] != "" and $_FILES['file']['tmp_name'] != null) {
-        //ファイルの受け取りが正常に行われている場合、ファイルのアクセス権限を変更する
-        $file_path = './test_csv/' . $_FILES["file"]["name"];
-        chmod($_FILES['file']['tmp_name'], 0666);
-        //ファイルをプロジェクト配下のディレクトリに配置し、値を読み込む。
-        if (move_uploaded_file($_FILES["file"]["tmp_name"], $file_path)) {
-            //ファイルのプロジェクト配下への再配置が成功
-            $file = new SplFileObject($file_path);
-            $file->setFlags(
-                SplFileObject::READ_CSV |
-                SplFileObject::SKIP_EMPTY |
-                SplFileObject::READ_AHEAD
-            );
-            $records = array();
-            foreach ($file as $i => $row) {
-                if ($i === 0) {
-                    foreach ($row as $j => $col) {
-                        if ($j == 0) {
-                            $colbook[$j] = "ID";
-                        } else {
-                            $colbook[$j] = $col;
-                        }
-                    }
-                    continue;
-                }
-                // 2行目以降はデータ行として取り込み
-                $line = array();
-                foreach ($colbook as $j => $col) {
-                    $line[$colbook[$j]] = @$row[$j];
-                }
-                $records[] = $line;
-            }
-            //新規グループに付与するクラスID(クラスIDの最大+1)を取得する
-            $cid = query('select max(class_id)id from classes')[0]['id'] + 1;
-            //グループsqlを実行する
-            $sql = 'insert into classes values (' . $cid . ',\'' . $_POST['gname'] . '\');';
-            //グループ内にレコードを追加する
-            foreach ($records as $j) {
-                $sql = $sql . 'insert into students values (' . $j[$colbook[0]] . ',' . $cid . ',\'' . $j[$colbook[2]] . '\',' . $j[$colbook[3]] . ');';
-                $sql = $sql . "insert into classes_students values (" . $cid . "," . $j[$colbook[1]] . "," . $j[$colbook[0]] . ");";
-            }
-            query($sql);
-        } else {
-            //ファイルのプロジェクト配下への再配置が失敗
-            echo 'ファイルアップロードに失敗しました。';
-        }
-    }
-}
+
 
 if(isset($_GET['grope_id'])){
     $grope_id = $_GET['grope_id'];
@@ -152,191 +101,182 @@ if(isset($_GET['grope_id'])){
             <p><input type="text" name="update_grope_name" placeholder="<? echo $grope_name?>" size="50"></p>
         </div>
         <input type="hidden" name="update_grope_id" value="<? echo $grope_id?>">
-        <input type="hidden" name="function_flg" value="UPDATE_NAME">
         <button type="submit">決定</button>
-    </form>
-    <hr>
-    <form action="" method="post" enctype="multipart/form-data">
-        <h2>グループ作成<br></h2>
-        グループ名 : <input type="text" name="gname" placeholder="grope_name"><br>
-        <input type="file" name="file" size="30">
-        <input type="hidden" name="function_flg" value="CREATE_GROPE">
-        <input type="submit" value="送信">
     </form>
     </div>
 
 </div>
 
-    <table>
-    <div class="zi">
-    <h2 id="zi_label">教室管理</h2>
-    <tr>
-        <th></th>
-        <th>月曜日</th>
-        <th>火曜日</th>
-        <th>水曜日</th>
-        <th>木曜日</th>
-        <th>金曜日</th>
-    </tr>
-    <tr>
-        <td>一限目</td>
-        <th>
-            <!--時間割プルダウン-->
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-    </tr>
-    <tr>
-        <td>二限目</td>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-    </tr>
-    <tr>
-        <td>三限目</td>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-        <th>
-            <div class="timetable" class="time_menu">
-                <select>
-                    <option>-</option>
-                </select>
-            </div>
-        </th>
-
-    </tr>
-    <td>四限目</td>
-    <th>
-        <div class="timetable" class="time_menu">
-            <select>
-                <option>-</option>
-            </select>
-        </div>
-    </th>
-    <th>
-        <div class="timetable" class="time_menu">
-            <select>
-                <option>-</option>
-            </select>
-        </div>
-    </th>
-    <th>
-        <div class="timetable" class="time_menu">
-            <select>
-                <option>-</option>
-            </select>
-        </div>
-    </th>
-    <th>
-        <div class="timetable" class="time_menu">
-            <select>
-                <option>-</option>
-            </select>
-        </div>
-    </th>
-    <th>
-        <div class="timetable" class="time_menu">
-            <select>
-                <option>-</option>
-            </select>
-        </div>
-    </th>
-    </div>
-</table>
-
-<!--画面リロード-->
-<div class="sub">
-    <a href="ResponsibleEdit.html" id="time_ok">決定</a>
-</div></form>
+<!--    <table>-->
+<!--    <div class="zi">-->
+<!--    <h2 id="zi_label">教室管理</h2>-->
+<!--    <tr>-->
+<!--        <th></th>-->
+<!--        <th>月曜日</th>-->
+<!--        <th>火曜日</th>-->
+<!--        <th>水曜日</th>-->
+<!--        <th>木曜日</th>-->
+<!--        <th>金曜日</th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>一限目</td>-->
+<!--        <th>-->
+<!--            <!--時間割プルダウン-->-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>二限目</td>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>三限目</td>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            <div class="timetable" class="time_menu">-->
+<!--                <select>-->
+<!--                    <option>-</option>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </th>-->
+<!---->
+<!--    </tr>-->
+<!--    <td>四限目</td>-->
+<!--    <th>-->
+<!--        <div class="timetable" class="time_menu">-->
+<!--            <select>-->
+<!--                <option>-</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </th>-->
+<!--    <th>-->
+<!--        <div class="timetable" class="time_menu">-->
+<!--            <select>-->
+<!--                <option>-</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </th>-->
+<!--    <th>-->
+<!--        <div class="timetable" class="time_menu">-->
+<!--            <select>-->
+<!--                <option>-</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </th>-->
+<!--    <th>-->
+<!--        <div class="timetable" class="time_menu">-->
+<!--            <select>-->
+<!--                <option>-</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </th>-->
+<!--    <th>-->
+<!--        <div class="timetable" class="time_menu">-->
+<!--            <select>-->
+<!--                <option>-</option>-->
+<!--            </select>-->
+<!--        </div>-->
+<!--    </th>-->
+<!--    </div>-->
+<!--</table>-->
+<!---->
+<!--<!--画面リロード-->-->
+<!--<div class="sub">-->
+<!--    <a href="ResponsibleEdit.html" id="time_ok">決定</a>-->
+<!--</div></form>-->
 
 
 </body>

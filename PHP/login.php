@@ -90,8 +90,6 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             ログイン
         </h1>
     </div>
-
-        <h1>ログイン</h1>
         <?php if($errors): ?>
         <!--フォームタグ-->
         <ul>
