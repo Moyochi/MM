@@ -153,11 +153,11 @@ try{
                         <?php foreach ($student as $i => $st){ ?>
                             <tr>
                                 <th><?=htmlspecialchars($st['student_num']) ?></th>
-                                <th><a id="name" href="StudentPro.php"><?=htmlspecialchars($st['student_name']) ?></a></th>
-                                <td style="margin: 0"><?=htmlspecialchars($month_rate[$i]['month_rate']).'%' ?></td><!-- 今月出席率 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['late']) ?></td><!-- 遅刻数 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['absence']) ?></td><!-- 欠席数 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['attend_rate']).'%' ?></td><!-- 合計出席率 -->
+                                <th><a id="name" href="StudentPro.php?student_num=<?=h($st['student_num'])?>&class_id=<?=h($st['class_id'])?>"><?=h($st['student_name']) ?></a></th>
+                                <td style="margin: 0"><?=h($month_rate[$i]['month_rate']).'%' ?></td><!-- 今月出席率 -->
+                                <td style="margin: 0"><?=h($st['late']) ?></td><!-- 遅刻数 -->
+                                <td style="margin: 0"><?=h($st['absence']) ?></td><!-- 欠席数 -->
+                                <td style="margin: 0"><?=h($st['attend_rate']).'%' ?></td><!-- 合計出席率 -->
                             </tr>
                         <?php } $pdo=null; ?>
                         </tbody>
