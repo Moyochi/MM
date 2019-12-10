@@ -8,7 +8,7 @@
 //表示するグループのclass_idを設定。
 //初回表示時はセッションから、1番上のclass_idが利用され、
 //指定された場合は、getで受け取った内容を設定する。
-    if(isset($_GET['class_id'])){
+    if(isset($_GET['class_id']) and isset($_GET['class_name'])){
         $class_id=$_GET['class_id'];
         $class_name=$_GET['class_name'];
     }else{
@@ -87,7 +87,7 @@ try{
 
             <!-- 上のメニューバー -->
             <div class="bu">
-                <a href="./ResponsibleEdit.php" id="edit">編集</a>
+                <a href="./ResponsibleEdit.php<?="?grope_id=".$class_id?>" id="edit">編集</a>
                 <a href="ACM1.php<?="?class_id=".$class_id."&class_name=".$class_name?>" id="attendata">出席簿</a>
                 <a href="TeacherPro.php" id="teacher">担任</a>
                 <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
