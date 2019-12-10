@@ -86,7 +86,7 @@ try{
             <!-- 上のメニューバー -->
             <div class="bu">
                 <a href="./ResponsibleEdit.php" id="edit">編集</a>
-                <a href="ACM1.php" id="attendata">出席簿</a>
+                <a href="ACM1.php<?="?class_id=".$class_id."&class_name=".$class_name?>" id="attendata">出席簿</a>
                 <a href="TeacherPro.php" id="teacher">担任</a>
                 <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
             </div>
@@ -152,7 +152,7 @@ try{
                         <tbody>
                         <?php foreach ($student as $i => $st){ ?>
                             <tr>
-                                <th><?=htmlspecialchars($st['student_num']) ?></th>
+                                <th><?=h($st['student_num']) ?></th>
                                 <th><a id="name" href="StudentPro.php?student_num=<?=h($st['student_num'])?>&class_id=<?=h($st['class_id'])?>"><?=h($st['student_name']) ?></a></th>
                                 <td style="margin: 0"><?=h($month_rate[$i]['month_rate']).'%' ?></td><!-- 今月出席率 -->
                                 <td style="margin: 0"><?=h($st['late']) ?></td><!-- 遅刻数 -->
