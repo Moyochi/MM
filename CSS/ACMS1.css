@@ -1,0 +1,18 @@
+div#sums{
+    position: absolute;
+}
+
+button{
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    padding: 10px 20px;
+    position: absolute;
+    box-sizing: border-box;
+    right: 235px;
+    bottom: 25px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 3px;
+}

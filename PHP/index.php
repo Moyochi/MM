@@ -88,7 +88,7 @@ try{
             <!-- 上のメニューバー -->
             <div class="bu">
                 <a href="./ResponsibleEdit.php" id="edit">編集</a>
-                <a href="ACM1.php" id="attend">出席簿</a>
+                <a href="ACM1.php" id="attendata">出席簿</a>
                 <a href="TeacherPro.php" id="teacher">担任</a>
                 <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
             </div>
@@ -105,7 +105,6 @@ try{
                 <li><a href="Group.php">グループ管理</a></li>
                 <li><a href="Users.php">ユーザー検索</a></li>
                 <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
-                <li><a href="Groupmake.php">グループ作成</a></li>
                 <li><a href="Classroom.php">教室管理</a></li>
                 <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
                 </ul>

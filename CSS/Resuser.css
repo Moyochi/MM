@@ -1,0 +1,13 @@
+/*編集*/
+.aedit{
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    position: absolute;
+    right: 450px;
+    bottom: 25px;
+    margin: 10px;
+    border-radius: 3px;
+}

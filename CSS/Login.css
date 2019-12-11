@@ -19,3 +19,18 @@ div.log{
   color: white;
   border-radius: 3px;
 }
+
+button#bub{
+  display: block;
+  background-color: #afc6e2;
+  -webkit-appearance: unset;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  position: absolute;
+  right: 50px;
+  top: 25px;
+  text-decoration: none;
+  color: white;
+  margin: 10px;
+  border-radius: 3px;
+}

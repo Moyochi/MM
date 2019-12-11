@@ -59,6 +59,7 @@ try{
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
     <link rel="stylesheet" media="all" href="../CSS/All.css">
     <link rel="stylesheet" media="all" href="../CSS/Responsible.css">
+    <link rel="stylesheet" media="all" href="../CSS/ACMS1.css">
     <link rel="stylesheet" media="all" href="../CSS/Style.css">
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <meta charset="UTF-8">
@@ -98,7 +99,6 @@ try{
         <li><a href="Group.php">グループ管理</a></li>
         <li><a href="Users.php">ユーザー検索</a></li>
         <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
-        <li><a href="Groupmake.php">グループ作成</a></li>
         <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
@@ -161,10 +161,12 @@ try{
 
         <input type="hidden" name="class_id" value="<?php echo $class_id ?>">
         <input type="hidden" name="class_name" value="<?php echo $class_name ?>">
-        <button type=“submit”>決定</button>
+        <button type=“submit” id="shu_ok">決定</button>
         <br>
         <br>
+        <div id="sums">
         <?= count($student)."人中".$attend_presence."人出席しました。"?>
+        </div>
     </form>
 
 </div>

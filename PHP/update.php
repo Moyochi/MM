@@ -24,7 +24,7 @@ try {
 //        echo $sql;
     }
 
-    header("Location: http://localhost:8081/mm_project/PHP/ACM1.php?class_id=$_POST[class_id]&class_name=$_POST[class_name]&day=$day&time=$time");
+    header("Location: http://localhost:8081/mm1/PHP/ACM1.php?class_id=$_POST[class_id]&class_name=$_POST[class_name]&day=$day&time=$time");
 } catch (Exception $e) {
     echo 'エラーが発生しました。:' . $e->getMessage();
 }

@@ -49,14 +49,34 @@ require 'db.php';
         <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
+
+
+</div>
+<div id="d">
+    グループ作成
 </div>
 
-<div id="a">
+<div id="b">
+
+    <form action="" method="post" enctype="multipart/form-data">
+        グループ名 : <input type="text" name="gname" placeholder="grope_name"><br>
+        <input type="file" name="file" size="30">
+        <input type="hidden" name="function_flg" value="CREATE_GROPE">
+        <input type="submit" value="送信" id="buto">
+    </form>
+
+</div>
+
+<div id="c">
+    グループ追加
+</div>
+
+<div id="e">
 追加するグループを選んでください。
 </div>
 
 <!--フォームタグ-->
-<p><form action="" method="post">
+<!--<p><form action="" method="post">-->
 
 
     <div class="addclass">
@@ -65,6 +85,6 @@ require 'db.php';
 
 
         <a href="Responsible.html" id="sub">OK</a>
-</form>
+<!--</form>-->
 </body>
 </html>

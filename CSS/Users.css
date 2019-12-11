@@ -5,7 +5,7 @@ body{
 
 #a{
     width: fit-content;
-    font-size:30px;
+    font-size:20px;
     position: absolute;
     top: 150px;
     left: 350px;
@@ -121,21 +121,13 @@ body{
 
 }
 
-
-
-
-
 #b{
     width: fit-content;
-    font-size:30px;
+    font-size:20px;
     position: absolute;
     top: 350px;
     left: 350px;
 }
-
-
-
-
 
 
 /*グループ内スイッチ*/
@@ -192,28 +184,25 @@ body{
 }
 
 .switch3{
+
     appearance: none;
     -webkit-appearance: none;
     -ms-appearance: none;
     -moz-appearance: none;
-
     display: inline-block;
     vertical-align: top;
     width: 64px;
     height: 64px;
     margin: 0;
-
     border-radius: 8px;
     border: 1px solid #aaa;
     background-color: #333;
-
     text-align: center;
     line-height: 60px;
     font-size: 20px;
-
     cursor: pointer;
-
     transition: 200ms;
+    left: 500px;
 }
 
 .switch3:active{
@@ -247,7 +236,7 @@ body{
 
 #c{
     width: fit-content;
-    font-size:30px;
+    font-size:20px;
     position: absolute;
     top: 550px;
     left: 350px;
@@ -266,4 +255,8 @@ body{
     text-decoration: none;
     color: white;
     border-radius: 3px;
+}
+
+div#sums{
+
 }

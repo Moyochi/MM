@@ -45,7 +45,6 @@ require 'db.php';
         <li><a href="Group.php">グループ管理</a></li>
         <li><a href="Users.php">ユーザー検索</a></li>
         <li><a href="Resuser.php">管理者ユーザー一覧</a></li>
-        <li><a href="Groupmake.php">グループ作成</a></li>
         <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
@@ -54,26 +53,25 @@ require 'db.php';
 
 <div id="a">
     条件の絞り込みを選択してください。
-</div>
-
-条件の絞り込みを選択してください。<br><br>
 
 <!--フォームタグ-->
 <p><form action="" method="post">
 
         <!--条件-->
         <div class="if">
-
+            &thinsp;&thinsp;&thinsp;&thinsp;
             <input type="checkbox" id="subject">学科
             <select>
                 <option>-</option>
             </select>
+            &thinsp;&thinsp;&thinsp;&thinsp;
 
             <input type="checkbox" id="grade">学年
             <select>
                 <option>-</option>
             </select>
             <br>
+            &thinsp;&thinsp;&thinsp;&thinsp;
 
 
             <input type="checkbox" id="up">出席率
@@ -81,28 +79,29 @@ require 'db.php';
             <select>
                 <option>以上</option>
             </select>
-
+            &thinsp;&thinsp;
             <!--出席率スイッチ-->
             <input type="checkbox" class="switch1" data-off-label="月別" data-on-label="累計">
 
             <br>
         </div>
-
+</div>
 
 
     <div id="b">
         表示順番の指定をしてください。
-
+        <br><br>
 
         <div class="if2">
-
+            &thinsp;&thinsp;&thinsp;&thinsp;
             <input type="checkbox" id="syouz">昇順
+            &thinsp;&thinsp;&thinsp;&thinsp;
             <input type="checkbox" id="kouz">降順
         </div>
     </div>
         <div id="c">
             グループ内検索
-
+            &thinsp;&thinsp;
             <!--グループ内スイッチ-->
             <input type="checkbox" class="switch3" data-off-label="OFF" data-on-label="ON">
         </div>
