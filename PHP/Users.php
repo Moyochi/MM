@@ -53,9 +53,11 @@ require 'db.php';
 
 <div id="a">
     条件の絞り込みを選択してください。
+</div>
+
 
 <!--フォームタグ-->
-<p><form action="" method="post">
+<form action="" method="post">
 
         <!--条件-->
         <div class="if">

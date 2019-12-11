@@ -16,7 +16,6 @@
     }catch (PDOException $exception){
         die('接続エラー:'.$exception->getMessage());
     }
-    var_dump($teacher);
 ?>
 
 <!DOCTYPE html>

@@ -8,7 +8,7 @@
 //表示するグループのclass_idを設定。
 //初回表示時はセッションから、1番上のclass_idが利用され、
 //指定された場合は、getで受け取った内容を設定する。
-    if(isset($_GET['class_id'])){
+    if(isset($_GET['class_id']) and isset($_GET['class_name'])){
         $class_id=$_GET['class_id'];
         $class_name=$_GET['class_name'];
     }else{
@@ -87,8 +87,8 @@ try{
 
             <!-- 上のメニューバー -->
             <div class="bu">
-                <a href="./ResponsibleEdit.php" id="edit">編集</a>
-                <a href="ACM1.php" id="attendata">出席簿</a>
+                <a href="./ResponsibleEdit.php<?="?grope_id=".$class_id?>" id="edit">編集</a>
+                <a href="ACM1.php<?="?class_id=".$class_id."&class_name=".$class_name?>" id="attendata">出席簿</a>
                 <a href="TeacherPro.php" id="teacher">担任</a>
                 <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
             </div>
@@ -139,12 +139,12 @@ try{
                         <tbody>
                         <?php foreach ($student as $i => $st){ ?>
                             <tr>
-                                <th><?=htmlspecialchars($st['student_num']) ?></th>
-                                <th><a id="name" href="StudentPro.php"><?=htmlspecialchars($st['student_name']) ?></a></th>
-                                <td style="margin: 0"><?=htmlspecialchars($month_rate[$i]['month_rate']).'%' ?></td><!-- 今月出席率 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['late']) ?></td><!-- 遅刻数 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['absence']) ?></td><!-- 欠席数 -->
-                                <td style="margin: 0"><?=htmlspecialchars($st['attend_rate']).'%' ?></td><!-- 合計出席率 -->
+                                <th><?=h($st['student_num']) ?></th>
+                                <th><a id="name" href="StudentPro.php?student_num=<?=h($st['student_num'])?>&class_id=<?=h($st['class_id'])?>"><?=h($st['student_name']) ?></a></th>
+                                <td style="margin: 0"><?=h($month_rate[$i]['month_rate']).'%' ?></td><!-- 今月出席率 -->
+                                <td style="margin: 0"><?=h($st['late']) ?></td><!-- 遅刻数 -->
+                                <td style="margin: 0"><?=h($st['absence']) ?></td><!-- 欠席数 -->
+                                <td style="margin: 0"><?=h($st['attend_rate']).'%' ?></td><!-- 合計出席率 -->
                             </tr>
                         <?php } $pdo=null; ?>
                         </tbody>
