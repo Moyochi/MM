@@ -17,8 +17,7 @@ if(isset($_GET['time']) and isset($_GET['day'])){
     $day = $_GET['day'];
     $time = $_GET['time'];
 }else{
-    //    $day = date("Y-m-d");
-    $day = $day = '2019-09-01';
+    $day = date("Y-m-d");
     $time = 1;
 }
 
@@ -30,6 +29,9 @@ try{
           left join subjects S on LH.subject_id = S.subject_id
         where classroom_id = ? and date = ? and time = ?",
         [$class_id, $day, $time]);
+    $time_period_array = prepareQuery("
+        select time_period from lesson_time_period where class_id = ?",
+        [$class_id]);
     if($subject_name!=array()){
         //その時間に行われた授業名。
         $subject_name = $subject_name[0]['subject_name'];
@@ -113,10 +115,10 @@ try{
         <div id="class" class="title_menu">
             <select name="time_period"  id="class_name" onchange="cale()">
                 <?php //$_GET['time']が指定されている場合はselected修飾を付ける。
-                for($i=1; $i<5; $i++){
-                    $htmlText = "<option value='".$i."'";
+                foreach ($time_period_array as $row){
+                    $htmlText = "<option value='".$row['time_period']."'";
                     if(isset($_GET['time']) && $i == $_GET['time']){$htmlText .= 'selected';}
-                    $htmlText .= ">".$i."限目</option>";
+                    $htmlText .= ">".$row['time_period']."限目</option>";
                     echo $htmlText;
                 } ?>
             </select>

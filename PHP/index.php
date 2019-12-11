@@ -108,7 +108,6 @@ try{
                 <li><a href="Classroom.php">教室管理</a></li>
                 <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
                 </ul>
-            </div>
 
             <!--人の表情が入ります-->
             <!--<input type="image" src="image/face.png">-->
@@ -150,7 +149,6 @@ try{
                         </tbody>
                     </table>
                 </form>
-
             </div>
     </body>
 </html>

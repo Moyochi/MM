@@ -58,6 +58,29 @@ if (isset($_POST['gname']) and $_POST['gname'] != "" and $_FILES['file']['tmp_na
     }
 }
 
+//担当クラス追加
+if(isset($_GET['class_id'])){
+    $selected_class_list = preg_split("/[,]/",$_GET['class_id']);
+    foreach ($selected_class_list as $row){
+        var_dump($row);
+        prepareQuery("insert into teachers_homerooms values (?,'2019',?)", [$row,$_SESSION['teacher_id']]);
+    }
+    //セッション内の担当クラスリストを更新。
+    $_SESSION['class'] = [];
+    $class = prepareQuery("
+                select TH.class_id,class_name
+                from teachers T
+                  left join teachers_homerooms th on T.teacher_id = th.teacher_id
+                  left join classes c on th.class_id = c.class_id
+                where T.teacher_id = ?
+                ORDER BY class_id",[$_SESSION['teacher_id']]);
+    foreach ($class as $row) {
+        $_SESSION['class'][] = ['id' => $row['class_id'],'name' => $row['class_name']];
+    }
+    header('Location: index.php');
+}
+
+$class_list = prepareQuery("select classes.class_id,class_name from classes left join teachers_homerooms h on classes.class_id = h.class_id where teacher_id <> ? or teacher_id is null",[$_SESSION['teacher_id']]);
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +136,6 @@ if (isset($_POST['gname']) and $_POST['gname'] != "" and $_FILES['file']['tmp_na
     <form action="" method="post" enctype="multipart/form-data">
         グループ名 : <input type="text" name="gname" placeholder="grope_name"><br>
         <input type="file" name="file" size="30">
-        <input type="hidden" name="function_flg" value="CREATE_GROPE">
         <input type="submit" value="送信" id="buto">
     </form>
 
@@ -128,15 +150,30 @@ if (isset($_POST['gname']) and $_POST['gname'] != "" and $_FILES['file']['tmp_na
 </div>
 
 <!--フォームタグ-->
-<!--<p><form action="" method="post">-->
-
-
-    <div class="addclass">
-    <input type="checkbox" value="JK1">情報工学科１
-    </div>
-
-
-        <a href="Responsible.html" id="sub">OK</a>
-<!--</form>-->
+<form action="" id = class_list_select method="get">
+    <?php
+    echo '<div class="addclass">';
+    foreach ($class_list as $row) {
+        echo '<input type="checkbox" value="'.$row['class_id'].'">'.$row['class_name'];
+    }
+    echo '</div>';
+    ?>
+    <input type="button" id="sub" value="OK" onclick=selectClass()>
+    <script type="text/javascript">
+        function selectClass() {
+            // 選択されたオプションのバリューを取得する
+            var element = document.getElementById("class_list_select");
+            // クラスIDを自分に渡すURLを組み立てる
+            var class_list = [];
+            for (var i = 0; i < element.length-1; i++) {
+                if (element[i].checked) {
+                    class_list.push(element[i].value);
+                }
+                // location.hrefに渡して遷移する
+                location.href = 'Group.php?class_id=' + class_list;
+            }
+        }
+    </script>
+</form>
 </body>
 </html>
