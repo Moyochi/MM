@@ -14,10 +14,10 @@ if(isset($_GET['class_id'])){
     $class_name = $_SESSION['class'][0]['name'];
 }
 if(isset($_GET['time']) and isset($_GET['day'])){
-    $day = $_GET['day'];
+    $date = $_GET['day'];
     $time = $_GET['time'];
 }else{
-    $day = date("Y-m-d");
+    $date = date("Y-m-d");
     $time = 1;
 }
 
@@ -28,10 +28,13 @@ try{
         from lesson_history LH
           left join subjects S on LH.subject_id = S.subject_id
         where classroom_id = ? and date = ? and time = ?",
-        [$class_id, $day, $time]);
+        [$class_id, $date, $time]);
     $time_period_array = prepareQuery("
-        select time_period from lesson_time_period where class_id = ?",
-        [$class_id]);
+        select time 
+        from lesson_history LH 
+          left join lesson_history_grope grope on LH.lesson_history_id = grope.lesson_history_id
+        where class_id = ? and date = ?",
+        [$class_id,$date]);
     if($subject_name!=array()){
         //その時間に行われた授業名。
         $subject_name = $subject_name[0]['subject_name'];
@@ -46,9 +49,12 @@ try{
           ORDER BY student_num asc) SQ on SAL.student_id = SQ.student_id
           left join attend a on SAL.attend_id = a.attend_id
           left join lesson_rate LR on SQ.student_id = LR.student_id and SAL.subject_id = LR.subject_id
-        where date = ? and time_period = ?",[$class_id,$day,$time]);
+        where date = ? and time_period = ?",[$class_id,$date,$time]);
     }else{
-        $error = "該当の時間に授業は行われていません。";
+        $error = "該当の時間に実施された授業はありません。";
+        if($time_period_array == array()){
+            $error = "該当の日付に実施された授業はありません。";
+        }
     }
 }catch (PDOException $exception){
     die('接続エラー:'.$exception->getMessage());
@@ -115,10 +121,10 @@ try{
         <div id="class" class="title_menu">
             <select name="time_period"  id="class_name" onchange="cale()">
                 <?php //$_GET['time']が指定されている場合はselected修飾を付ける。
-                foreach ($time_period_array as $row){
-                    $htmlText = "<option value='".$row['time_period']."'";
-                    if(isset($_GET['time']) && $i == $_GET['time']){$htmlText .= 'selected';}
-                    $htmlText .= ">".$row['time_period']."限目</option>";
+                foreach ($time_period_array as $i => $row){
+                    $htmlText = "<option value='".$row['time']."'";
+                    if(isset($_GET['time']) && $i+1 == $_GET['time']){$htmlText .= 'selected';}
+                    $htmlText .= ">".$row['time']."限目</option>";
                     echo $htmlText;
                 } ?>
             </select>
