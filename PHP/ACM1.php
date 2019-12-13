@@ -234,7 +234,8 @@ try{
         function cale () {
             // クラスIDを自分に渡すURLを組み立てる
             let datapicker = $('#datepicker').val();
-            let time = $('#time_period').val();
+            var time = $('#time_period').val();
+            if(time==null) time = 1;
 
             // クラスIDを自分に渡すURLを組み立てる
             let params = getParameter();
