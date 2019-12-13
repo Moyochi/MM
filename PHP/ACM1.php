@@ -84,6 +84,35 @@ try{
                 出席簿
             </h1>
         </div>
+        <div id="class" class="title_menu">
+            <script type="text/javascript">
+                function selectClass() {
+                    // 選択されたオプションのバリューを取得する
+                    var element = document.getElementById("class_id");
+                    // クラスIDを自分に渡すURLを組み立てる
+                    var selectedIndex = element.selectedIndex;
+                    var form_class_id = element.options[selectedIndex].dataset.id;
+                    var form_class_name = element.options[selectedIndex].dataset.name;
+                    var day = $('#datepicker').val();
+                    var time = <?=$time?>;
+                    // location.hrefに渡して遷移する
+                    location.href = 'ACM1.php?class_id=' + form_class_id + '&class_name=' + form_class_name + '&day=' + day + '&time=' + time ;
+                }
+            </script>
+            <select id="class_id" onchange="selectClass()">
+                <!-- 折り返し処理 -->
+                <div id="re">
+                    <?php foreach($_SESSION['class'] as $d){?>
+                        <!--flex-grow: 1;-->
+                        <option
+                                data-id="<?=h($d['id'])?>" data-name="<?=h($d['name'])?>"
+                            <?php if($d['id'] == $class_id){echo 'selected';}?>>
+                            <?=h($d['name'])?>
+                        </option>
+                    <?}?>
+                </div>
+            </select>
+        </div>
     </div>
 </div>
 
@@ -94,7 +123,6 @@ try{
 
 <!-- 上のメニューバー -->
 <div class="bu">
-    <!--    <a href="AttendanceConfirmation.php" id="attend">状況管理</a>-->
 </div>
 <!--　検索バー -->
 <div class="container">
@@ -119,7 +147,7 @@ try{
 
         <!-- 時間割選択 -->
         <div id="class" class="title_menu">
-            <select name="time_period"  id="class_name" onchange="cale()">
+            <select name="time_period"  id="time_period" onchange="cale()">
                 <?php //$_GET['time']が指定されている場合はselected修飾を付ける。
                 foreach ($time_period_array as $i => $row){
                     $htmlText = "<option value='".$row['time']."'";
@@ -202,32 +230,22 @@ try{
                 $('#datepicker').datepicker('setDate', new Date());
             }
         });
-        function time() {
-
-        }
 
         function cale () {
             // クラスIDを自分に渡すURLを組み立てる
             let datapicker = $('#datepicker').val();
-            // 選択されたオプションのバリューを取得する
-            let date = $("#class_name").val();
-
-
+            let time = $('#time_period').val();
 
             // クラスIDを自分に渡すURLを組み立てる
             let params = getParameter();
-            params['class_id'] = <?php echo $class_id ?>;
-            params['class_name'] = "<?php echo $class_name ?>";
+            params['class_id'] = <?=$class_id?>;
+            params['class_name'] = "<?=$class_name?>";
             params['day'] = datapicker;
-            params['time'] = date;
+            params['time'] = time;
             let url = setParameter(params);
             console.log(url);
 
             location.href = url;
-
-            <?php
-            $_SESSION['time']=$time;
-            ?>
         }
 
         //パラメータを設定したURLを返す
