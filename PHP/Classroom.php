@@ -3,18 +3,23 @@ require 'db.php';
 require_once 'functions.php';
 require_logined_session();
 header('Content-Type:text/html; charset=UTF-8');
-
+?>
+<?php
+if(isset($_SESSION['current_class_id']) and isset($_SESSION['current_class_name'])){
+    $class_id = $_SESSION['current_class_id'];
+    $class_name = $_SESSION['current_class_name'];
+}else{
+    header('Location: index.php');
+}
 //左上のクラスの選択で利用。
-$class_list = query("select * from classrooms order by classroom_name");
+$classroom_list = query("select * from classrooms order by classroom_name");
 //スケジュールを表示するクラスについて、クラスの指定がある場合はpostで受け取り、
 //指定がない場合(初回表示時)にはクラスリストの一番上が選択される。
-if(isset($_POST['class_update'])){
-    $class_update = $_POST['class_update'];
+if(isset($_POST['update_class_id'])){
+    $update_class_id = $_POST['update_class_id'];
 }else{
-    $class_update = $class_list[0]['classroom_id'];
+    $update_class_id = $classroom_list[0]['classroom_id'];
 }
-
-
 //時間割変更処理
 if(isset($_POST["1-1"])){
     for($i=1; $i<6 ;$i++){
@@ -29,21 +34,26 @@ if(isset($_POST["1-1"])){
             prepareQuery("
                 update classrooms_lesson_schedule set subject_id = ?
                 where classroom_id = ? and day_of_the_week = ? and time_period = ?",
-                [$class_schedule_update[$day][$time],$class_update,$day,$time]);
+                [$class_schedule_update[$day][$time],$update_class_id,$day,$time]);
         }
     }
 }
-
 //スケジュールを取得。
-$schedule = array();
+$schedule_get = array();
 for($i=1; $i<6; $i++){
-    $schedule[] = prepareQuery("
+    $schedule_get[] = prepareQuery("
         select day_of_the_week, time_period, CLS.subject_id, subject_name 
         from classrooms_lesson_schedule CLS 
         left join subjects S on CLS.subject_id = S.subject_id 
         where classroom_id = ? and day_of_the_week = ?
         order by time_period, time_period"
-        ,[$class_update, $i]);
+        ,[$update_class_id, $i]);
+}
+$schedule = array();
+foreach ($schedule_get as $row){
+    foreach ($row as $data){
+        $schedule[$data['day_of_the_week']-1][$data['time_period']-1] = $data;
+    }
 }
 
 if(!isset($schedule)){
@@ -51,7 +61,7 @@ if(!isset($schedule)){
         for($j=1;$j<5;$j++){
             $update_flg=1;
             prepareQuery("insert into classrooms_lesson_schedule values (?,?,?,0,'10:00:00','10:15:00')"
-                ,[$class_update,$i,$j]);
+                ,[$update_class_id,$i,$j]);
         }
     }
 }else {
@@ -60,7 +70,7 @@ if(!isset($schedule)){
             if (!isset($schedule[$i][$j])) {
                 $update_flg=1;
                 prepareQuery("insert into classrooms_lesson_schedule values (?,?,?,0,'10:00:00','10:15:00')"
-                    , [$class_update, $i+1, $j+1]);
+                    , [$update_class_id, $i+1, $j+1]);
             }
         }
     }
@@ -74,7 +84,7 @@ if(isset($update_flg)){
         left join subjects S on CLS.subject_id = S.subject_id 
         where classroom_id = ? and time_period = ?
         order by time_period, day_of_the_week"
-            ,[$class_update, $i]);
+            ,[$update_class_id, $i]);
     }
 }
 
@@ -118,6 +128,21 @@ function createSelectHTML($subject_list, $selected_subject_id,$day_week, $time_p
                 教室管理
             </h1>
         </div>
+        <div id="class" class="title_menu">
+            <select id="class_id" onchange="selectClass()" disabled>
+                <!-- 折り返し処理 -->
+                <div id="re">
+                    <?php foreach($_SESSION['class'] as $d){?>
+                        <!--flex-grow: 1;-->
+                        <option
+                                data-id="<?=h($d['id'])?>" data-name="<?=h($d['name'])?>"
+                            <?php if($d['id'] == $class_id){echo 'selected';}?>>
+                            <?=h($d['name'])?>
+                        </option>
+                    <?}?>
+                </div>
+            </select>
+        </div>
     </div>
 
 </div>
@@ -148,7 +173,41 @@ function createSelectHTML($subject_list, $selected_subject_id,$day_week, $time_p
 <form action="" method="post">
     <table>
         <div class="kyo">
-            <h2 id="kyo_label">教室管理</h2>
+            <script>
+                function selectClassroom() {
+                var element = document.getElementById("classroom_id_selecter");
+                var selectedIndex = element.selectedIndex;
+                var form = document.createElement("form");
+                form.setAttribute("action", location.href);
+                form.setAttribute("method", "post");
+                form.style.display = "none";
+                document.body.appendChild(form);
+                var data = {
+                'update_class_id':element.options[selectedIndex].dataset.id,
+                }
+                for (var paramName in data) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'hidden');
+                input.setAttribute('name', paramName);
+                input.setAttribute('value', data[paramName]);
+                form.appendChild(input);
+                }
+                form.submit();
+                }
+            </script>
+            <h2 id="kyo_label">
+                教室管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="classroom_id_selecter" name="class_update" onchange="selectClassroom()">
+                    <?php
+                    foreach ($classroom_list as $row){
+                        if($row['classroom_id']==$update_class_id){
+                            echo "<option data-id=$row[classroom_id] data-name=$row[classroom_name] selected>$row[classroom_name]</option>";
+                        }else{
+                            echo "<option data-id=$row[classroom_id] data-name=$row[classroom_name]>$row[classroom_name]</option>";
+                        }
+                    }
+                    ?>
+                </select>
+            </h2>
             <tr>
                 <th></th>
                 <th>月曜日</th>
@@ -161,11 +220,13 @@ function createSelectHTML($subject_list, $selected_subject_id,$day_week, $time_p
             $tableHTML = "";
             //時限ループ
             for ($i=0; $i<4; $i++){
+                echo 'i:'.$i.' ';
                 $tableHTML .=
                     "<tr>"
                     . "<td>". ($i+1) ."限目</td>";
                 //日付ループ
                 for ($j=0; $j<5; $j++) {
+                    echo 'j:'.$j.' ';
                     $tableHTML .=
                         " <th>"
                         .  "<div class=\"timetable\" class=\"time_menu\">"
@@ -181,6 +242,7 @@ function createSelectHTML($subject_list, $selected_subject_id,$day_week, $time_p
 
     <!--画面リロード-->
     <div class="sub">
+        <input type="hidden" name="update_class_id" value=<?=$update_class_id?>>
         <input type="submit" id="time_ok" value="決定">
     </div></form>
 

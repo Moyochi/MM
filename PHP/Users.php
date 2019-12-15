@@ -5,6 +5,14 @@ require_logined_session();
 header('Content-Type:text/html; charset=UTF-8');
 require 'db.php';
 ?>
+<?php
+if(isset($_SESSION['current_class_id']) and isset($_SESSION['current_class_name'])){
+    $class_id = $_SESSION['current_class_id'];
+    $class_name = $_SESSION['current_class_name'];
+}else{
+    header('Location: index.php');
+}
+?>
 
 <html xmlns="http://www.w3.org/1999/html">
 <head>
@@ -16,19 +24,27 @@ require 'db.php';
 <body>
 <div class="header">
     <div class="title">
-        <!--
-        color: #364e96;
-        border: solid 3px #364e96;
-        padding: 0.5em;
-        border-radius: 0.5em;
-        display: flex;
-        -->
         <div class="title_text">
             <!--
             flex-grow: 3;
             -->
             <h1>ユーザー検索</h1>
 
+        </div>
+        <div id="class" class="title_menu">
+            <select id="class_id" onchange="selectClass()" disabled>
+                <!-- 折り返し処理 -->
+                <div id="re">
+                    <?php foreach($_SESSION['class'] as $d){?>
+                        <!--flex-grow: 1;-->
+                        <option
+                                data-id="<?=h($d['id'])?>" data-name="<?=h($d['name'])?>"
+                            <?php if($d['id'] == $class_id){echo 'selected';}?>>
+                            <?=h($d['name'])?>
+                        </option>
+                    <?}?>
+                </div>
+            </select>
         </div>
     </div>
 

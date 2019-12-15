@@ -5,6 +5,14 @@ require_logined_session();
 header('Content-Type:text/html; charset=UTF-8');
 require 'db.php';
 ?>
+<?php
+if(isset($_SESSION['current_class_id']) and isset($_SESSION['current_class_name'])){
+    $class_id = $_SESSION['current_class_id'];
+    $class_name = $_SESSION['current_class_name'];
+}else{
+    header('Location: index.php');
+}
+?>
 
 <!DOCTYPE html>
 <html>
@@ -30,6 +38,21 @@ require 'db.php';
                 <!-- 題名 -->
                 管理者ユーザー
             </h1>
+        </div>
+        <div id="class" class="title_menu">
+            <select id="class_id" onchange="selectClass()" disabled>
+                <!-- 折り返し処理 -->
+                <div id="re">
+                    <?php foreach($_SESSION['class'] as $d){?>
+                        <!--flex-grow: 1;-->
+                        <option
+                                data-id="<?=h($d['id'])?>" data-name="<?=h($d['name'])?>"
+                            <?php if($d['id'] == $class_id){echo 'selected';}?>>
+                            <?=h($d['name'])?>
+                        </option>
+                    <?}?>
+                </div>
+            </select>
         </div>
     </div>
 

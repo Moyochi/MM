@@ -7,6 +7,13 @@ require 'db.php';
 ?>
 
 <?php
+if(isset($_SESSION['current_class_id']) and isset($_SESSION['current_class_name'])){
+    $class_id = $_SESSION['current_class_id'];
+    $class_name = $_SESSION['current_class_name'];
+}else{
+    header('Location: index.php');
+}
+
 //グループ作成
 if (isset($_POST['gname']) and $_POST['gname'] != "" and $_FILES['file']['tmp_name'] != null) {
     //ファイルの受け取りが正常に行われている場合、ファイルのアクセス権限を変更する
@@ -105,6 +112,21 @@ $class_list = prepareQuery("select classes.class_id,class_name from classes left
             <h1 class="head">
                 グループ管理
             </h1>
+        </div>
+        <div id="class" class="title_menu">
+            <select id="class_id" onchange="selectClass()" disabled>
+                <!-- 折り返し処理 -->
+                <div id="re">
+                    <?php foreach($_SESSION['class'] as $d){?>
+                        <!--flex-grow: 1;-->
+                        <option
+                                data-id="<?=h($d['id'])?>" data-name="<?=h($d['name'])?>"
+                            <?php if($d['id'] == $class_id){echo 'selected';}?>>
+                            <?=h($d['name'])?>
+                        </option>
+                    <?}?>
+                </div>
+            </select>
         </div>
     </div>
 </div>

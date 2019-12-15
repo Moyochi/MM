@@ -1,23 +1,31 @@
 <?php
-    require_once 'functions.php';
-    require_logined_session();
+require_once 'functions.php';
+require_logined_session();
 
-    header('Content-Type:text/html; charset=UTF-8');
-    require 'db.php';
-
+header('Content-Type:text/html; charset=UTF-8');
+require 'db.php';
+?>
+<?php
 //表示するグループのclass_idを設定。
 //初回表示時はセッションから、1番上のclass_idが利用され、
 //指定された場合は、getで受け取った内容を設定する。
-    if(isset($_GET['class_id']) and isset($_GET['class_name'])){
-        $class_id=$_GET['class_id'];
-        $class_name=$_GET['class_name'];
+if(isset($_GET['class_id']) and isset($_GET['class_name'])){
+    $class_id=$_GET['class_id'];
+    $class_name=$_GET['class_name'];
+    $_SESSION['current_class_id'] = $class_id;
+    $_SESSION['current_class_name'] = $class_name;
+}else{
+    if(isset($_SESSION['current_class_id']) and isset($_SESSION['current_class_name'])){
+        $class_id = $_SESSION['current_class_id'];
+        $class_name = $_SESSION['current_class_name'];
     }else{
         //login.phpから飛んできた1行目のclass_idが入る。
         $class_id=$_SESSION['class'][0]['id'];
         $class_name=$_SESSION['class'][0]['name'];
+        $_SESSION['current_class_id'] = $class_id;
+        $_SESSION['current_class_name'] = $class_name;
     }
-    $_SESSION['index_class_id'] = $class_id;
-    $_SESSION['index_class_name']= $class_name;
+}
 try{
         //出席番号 名前 累計の遅刻数 欠席数 出席率
         $student = prepareQuery('select * from load_responsible_1 where class_id = ?',[$class_id]);
@@ -85,13 +93,38 @@ try{
             </div>
         </div>
 
-            <!-- 上のメニューバー -->
-            <div class="bu">
-                <a href="./ResponsibleEdit.php<?="?grope_id=".$class_id?>" id="edit">編集</a>
-                <a href="ACM1.php<?="?class_id=".$class_id."&class_name=".$class_name?>" id="attendata">出席簿</a>
-                <a href="TeacherPro.php" id="teacher">担任</a>
-                <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
-            </div>
+        <!-- 上のメニューバー -->
+        <script>
+            function post(url) {
+                function selectClass() {
+                    var element = document.getElementById("class_id");
+                    var selectedIndex = element.selectedIndex;
+                    var form = document.createElement("form");
+                    form.setAttribute("action", url);
+                    form.setAttribute("method", "post");
+                    form.style.display = "none";
+                    document.body.appendChild(form);
+                    var data = {
+                        'class_id':element.options[selectedIndex].dataset.id,
+                        'class_name':element.options[selectedIndex].dataset.name,
+                    };
+                    for (var paramName in data) {
+                        var input = document.createElement('input');
+                        input.setAttribute('type', 'hidden');
+                        input.setAttribute('name', paramName);
+                        input.setAttribute('value', data[paramName]);
+                        form.appendChild(input);
+                    };
+                    form.submit();
+                }
+            }
+        </script>
+        <div class="bu">
+            <a href="./ResponsibleEdit.php" id="edit" onclick = post('./ResponsibleEdit.php')>編集</a>
+            <a href="ACM1.php" id="attendata" onclick="post('ACM1.php')">出席簿</a>
+            <a href="TeacherPro.php" id="teacher">担任</a>
+            <!--<a href="./TeacherPro.php" ><?php echo h($teacher['teacher_name']); ?></a>-->
+        </div>
 
         <!--検索バー -->
         <div class="container">
