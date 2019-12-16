@@ -1,0 +1,262 @@
+
+body{
+    position: relative;
+}
+
+#a{
+    width: fit-content;
+    font-size:20px;
+    position: absolute;
+    top: 150px;
+    left: 350px;
+}
+
+
+
+/*出席率スイッチ*/
+.switch1:focus:hover{
+    outline: none;
+}
+
+.switch1{
+    appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+
+    display: inline-block;
+    vertical-align: top;
+    width: 64px;
+    height: 64px;
+    margin: 0;
+
+    border: 1px solid #aaa;
+}
+.switch1:focus:hover{
+    outline: none;
+}
+
+.switch1{
+    appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+
+    display: inline-block;
+    vertical-align: top;
+    width: 64px;
+    height: 64px;
+    margin: 0;
+
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    background-color: #333;
+
+    cursor: pointer;
+
+    transition: 200ms;
+}
+
+.switch1:active{
+    height: 62px;
+    margin-top: 2px;
+    transition: none;
+}
+.switch1:focus:hover{
+    outline: none;
+}
+
+.switch1{
+    appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+
+    display: inline-block;
+    vertical-align: top;
+    width: 64px;
+    height: 64px;
+    margin: 0;
+
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    background-color: #333;
+
+    text-align: center;
+    line-height: 60px;
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: 200ms;
+}
+
+.switch1:active{
+    height: 62px;
+    margin-top: 2px;
+
+    transition: none;
+}
+
+.switch1:not(:checked)::after{
+    display: inline;
+    content: attr(data-off-label);
+    color: #888;
+
+    transition: none;
+}
+.switch1:checked::after{
+    display: inline;
+    content: attr(data-on-label);
+    color: #B0E0E6;
+
+    text-shadow:
+            0px 0px 10px #B0E0E6,
+            0px 0px 20px #B0E0E6,
+            0px 0px 30px #B0E0E6;
+    transition: 400ms;
+}
+.switch1:active::after{
+    transition: none;
+
+}
+
+#b{
+    width: fit-content;
+    font-size:20px;
+    position: absolute;
+    top: 350px;
+    left: 350px;
+}
+
+
+/*グループ内スイッチ*/
+.switch3:focus:hover{
+    outline: none;
+}
+
+.switch3{
+    appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+
+    display: inline-block;
+    vertical-align: top;
+    width: 64px;
+    height: 64px;
+    margin: 0;
+
+    border: 1px solid #aaa;
+}
+.switch3:focus:hover{
+    outline: none;
+}
+
+.switch3{
+    appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+
+    display: inline-block;
+    vertical-align: top;
+    width: 64px;
+    height: 64px;
+    margin: 0;
+
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    background-color: #333;
+
+    cursor: pointer;
+
+    transition: 200ms;
+}
+
+.switch3:active{
+    height: 62px;
+    margin-top: 2px;
+    transition: none;
+}
+.switch3:focus:hover{
+    outline: none;
+}
+
+.switch3{
+
+    appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    display: inline-block;
+    vertical-align: top;
+    width: 64px;
+    height: 64px;
+    margin: 0;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    background-color: #333;
+    text-align: center;
+    line-height: 60px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 200ms;
+    left: 500px;
+}
+
+.switch3:active{
+    height: 62px;
+    margin-top: 2px;
+
+    transition: none;
+}
+
+.switch3:not(:checked)::after{
+    display: inline;
+    content: attr(data-off-label);
+    color: #888;
+
+    transition: none;
+}
+.switch3:checked::after{
+    display: inline;
+    content: attr(data-on-label);
+    color: #B0E0E6;
+
+    text-shadow:
+            0px 0px 10px #B0E0E6,
+            0px 0px 20px #B0E0E6,
+            0px 0px 30px #B0E0E6;
+    transition: 400ms;
+}
+.switch3:active::after{
+    transition: none;
+}
+
+#c{
+    width: fit-content;
+    font-size:20px;
+    position: absolute;
+    top: 550px;
+    left: 350px;
+}
+
+#d {
+    width: fit-content;
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    padding: 10px 20px;
+    position: fixed;
+    box-sizing: border-box;
+    right: 435px;
+    bottom: 30px;
+    text-decoration: none;
+    color: white;
+    border-radius: 3px;
+}
+
+div#sums{
+
+}

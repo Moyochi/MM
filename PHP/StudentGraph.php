@@ -10,7 +10,7 @@ header('Content-Type:text/html; charset=UTF-8');
 if(isset($_GET['student_id'])){
     $student_id = $_GET['student_id'];
 }else{
-//    header('Location: index.php');
+    header('Location: index.php');
 }
 $count_data_previous = prepareQuery("
     select student_id, month, `1`,`2`,`3`
@@ -53,7 +53,7 @@ foreach ($count_data_previous as $row){
         if($month_pre[$i]==$row['month']){
             $graph_data_pre[] = [$row[1],$row[2],$row[3]];
             $i++;
-            break;
+            break 2;
         }
         $graph_data_pre[] = [0,0,0];
         $i++;
@@ -69,13 +69,13 @@ foreach ($count_data_late as $row){
     while(true){
         if($month_late[$i]==$row['month']){
             $graph_data_late[] = [$row[1],$row[2],$row[3]];
-//            debuzg([$row[1],$row[2],$row[3]]);
-            echo  "<br><br>";
+            echo  $i."<br><br>";
             $i++;
-            break;
+            break 2;
+        }else{
+            $graph_data_late[] = [0,0,0];
+            $i++;
         }
-        $graph_data_late[] = [0,0,0];
-        $i++;
     }
 }
 $i = 5 - count($graph_data_late);

@@ -1,0 +1,77 @@
+
+body{
+    position: relative;
+}
+div#d{
+    background-color: #afc6e2;
+    color: white;
+    width: fit-content;
+    font-size: 30px;
+    position: absolute;
+    top: 150px;
+    left: 450px;
+}
+div#b{
+    width: fit-content;
+    font-size: 30px;
+    position: absolute;
+    top: 250px;
+    left: 550px;
+}
+
+input#buto{
+    width: fit-content;
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    position: absolute;
+    box-sizing: border-box;
+    bottom: 10px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 5px;
+    right: 15px;
+    font-size: 10px;
+}
+
+div#c{
+    background-color: #afc6e2;
+    color: white;
+    width: fit-content;
+    font-size: 30px;
+    position: absolute;
+    top: 380px;
+    left: 450px;
+}
+div#e{
+    width: fit-content;
+    font-size: 30px;
+    position: absolute;
+    top: 450px;
+    left: 550px;
+}
+
+.addclass{
+    width: fit-content;
+    font-size:20px;
+    position: absolute;
+    top: 500px;
+    left: 550px;
+}
+
+#sub{
+    width: fit-content;
+    display: block;
+    background-color: #afc6e2;
+    -webkit-appearance: unset;
+    padding: 10px 20px;
+    position: absolute;
+    box-sizing: border-box;
+    right: 235px;
+    bottom: 10px;
+    text-decoration: none;
+    color: white;
+    margin: 10px;
+    border-radius: 5px;
+}
