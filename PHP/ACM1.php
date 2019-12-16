@@ -96,8 +96,7 @@ try{
                     var selectedIndex = element.selectedIndex;
                     var timeSelecter = document.getElementById("time_period");
                     var form = document.createElement("form");
-
-                    if(timeSelecter.selectedIndex === 0){
+                    if(timeSelecter.selectedIndex == -1){
                         form.setAttribute("action", location.href.replace(/\?.*$/,"") + '?day=' + $('#datepicker').val() + '&time=1');
                     }else{
                         form.setAttribute("action", location.href.replace(/\?.*$/,"") + '?day=' + $('#datepicker').val() + '&time=' + timeSelecter.options[timeSelecter.selectedIndex].value);

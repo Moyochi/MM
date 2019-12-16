@@ -128,7 +128,25 @@ try{
 
         <!--検索バー -->
         <div class="container">
-            <input type="text" placeholder="Search..." id="sa-ch">
+            <input type="text" placeholder="Search..." id="sa-ch" onchange="search(this.value)">
+            <script>
+                function search(search_text){
+                    var form = document.createElement("form");
+                    form.setAttribute("action","search.php");
+                    form.setAttribute("method", "post");
+                    form.style.display = "none";
+
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'hidden');
+                    input.setAttribute('name', 'user_search');
+                    input.setAttribute('value', search_text);
+
+                    form.appendChild(input);
+                    document.body.appendChild(form);
+
+                    form.submit();
+                }
+            </script>
             <div class="search"></div>
         </div>
 

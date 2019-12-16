@@ -29,6 +29,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         //dbとの接続
         $result = login($teacher_id);
 
+
         if ($result['login_id'] == $teacher_id && $result['login_password'] == $password) {
             session_start();
             $_SESSION['teacher_id'] = $result['teacher_id'];
