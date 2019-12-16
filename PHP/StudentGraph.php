@@ -31,13 +31,14 @@ $rate_data_late = prepareQuery("
     from load_studentgraph_2_late
     where student_id = ?",[$student_id]);
 
-var_dump($count_data_previous);
-echo '<br><br>';
-var_dump($count_data_late);
-echo '<br><br>';
-var_dump($rate_data_previous);
-echo '<br><br>';
-var_dump($rate_data_late);
+//var_dump($count_data_previous);
+//echo '<br><br>';
+//var_dump($count_data_late);
+//echo '<br><br>';
+//var_dump($rate_data_previous);
+//echo '<br><br>';
+//var_dump($rate_data_late);
+
 //SQLで受け取るデータが、出席情報が存在している月の情報だけなので、該当月に1回も出席していない生徒の場合は、
 //0というデータが入っていない。そのため、データの形式を統一するために、0で埋める作業をする。
 $month_pre = ['04','05','06','07','08'];
@@ -69,7 +70,6 @@ foreach ($count_data_late as $row){
     while(true){
         if($month_late[$i]==$row['month']){
             $graph_data_late[] = [$row[1],$row[2],$row[3]];
-            echo  $i."<br><br>";
             $i++;
             break 2;
         }else{
@@ -84,9 +84,9 @@ while ($i>0){
     $i--;
 }
 
-var_dump($graph_data_pre);
-echo '<br><br>';
-    var_dump($graph_data_late);
+//var_dump($graph_data_pre);
+//echo '<br><br>';
+//    var_dump($graph_data_late);
 
 ?>
 
@@ -113,6 +113,7 @@ echo '<br><br>';
             <!--flex-grow: 3;-->
             <h1 class="head">
                 <!-- 題名 -->
+                学生プロフィール
             </h1>
         </div>
     </div>
@@ -140,10 +141,9 @@ echo '<br><br>';
         <li><a href="Classroom.php">教室管理</a></li>
         <li><a href="./logout.php?token=<?=h(generate_token())?>">ログアウト</a></li>
     </ul>
+    <!--グラフ作成-->
+    <img src="a.php">
 </div>
-
-<!--グラフ作成-->
-<img src="a.php">
 
 
 </body>

@@ -5,17 +5,28 @@ require 'db.php';
 header('Content-Type:text/html; charset=UTF-8');
 ?>
 <?php
-if(!isset($_GET['student_num']) or !isset($_GET['class_id'])){
+if( ( !isset($_GET['student_num'])or!isset($_GET['class_id']) ) and !isset($_GET['student_id']) ){
     header('Location: index.php');
 }
-$student = prepareQuery("
+if(isset($_GET['student_num']) and isset($_GET['class_id'])) {
+    $student = prepareQuery("
     select LS1.student_id, LS1.student_name, C.class_name, S.sex, late, absence, early, LS1.attend_rate , month, ARM.attend_rate attend_rate_month
     from load_responsible_1 LS1
       left join students S on LS1.student_id = S.student_id
       left join classes C on S.class_id = C.class_id
     left join attend_rate_month ARM on S.student_id = ARM.student_id
     where LS1.student_num = ? and LS1.class_id = ? and month = ?"
-    , [$_GET['student_num'],$_GET['class_id'],date('m')]);
+        , [$_GET['student_num'], $_GET['class_id'], date('m')]);
+}elseif(isset($_GET['student_id'])){
+    $student = prepareQuery("
+    select LS1.student_id, LS1.student_name, C.class_name, S.sex, late, absence, early, LS1.attend_rate , month, ARM.attend_rate attend_rate_month
+    from load_responsible_1 LS1
+      left join students S on LS1.student_id = S.student_id
+      left join classes C on S.class_id = C.class_id
+    left join attend_rate_month ARM on S.student_id = ARM.student_id
+    where S.student_id = ? and month = ?",
+        [$_GET['student_id'], date('m')]);
+}
 if(isset($student)){
     $student = $student[0];
 }
