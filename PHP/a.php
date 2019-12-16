@@ -23,9 +23,6 @@ try {
     die('接続エラー:' . $exception->getMessage());
 }
 
-
-
-
 //フレームワークでグラフ作成
 include ("../JpGraph/src/jpgraph.php");
 include ("../JpGraph/src/jpgraph_line.php");
