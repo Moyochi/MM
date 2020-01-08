@@ -183,9 +183,7 @@ $class_list = prepareQuery("select classes.class_id,class_name from classes left
     <input type="button" id="sub" value="OK" onclick=selectClass()>
     <script type="text/javascript">
         function selectClass() {
-            // 選択されたオプションのバリューを取得する
             var element = document.getElementById("class_list_select");
-            // クラスIDを自分に渡すURLを組み立てる
             var class_list = [];
             for (var i = 0; i < element.length-1; i++) {
                 if (element[i].checked) {
